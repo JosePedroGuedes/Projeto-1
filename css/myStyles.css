@@ -1,0 +1,117 @@
+/*INDEX.HTML CSS*/
+
+
+
+
+.navbar-nav {
+    margin-left: auto;
+    padding-left: 420px;
+}
+
+a.navbar-brand {
+    color: white;
+    font-family: "Chillax";
+    font-size: 30px;
+    font-weight: 450;
+    text-decoration: none;
+}
+
+img.logo {
+    max-width: 70px;
+    margin-right: 20px;
+}
+
+/*change navbar color*/
+.navbar.navbar-expand-lg.navbar-light.fixed-top {
+    background-color: #29445F;
+    
+}
+
+/*options menu*/
+.btn.btn-outline-success.me-2 {
+    background-color: white;
+    border-color: white;
+    color: black;
+    margin-left: 50px;
+}   
+
+
+/*Login Button*/
+.btn.btn-outline-success.my-2.my-sm-0 {
+    color: white;
+    background-color: #FF6B00;
+    border-color: transparent;
+    text-decoration: bold;
+    border-radius: 20px;
+    margin-left: 30px;
+}
+
+.bi.bi-person-fill {
+    padding-right: 10px;
+}
+
+
+.content {
+    display: flex;
+    padding-top: 130px;
+    padding-left: 120px;
+    padding-bottom: 120px;
+}
+
+.content_1 {
+    padding-bottom: 30px;
+    font-size: 2,5vw;
+}
+
+.content_2 {
+    font-size: 3.5vw;
+    font-weight: bold;
+    color:#FF6B00;
+    padding-bottom: 40px;
+}
+
+.content_3 {
+    font-size: 1.5vw;
+    font-weight: 600;
+}
+
+.info_image {
+    max-width: 50%;
+    height: auto;
+    padding-left: 150px;
+}
+
+.event_title {
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.image-item {
+    width: 270px;
+    height: 336px;
+    object-fit: cover;
+    border-radius: 7px;
+    margin-left: 40px;
+    margin-bottom: 15px;
+    flex: none;
+    display: inline-block;
+}
+
+.alumnos_title {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/*Animação dos cartazes a ampliarem*/
+.image-item {
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-item:hover {
+    transform: scale(1.1);
+}
