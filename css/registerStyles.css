@@ -170,14 +170,68 @@ body {
     border: 0px;
 }
 
-@media (min-width: 600px) {
+@media (max-width: 600px) {
     body {
-        flex-direction: row;
+        flex-direction: column;
     }
-}
 
-@media (min-width: 900px) {
-    body {
-        flex-direction: row;
+    .left, .right {
+        flex: 1;
+        width: 100%;
+    }
+
+    .left {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .registerimage {
+        width: 100%;
+        padding-top: 0;
+    }
+
+    .right {
+        flex: 1;
+        background-color: #FF6B00;
+        padding-top: 2%;
+        min-height: 70vh;
+    }
+
+    .right .return a {
+        font-size: 20px;
+        padding-right: 5%;
+    }
+
+    .right .welcome h1 {
+        font-size: 30px;
+    }
+
+    .right .register {
+        padding-left: 5%;
+    }
+
+    #name, #email, #password {
+        width: 90%;
+        height: 40px;
+        text-indent: 10%;
+    }
+
+    .right .register .name ::placeholder, .right .register .email ::placeholder, .right .register .password ::placeholder {
+        font-size: 20px;
+    }
+
+    .registerbuttons {
+        gap: 50px;
+        padding-top: 15px;
+        padding-bottom: 50px;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .registerbuttons .continue, .registerbuttons .signin {
+        width: 150px;
+        height: 50px;
+        font-size: 20px;
     }
 }

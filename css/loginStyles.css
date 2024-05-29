@@ -160,3 +160,53 @@ body {
         flex-direction: row;
     }
 }
+
+@media (max-width: 600px) {
+    body {
+        flex-direction: column;
+    }
+
+    .left, .right {
+        flex: 1;
+    }
+
+    .Loginimage {
+        width: 70%;
+        padding-top: 50px;
+    }
+
+    .right .return a {
+        font-size: 20px;
+        padding-right: 5%;
+    }
+
+    .right .login h1 {
+        font-size: 30px;
+    }
+
+    .right .login {
+        padding-left: 5%;
+    }
+
+    #name, #password {
+        width: 90%;
+        height: 40px;
+        text-indent: 10%;
+    }
+
+    .right .login .name ::placeholder, .right .login .password ::placeholder {
+        font-size: 20px;
+    }
+
+    .loginbuttons {
+        gap: 50px;
+        padding-top: 15px;
+        padding-bottom: 50px;
+    }
+
+    .loginbuttons .registerbut, .loginbuttons .loginbut {
+        width: 150px;
+        height: 50px;
+        font-size: 20px;
+    }
+}
