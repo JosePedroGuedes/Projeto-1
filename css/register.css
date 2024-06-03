@@ -1,0 +1,49 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(/img/Esmad.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .container {
+    max-width: 800px;
+    padding: 20px;
+    background-color: whitesmoke;
+    color: black;
+    border-radius: 5px;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  button {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  button {
+    background-color: #FF6B00;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #c95d11;
+  }
+
+  #message {
+    text-align: center;
+    color: red;
+  }

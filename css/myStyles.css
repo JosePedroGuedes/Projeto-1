@@ -1,6 +1,8 @@
-/*INDEX.HTML CSS*/
+/* General Styles */
 
-
+* {
+    max-width: 100vw;
+}
 
 
 .navbar-nav {
@@ -16,57 +18,75 @@ a.navbar-brand {
     text-decoration: none;
 }
 
+a.navbar-brand:hover {
+    color: #FF6B00;
+}
+
 img.logo {
     max-width: 70px;
     margin-right: 20px;
 }
 
-/*change navbar color*/
 .navbar.navbar-expand-lg.navbar-light.fixed-top {
     background-color: #29445F;
-    
+    max-width: 100vw;
 }
 
-/*options menu*/
 .btn.btn-outline-success.me-2 {
     background-color: white;
     border-color: white;
     color: black;
-    margin-left: 50px;
-}   
+    width: 100px; 
+    margin-left: 10px;
+}
 
+.btn.btn-outline-success.me-2:hover {
+    background-color: #FF6B00;
+    color: white;
+    border-color: #FF6B00;
+}
 
-/*Login Button*/
 .btn.btn-outline-success.my-2.my-sm-0 {
     color: white;
     background-color: #FF6B00;
     border-color: transparent;
-    text-decoration: bold;
+    font-weight: bold;
     border-radius: 20px;
     margin-left: 30px;
+    width: 100px; 
 }
 
 .bi.bi-person-fill {
     padding-right: 10px;
 }
 
-
 .content {
     display: flex;
     padding-top: 130px;
     padding-left: 120px;
-    padding-bottom: 120px;
+    padding-bottom: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    color: #FF6B00;
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 .content_1 {
     padding-bottom: 30px;
-    font-size: 2,5vw;
+    font-size: 2.5vw;
 }
 
 .content_2 {
     font-size: 3.5vw;
     font-weight: bold;
-    color:#FF6B00;
+    color: #FF6B00;
     padding-bottom: 40px;
 }
 
@@ -79,13 +99,9 @@ img.logo {
     max-width: 50%;
     height: auto;
     padding-left: 150px;
-}
-
-.event_title {
-    display: flex;
-    justify-content: center;
-    font-size: 30px;
-    font-weight: bold;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .image-item {
@@ -97,21 +113,170 @@ img.logo {
     margin-bottom: 15px;
     flex: none;
     display: inline-block;
-}
-
-.alumnos_title {
-    margin-top: 60px;
-    display: flex;
-    justify-content: center;
-    font-size: 30px;
-    font-weight: bold;
-}
-
-/*Animação dos cartazes a ampliarem*/
-.image-item {
     transition: transform 0.3s ease-in-out;
 }
 
 .image-item:hover {
     transform: scale(1.1);
 }
+
+.btn.btn-outline-primary {
+    display: block;
+    margin: 20px auto;
+    border-color: #FF6B00;
+    color: #FF6B00;
+    width: 7vw;
+}
+
+.btn.btn-outline-primary:hover {
+    background-color: #FF6B00;
+    border-color: #FF6B00;
+    color: white;
+}
+
+.card-alumni {
+    margin-top: 20px;
+    margin-bottom: 20px; /* Space between cards */
+    margin-left: 20px;
+    width: 230px;
+    box-shadow: #FF6B00 -15px -15px;
+}
+
+/* Centering the card for mobile */
+.card-alumni {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.image-escaperoom {
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
+}
+
+
+.text {
+    font-size: 1.5vw;
+    margin-left: 120px;
+    text-decoration: bold;
+}
+
+.map-box {
+    margin-left: 420px; /* Adjust spacing between text and map */
+    margin-top: 120px;
+}
+
+.text-map-container {
+    display: flex;
+    align-items: center;
+}
+
+.sub-title {
+    color: #FF6B00;
+    padding-left: 320px;
+    padding-top: 0px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.metro-image {
+    max-width: 5vw;
+    margin-left: 350px;
+}
+
+
+.footer {
+    background-color: #29445F;
+    color: white;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: #FF6B00;
+}
+
+.school {
+    padding-top: 10px;
+    font-size: 1.vw;
+    font-weight: bold;
+}
+
+
+.row {
+    padding-top: 40px;
+}
+
+.image-pporto {
+    width: 15vw;
+}
+
+.col-md-4 h5 {
+    color: #FF6B00;
+    font-size: 2vw;
+}
+
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+    .navbar-nav {
+        padding-left: -100px;
+    }
+
+    .content {
+        flex-direction: column;
+        padding-top: 100px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .title {
+        font-size: 24px;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .content_1, .content_2, .content_3 {
+        font-size: 5vw;
+        padding: 0;
+    }
+
+    .info_image {
+        max-width: 80%;
+        padding-left: 0;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .image-item {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    .card-alumni {
+        margin-left: auto;
+        margin-right: auto;
+        width: 45%;  /* Reduced width for smaller screens */
+    }
+
+    .text {
+        font-size: 4vw;
+        margin-top: 20px;
+        margin-left: 30px;
+    }
+    .map-box {
+        justify-content: center;
+        margin-right: 0;
+    }
+    .iframe {
+        width: 100%;
+        height: auto;
+    }
+}
+
+

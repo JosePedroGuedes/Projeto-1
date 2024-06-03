@@ -1,0 +1,57 @@
+.alumni {
+    display: flex;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.card-img-top {
+    font-size: 20px;
+}
+
+.sub-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+    padding: 0;
+    padding-top: 200px;
+}
+
+.description {
+    font-size: 1.1rem;
+    margin-top: 50px;
+    text-align: justify; /* Add this line to justify text */
+}
+
+.other-alumni {
+    margin-top: 50px;
+}
+
+.others-alumni {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #FF6B00;
+}
+
+.card-alumni {
+    width: 19%;
+}
+
+.align-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.align-title .title {
+    margin-bottom: 0;
+}
+
+.align-title .sub-title {
+    margin-top: 10px;
+}

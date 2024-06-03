@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TSIW</title>
+    <title>TSIW - Tecnologias e Sistemas de Informação para Web</title>
 
     <!-- Referência ao Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -24,7 +24,7 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
             <img src="./img/Logo.png" class="logo" alt="logo">
-            <a class="navbar-brand" href="#">TSIW</a>
+            <a class="navbar-brand" href="http://127.0.0.1:5501/index.html">TSIW</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
                 aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
             <div class="collapse navbar-collapse" id="collapsibleNavId">
@@ -33,24 +33,28 @@
                         <button class="btn btn-outline-success me-2" type="button">Home</button>
                     </li>
                     <li class="nav-item">
-                        <button class="btn btn-outline-success me-2" type="button">More</button>
+                        <a href="http://127.0.0.1:5501/html/more.html"><button class="btn btn-outline-success me-2" type="button">More Tsiw</button></a>
                     </li>
                     <li class="nav-item">
-                        <button class="btn btn-outline-success me-2" type="button">Contacts</button>
+                        <a href="http://127.0.0.1:5501/html/help.html"><button class="btn btn-outline-success me-2" type="button">Contacts</button></a>
                     </li>
                 </ul>
-                <form class="d-flex my-2 my-lg-1">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                        <i class="bi bi-person-fill"></i>Login
+                <form class="login">
+                    <a href="http://127.0.0.1:5501/html/login.html">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="button">
+                            <i class="bi bi-person-fill"></i>Login
+                        </button>
+                    </a>
                     </button>
                 </form>
             </div>
         </div>
     </nav>
 
+
     <!-- Apresentação -->
     <div class="content">
-        <div class="title">
+        <div class="main-page-title">
             <h1 class="content_1">Queres ser Web Developer ?</h1>
             <p class="content_2">Apresento-te TSIW,</p>
             <p class="content_3">O site que te dá a conhecer o<br> caminho para o futuro... <br>Vem descobrir um curso á
@@ -59,41 +63,160 @@
         <img src="./img/Publicity.jpg" alt="web" class="info_image">
     </div>
 
-    <!--Eventos-->
+    <!--Eventos e Projetos-->
     <div class="events">
-        <p class="event_title">Eventos</p>
+        <p class="title">Eventos</p>
 
 
         <div class="container">
             <div class="image-list">
                 <div>
-                    <a href="https://www.esmad.ipp.pt/noticias/tsiw-endpoints-1"><img src="./img/Tsiw EndPoint.jpeg" alt="img-1" class="image-item"></a>
-                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/gamify.jpg" alt="img-2" class="image-item"></a>
-                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/inteligenciaArtificial.jpg" alt="img-3" class="image-item"></a>
-                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/EndPoints.jpg" alt="img-4" class="image-item"></a>          
+                    <a href="https://www.esmad.ipp.pt/noticias/tsiw-endpoints-1"><img src="./img/Tsiw EndPoint.jpeg"
+                            alt="img-1" class="image-item"></a>
+                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/gamify.jpg" alt="img-2"
+                            class="image-item"></a>
+                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/inteligenciaArtificial.jpg"
+                            alt="img-3" class="image-item"></a>
+                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/EndPoints.jpg" alt="img-4"
+                            class="image-item"></a>
                 </div>
+                <!--<div>
+                    <a href="https://www.esmad.ipp.pt/noticias/tsiw-endpoints-1"><img src="./img/Savethedate.jpg"
+                            alt="img-5" class="image-item"></a>
+                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/7PluginEdition.jpg" alt="img-6"
+                            class="image-item"></a>
+                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/TsiwPoint.jpg" alt="img-7"
+                            class="image-item"></a>
+                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/Projetos.jpg" alt="img-8"
+                            class="image-item"></a>
+                </div>-->
+            </div>
+        </div>
+
+        <p class="title">Projetos</p>
+
+        <div class="container">
+            <div class="image-list">
                 <div>
-                    <a href="https://www.esmad.ipp.pt/noticias/tsiw-endpoints-1"><img src="./img/Savethedate.jpg" alt="img-5" class="image-item"></a>
-                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/7PluginEdition.jpg" alt="img-6" class="image-item"></a>
-                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/TsiwPoint.jpg" alt="img-7" class="image-item"></a>
-                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/Projetos.jpg" alt="img-8" class="image-item"></a>          
+                    <a href="https://www.esmad.ipp.pt/noticias/tsiw-endpoints-1"><img src="./img/Savethedate.jpg"
+                            alt="img-5" class="image-item"></a>
+                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/7PluginEdition.jpg" alt="img-6"
+                            class="image-item"></a>
+                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/TsiwPoint.jpg" alt="img-7"
+                            class="image-item"></a>
+                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/Projetos.jpg" alt="img-8"
+                            class="image-item"></a>
                 </div>
             </div>
-
+            <button type="button" class="btn btn-outline-primary">Ver Mais</button>
         </div>
 
     </div>
 
-    <!--Alumnus-->
-    <div class="alumnos">
-        <p class="alumnos_title">Alumnus</p>
-        <div class="alumnus-card">
-            <div class="alumnus-image">
-                <img src="" alt="">
+
+    <!--Alumni-->
+    <div class="container">
+        <div class="alumni">
+            <p class="title">Alumni</p>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card-alumni">
+                        <img class="card-img-top" src="/img/Ines Reis.jpeg" alt="Card image cap">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card-alumni">
+                        <img class="card-img-top" src="/img/Nuno Costa.jpeg" alt="Card image cap">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card-alumni">
+                        <a href="http://127.0.0.1:5501/html/alumni.html"><img class="card-img-top" src="/img/Nuno Sousa.jpeg" alt="Card image cap"></a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card-alumni">
+                        <img class="card-img-top" src="/img/Diogo Fernandes.jpeg" alt="Card image cap">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
+    <!--Escape Room-->
+    <div class="escape-room">
+        <p class="title">Vem experimentar o nosso escape room!</p>
+        <div class="image-escaperoom">
+            <img src="./img/Escaperoom.png" alt="escaperoom">
+        </div>
+    </div>
+
+
+    <!--Localização-->
+    <div class="local">
+        <div class="local-content">
+            <p class="title">Localização</p>
+            <div class="text-map-container">
+                <p class="text">Localizada em Vila do Conde Campus 2 do <br>
+                    Politécnico do Porto, encontram-se as <br>
+                    faculdades ESHT e ESMAD</p>
+                <div class="map-box">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2994.332399063821!2d-8.740884023440387!3d41.36686239726732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd24441837aa9c2d%3A0x39b9a396dac2269d!2sCampus%202%20-%20P.Porto%20%7C%20ESMAD!5e0!3m2!1spt-PT!2spt!4v1716562900272!5m2!1spt-PT!2spt"
+                        width="500" height="350" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            <p class="sub-title">Transporte</p>
+            <img class="metro-image" src="/img/MetroLogo.png" alt="Metro Logo">
+        </div>
+    </div>
+
+    <br>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="image-pporto" src="/img/Pporto.png" alt="">
+                    <p class="school">ESCOLA <br> 
+                        SUPERIOR <br>
+                        DE MEDIA <br>
+                        ARTES <br>
+                        E DESIGN</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Pages</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">More</a></li>
+                        <li><a href="#">Contacts</a></li>
+                        <li><a href="#">Escape Room</a></li>
+                        <li><a href="#">Alumni</a></li>
+                        <li><a href="#">Projects/Events</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <p>Escola Superior de Media Artes e <br> Design</p>
+                    <p>Rua D. Sancho I, n.º 981 
+                        4480-876 Vila do Conde Portugal</p>
+                    <p>E. geral@esmad.ipp.pt</p>    
+                    <p>T. +351 252 291 700 </p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-center">© 2024 TSIW. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 
 

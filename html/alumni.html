@@ -1,11 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Espaço Alumni - Tecnologias e Sistemas de Informação Web</title>
+
+    <!-- Referência ao Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Referência ao CSS personalizado -->
+    <link rel="stylesheet" href="/css/myStyles.css">
+    <link rel="stylesheet" href="/css/alumni.css">
 </head>
+
 <body>
-    
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <img src="/img/Logo.png" class="logo" alt="logo">
+            <a class="navbar-brand" href="http://127.0.0.1:5501/index.html">TSIW</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
+                aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <button class="btn btn-outline-success me-2" type="button">Home</button>
+                    </li>
+                    <li class="nav-item">
+                        <a href="http://127.0.0.1:5501/html/more.html"><button class="btn btn-outline-success me-2" type="button">More Tsiw</button></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="http://127.0.0.1:5501/html/help.html"><button class="btn btn-outline-success me-2" type="button">Contacts</button></a>
+                    </li>
+                </ul>
+                <form class="d-flex my-2 my-lg-1">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                        <i class="bi bi-person-fill"></i>Login
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Section -->
+    <section class="mt-5 pt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <img class="img-fluid" src="/img/Nuno Sousa.jpeg" alt="Nuno Sousa">
+                </div>
+                <div class="col-md-9 align-title">
+                    <h1 class="title">ESPAÇO ALUMNI | Nuno Sousa</h1>
+                    <h3 class="sub-title">Nuno Sousa, alumnus da Licenciatura em Tecnologias e Sistemas de Informação
+                        para a Web, conta com 8 prémios internacionais.</h3>
+                    <p class="description">
+                        Nuno Sousa é alumnus da Licenciatura em Tecnologias e Sistemas de Informação para a Web. Atualmente, trabalha como front-end developer para a Carbmee e integra a equipa de Young Juries do Awwwards.<br><br>
+                        Na perspetiva de Nuno Sousa, o facto de, desde cedo, conciliar a sua vida com uma série de atividades —praticou natação federada e basketball e, ainda, frequentou o conservatório de música — ajudou-o na gestão da sua vida adulta, enquanto profissional. "Penso que terá sido isso que me permitiu/obrigou a gerir o meu tempo e incutiu um ritmo de trabalho. Já enquanto estudante da ESMAD, para além do desporto, comecei a dar explicações online de programação, a estruturar o meu portfólio e a desenvolver projetos pessoais".<br><br>
+                        Entre a conclusão da Licenciatura em Tecnologias e Sistemas de Informação para a Web, na Escola Superior de Media Artes e Design e o ingresso no Mestrado de Tecnologias e Comunicação Web, na Universidade de Aveiro, Nuno desenvolveu o seu próprio website, através do qual ganhou um total de 8 prémios internacionais, dos quais 6 foram atribuídos por duas das organizações mais conceituadas do mundo: o Awwwards e o CSS Design Awards. Para Nuno Sousa, a conquista destes prémios e a realização de projetos como freelancer para empresas de todas as partes do mundo — das quais salienta o Governo Britânico — fez com que recebesse várias ofertas de emprego (full-time, part-time e freelancer), essencialmente por parte de empresas estrangeiras. Nesta sequência e, apesar do foco ser a conclusão do mestrado, aceitou o desafio lançado pela empresa alemã Carbmee, onde começou a trabalhar em regime part-time, como front-end developer, e integrou a equipa de Young Juries do Awwwards.<br><br>
+                        Nuno salienta: "não posso deixar de referir que até ingressar na ESMAD não sabia nada de programação, nem de design. Pelo que, não retirando mérito ao meu esforço, tenho que referir que o excelente acompanhamento dos professores e a sua experiência, tanto ao nível do ensino, como ao nível profissional, foi sem dúvida o impulsionador disto tudo. Não poderia estar mais grato a todos os professores, colegas e à ESMAD".
+                    </p>
+                </div>
+            </div>
+            <div class="other-alumni mt-5">
+                <h2 class="others-alumni text-center">Outros Alumnis</h2>
+                <div class="d-flex justify-content-between">
+                    <div class="card-alumni">
+                        <img class="card-img img-fluid" src="/img/Ines Reis.jpeg" alt="Ines Reis">
+                    </div>
+                    <div class="card-alumni">
+                        <img class="card-img img-fluid" src="/img/Nuno Costa.jpeg" alt="Nuno Costa">
+                    </div>
+                    <div class="card-alumni">
+                        <img class="card-img img-fluid" src="/img/Nuno Sousa.jpeg" alt="Nuno Sousa">
+                    </div>
+                    <div class="card-alumni">
+                        <img class="card-img img-fluid" src="/img/Diogo Fernandes.jpeg" alt="Diogo Fernandes">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="image-pporto" src="/img/Pporto.png" alt="">
+                    <p class="school">ESCOLA <br> 
+                        SUPERIOR <br>
+                        DE MEDIA <br>
+                        ARTES <br>
+                        E DESIGN</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Pages</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">More</a></li>
+                        <li><a href="#">Contacts</a></li>
+                        <li><a href="#">Escape Room</a></li>
+                        <li><a href="#">Alumni</a></li>
+                        <li><a href="#">Projects/Events</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <p>Escola Superior de Media Artes e <br> Design</p>
+                    <p>Rua D. Sancho I, n.º 981 
+                        4480-876 Vila do Conde Portugal</p>
+                    <p>E. geral@esmad.ipp.pt</p>    
+                    <p>T. +351 252 291 700 </p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-center">© 2024 TSIW. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-IQM6GO/g6XFJUUQBbdhnLn0M8Kknvv6BFYxbPQBXVVbgFi1Hz8zPB2K8C/9BBr7s" crossorigin="anonymous"></script>
 </body>
+
 </html>

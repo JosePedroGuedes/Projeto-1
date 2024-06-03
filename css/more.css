@@ -1,0 +1,142 @@
+.html {
+    width: 100vw;
+}
+
+.sub-title {
+    padding-top: 50px;
+    padding-left: 0px;
+}
+
+.apresentation .title {
+    margin-top: 120px;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 90px;
+    padding-right: 200px;
+    padding-top: 0px;
+}
+
+.text {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 50px;
+    margin-left: 0px;
+}
+
+.image img {
+    width: 40vw; 
+}
+
+.study-plans .title {
+    margin-left: 0px;
+    margin-top: 50px;
+    padding-top: 0px;
+    font-size: 2vw;
+}
+
+.study-plans .sub-title {
+    padding-left: 0px;
+}
+
+.study-plans {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.table {
+    width: 50vw;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.condições-acesso,
+.saidas-profissionais {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.saidas-profissionais .title {
+    margin-left: 0px;
+    padding-top: 0px;
+    margin-bottom: 20px;
+}
+
+.saidas-profissionais .card {
+    width: 650px;
+    height: 280px;
+    background-color: rgb(234, 238, 236);
+    display: flex;
+    justify-content: center;
+}
+
+.section-title {
+    text-decoration: underline;
+}
+
+.list-item {
+    margin-left: 20px;
+}
+
+.card-text {
+    font-size: large;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}
+
+.condições-acesso .title {
+    margin-left: 0px;
+    padding-top: 0px;
+    margin-bottom: 20px;
+    margin-top: 120px;
+}
+
+
+
+.custom-card {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    width: 30vw;
+    margin: 20px auto; /* Centraliza horizontalmente */
+}
+
+.custom-card h5 {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.custom-card ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.custom-card li::before {
+    content: '▪️';
+    color: black;
+    margin-right: 10px;
+}
+
+.container.mt-5 {
+    margin: 0px !important;
+    width: 50%;
+}
+
+.empresas {
+    display: block;
+    align-items: center;
+    padding-bottom: 50px;
+    margin: 50px;
+}
+
+.images img {
+    width: 20vw;
+    height: auto;
+    padding-left: 20px;
+}
