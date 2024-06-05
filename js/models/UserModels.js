@@ -4,8 +4,8 @@ let users = [];
 export function init() {
   if (localStorage.users) {
     const tempUsers = JSON.parse(localStorage.users);
-    for(let user of tempUsers) {
-      users.push(new User(user.username, user.password));
+    for (let user of tempUsers) {
+      users.push(new User(user.username, user.email, user.password));
     }
   } else {
     users = [];
@@ -13,21 +13,19 @@ export function init() {
 }
 
 // ADICIONAR UTILIZADOR
-export function add(username, password) {
-  if (users.some((user) => user.username === username)) {
-    throw Error(`User with username "${username}" already exists!`);
+export function add(username, email, password) {
+  if (users.some((user) => user.username === username || user.email === email)) {
+    throw Error(`User with username "${username}" or email "${email}" already exists!`);
   } else {
-    users.push(new User(username, password));
+    users.push(new User(username, email, password));
     localStorage.setItem("users", JSON.stringify(users));
   }
-
-  console.log(users);
 }
 
 // LOGIN DO UTILIZADOR
-export function login(username, password) {
+export function login(email, password) {
   const user = users.find(
-    (user) => user.username === username && user.password === password
+    (user) => user.email === email && user.password === password
   );
   if (user) {
     sessionStorage.setItem("loggedUser", JSON.stringify(user));
@@ -61,17 +59,17 @@ function getNextId() {
   return users.length > 0 ? users.length + 1 : 1;
 }
 
-/**
- * CLASSE QUE MODELA UM UTILIZADOR NA APLICAÇÃO
- */
+
 class User {
   id = null;
   username = "";
+  email = "";
   password = "";
 
   constructor(username, password) {
     this.id = getNextId();
     this.username = username;
+    this.email = email;
     this.password = password;
   }
 }
