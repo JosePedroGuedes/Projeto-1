@@ -1,7 +1,7 @@
 let alumnis = [];
 
 // GUARDAR ALUMNI NA LOCAL STORAGE
-export function init() {
+export function loadAlumni() {
   if (localStorage.alumnis) {
     const tempAlumni = JSON.parse(localStorage.alumnis);
     for (let alumni of tempAlumni) {
@@ -13,20 +13,46 @@ export function init() {
 }
 
 //ADICIONAR ALUMNI
-export function add(name, subtitle, description, image) {
+export function addAlumni(name, subtitle, description, image) {
   if (alumnis.some((alumni) => alumni.name === name)) {
     throw Error(`Alumni with this "${name}" already exist!`);
   } else {
-    users.push(new Alumni(name, subtitle, description, image));
-    localStorage.setItem("alumni", JSON.stringify(alumnis));
+    alumnis.push(new Alumni(name, subtitle, description, image)); 
+    localStorage.setItem("alumnis", JSON.stringify(alumnis));
   }
 
   console.log(alumnis);
 }
 
+//EDITAR ALUMNI
+export function editAlumni(oldName, newName, newSubtitle, newDescription, newImage) {
+  
+  const alumni = JSON.parse(localStorage.getItem("alumnis"));
+  
+  if (alumni) {
+      
+      const index = alumni.findIndex(a => a.name === oldName);
+      
+      if (index !== -1) {
+          
+          alumni[index].name = newName;
+          alumni[index].subtitle = newSubtitle;
+          alumni[index].description = newDescription;
+          alumni[index].image = newImage;
+
+          
+          localStorage.setItem("alumnis", JSON.stringify(alumni));
+      } else {
+          console.error("Alumni not found");
+      }
+  } else {
+      console.error("Alumni data not found in localStorage");
+  }
+}
+
 //ELEMINAR ALUMNI
-export function removeProject(name) {
-  alumnis = alumnis.filter((alumni) => alumnis.name !== name);
+export function removeAlumni(name) {
+  alumnis = alumnis.filter((alumni) => alumni.name !== name); 
   localStorage.setItem("alumnis", JSON.stringify(alumnis));
 }
 
@@ -36,7 +62,7 @@ class Alumni {
   description = "";
   image = "";
 
-  constructor(name, subtitle, description) {
+  constructor(name, subtitle, description, image) { 
     this.name = name;
     this.subtitle = subtitle;
     this.description = description;

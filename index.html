@@ -25,38 +25,86 @@
         <div class="container">
             <img src="./img/Logo.png" class="logo" alt="logo">
             <a class="navbar-brand" href="http://127.0.0.1:5501/index.html">TSIW</a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
                 aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
+                
             <div class="collapse navbar-collapse" id="collapsibleNavId">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <button class="btn btn-outline-success me-2" type="button">Home</button>
                     </li>
                     <li class="nav-item">
-                        <a href="http://127.0.0.1:5501/html/more.html"><button class="btn btn-outline-success me-2" type="button">More Tsiw</button></a>
+                        <a href="http://127.0.0.1:5501/html/more.html">
+                            <button class="btn btn-outline-success me-2" type="button">More Tsiw</button>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a href="http://127.0.0.1:5501/html/help.html"><button class="btn btn-outline-success me-2" type="button">Contacts</button></a>
+                        <a href="http://127.0.0.1:5501/html/help.html">
+                            <button class="btn btn-outline-success me-2" type="button">Contacts</button>
+                        </a>
                     </li>
                 </ul>
-                <form class="login">
-                    <a href="http://127.0.0.1:5501/html/login.html">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="button">
-                            <i class="bi bi-person-fill"></i>Login
-                        </button>
-                    </a>
+
+                <a class="link" href="http://127.0.0.1:5501/html/login.html">
+                    <button id="login" class="btn btn-outline-success my-2 my-sm-0" type="button">
+                        <i class="bi bi-person-fill"></i> <span class="login-title"> Login</span>
                     </button>
-                </form>
+                </a>
+
+                <button id="userButton" class="btn btn-outline-success my-2 my-sm-0" type="button">
+                    <i class="bi bi-person-fill"></i> <span class="username" id="userName">Nome do Usuário</span>
+
+                    <!-- Pop-up Container -->
+                    <div id="myPopup" class="popup">
+                        <a href="http://127.0.0.1:5501/html/settings.html" class="popup-item"><i
+                                class="bi bi-person-circle"></i> Edit Profile</a>
+                        
+                        <a href="http://127.0.0.1:5501/html/admin.html#" id="adminSettings" class="popup-item-admin" display="none"><i class="bi bi-gear"></i> Admin Settings</a>
+
+
+                        <a href="http://127.0.0.1:5501/html/help.html" class="popup-item"><i
+                                class="bi bi-question-circle"></i> Help & Support</a>
+                            
+                        <a href="#" id="logout" class="popup-item"><i class="bi bi-person-fill-dash"></i> Logout</a>
+                    </div>
+                </button>
+
             </div>
         </div>
     </nav>
+
+    <!-- Edit Profile Popup -->
+    <div id="editProfilePopup" class="popup-profile">
+        <div class="popup-content">
+            <button class="close-btn" id="closeEditProfilePopup">x</button>
+            <h2>Edit Profile</h2>
+            <form id="editProfileForm">
+                <div class="form-group">
+                    <label for="editUsername">Username</label>
+                    <input type="text" id="editUsername" name="username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="editEmail">Email</label>
+                    <input type="email" id="editEmail" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="editPassword">Password</label>
+                    <input type="password" id="editPassword" name="password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
 
     <!-- Apresentação -->
     <div class="content">
         <div class="main-page-title">
             <h1 class="content_1">Queres ser Web Developer ?</h1>
-            <p class="content_2">Apresento-te TSIW,</p>
+            <p class="content_2">Apresento-te TSIW</p>
             <p class="content_3">O site que te dá a conhecer o<br> caminho para o futuro... <br>Vem descobrir um curso á
                 tua medida.</p>
         </div>
@@ -75,10 +123,10 @@
                             alt="img-1" class="image-item"></a>
                     <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/gamify.jpg" alt="img-2"
                             class="image-item"></a>
-                    <a href="https://www.esmad.ipp.pt/noticias/a-inteligencia-artificial-na-educacao"><img src="./img/inteligenciaArtificial.jpg"
-                            alt="img-3" class="image-item"></a>
-                    <a href="https://www.esmad.ipp.pt/noticias/tsiw-endpoints-1"><img src="./img/EndPoints.jpg" alt="img-4"
-                            class="image-item"></a>
+                    <a href="https://www.esmad.ipp.pt/noticias/a-inteligencia-artificial-na-educacao"><img
+                            src="./img/inteligenciaArtificial.jpg" alt="img-3" class="image-item"></a>
+                    <a href="https://www.esmad.ipp.pt/noticias/tsiw-endpoints-1"><img src="./img/EndPoints.jpg"
+                            alt="img-4" class="image-item"></a>
                 </div>
                 <!--<div>
                     <a href="https://www.esmad.ipp.pt/noticias/tsiw-endpoints-1"><img src="./img/Savethedate.jpg"
@@ -108,7 +156,7 @@
                             class="image-item"></a>
                 </div>
             </div>
-            <button type="button" class="btn btn-outline-primary">Ver Mais</button>
+            <a href="http://127.0.0.1:5501/html/projects.html"><button type="button" class="btn btn-outline-primary">Ver Mais</button></a>
         </div>
 
     </div>
@@ -118,31 +166,11 @@
     <div class="container">
         <div class="alumni">
             <p class="title">Alumni</p>
-
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="card-alumni">
-                        <img class="card-img-top" src="/img/Ines Reis.jpeg" alt="Card image cap">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card-alumni">
-                        <img class="card-img-top" src="/img/Nuno Costa.jpeg" alt="Card image cap">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card-alumni">
-                        <a href="http://127.0.0.1:5501/html/alumni.html"><img class="card-img-top" src="/img/Nuno Sousa.jpeg" alt="Card image cap"></a>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card-alumni">
-                        <img class="card-img-top" src="/img/Diogo Fernandes.jpeg" alt="Card image cap">
-                    </div>
-                </div>
+            <div class="row" id="alumni-card">
+                <!-- Mostrar testemunhos da Local Storage -->
             </div>
         </div>
-    </div>
+    </div>  
 
     <!--Escape Room-->
     <div class="escape-room">
@@ -180,7 +208,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <img class="image-pporto" src="/img/Pporto.png" alt="">
-                    <p class="school">ESCOLA <br> 
+                    <p class="school">ESCOLA <br>
                         SUPERIOR <br>
                         DE MEDIA <br>
                         ARTES <br>
@@ -200,9 +228,9 @@
                 <div class="col-md-4">
                     <h5>Contact Us</h5>
                     <p>Escola Superior de Media Artes e <br> Design</p>
-                    <p>Rua D. Sancho I, n.º 981 
+                    <p>Rua D. Sancho I, n.º 981
                         4480-876 Vila do Conde Portugal</p>
-                    <p>E. geral@esmad.ipp.pt</p>    
+                    <p>E. geral@esmad.ipp.pt</p>
                     <p>T. +351 252 291 700 </p>
                 </div>
             </div>
@@ -224,6 +252,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
+    <script type="module" src="./js/views/NavbarView.js"></script>
+    <script type="module" src="./js//views/HomePageView.js"></script>
 </body>
 
 </html>

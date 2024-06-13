@@ -20,7 +20,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-            <img src="/img/Logo.png" class="logo" alt="logo">
+            <img src="../img/Logo.png" class="logo" alt="logo">
             <a class="navbar-brand" href="http://127.0.0.1:5501/index.html">TSIW</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
                 aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
@@ -30,24 +30,39 @@
                         <button class="btn btn-outline-success me-2" type="button">Home</button>
                     </li>
                     <li class="nav-item">
-                        <a href="http://127.0.0.1:5501/html/more.html"><button class="btn btn-outline-success me-2" type="button">More Tsiw</button></a>
+                        <a href="http://127.0.0.1:5501/html/more.html">
+                            <button class="btn btn-outline-success me-2" type="button">More Tsiw</button>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a href="http://127.0.0.1:5501/html/help.html"><button class="btn btn-outline-success me-2" type="button">Contacts</button></a>
+                        <a href="http://127.0.0.1:5501/html/help.html">
+                            <button class="btn btn-outline-success me-2" type="button">Contacts</button>
+                        </a>
                     </li>
                 </ul>
-                <form class="d-flex my-2 my-lg-1">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                        <i class="bi bi-person-fill"></i>Login
+
+                <a href="http://127.0.0.1:5501/html/login.html">
+                    <button id="login" class="btn btn-outline-success my-2 my-sm-0" type="button">
+                        <i class="bi bi-person-fill"></i> <span class="login-title">Login</span>
                     </button>
-                </form>
+                </a>
+
+                <button id="userButton" class="btn btn-outline-success my-2 my-sm-0" type="button">
+                    <i class="bi bi-person-fill"></i> <span class="username" id="userName">Nome do Usuário</span>
+                    <!-- Pop-up Container -->
+                    <div id="myPopup" class="popup">
+                        <a href="http://127.0.0.1:5501/html/settings.html" class="popup-item"><i class="bi bi-person-circle"></i> Edit Profile</a>
+                        <a href="http://127.0.0.1:5501/html/help.html" id="logout" class="popup-item"><i class="bi bi-question-circle"></i> Help & Support</a>
+                        <a href="#" id="logout" class="popup-item"><i class="bi bi-person-fill-dash"></i> Logout</a>
+                    </div>
+                </button>
+                
             </div>
         </div>
     </nav>
 
     <section>
         <div class="support">
-            <div class="title">Support</div>
             <p class="sub-title">Precisas de Ajuda?</p>
             <p class="sub-title-2">A nossa equipa garante:</p>
         </div>
@@ -167,6 +182,7 @@
         </div>
     </footer>
 
+    <script type="module" src="../js/views/NavbarView.js"></script>
 </body>
 
 </html>

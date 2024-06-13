@@ -14,13 +14,24 @@ export function init() {
 
 // ADICIONAR UTILIZADOR
 export function add(username, email, password) {
-  if (users.some((user) => user.username === username || user.email === email)) {
-    throw Error(`User with username "${username}" or email "${email}" already exists!`);
+  if (
+    users.some((user) => user.username === username || user.email === email)
+  ) {
+    throw Error(
+      `User with username "${username}" or email "${email}" already exists!`
+    );
   } else {
     users.push(new User(username, email, password));
     localStorage.setItem("users", JSON.stringify(users));
   }
 }
+
+// REMOVER UTILIZADOR
+export function removeUser(username) {
+  users = users.filter((user) => user.username !== username);
+  localStorage.setItem("users", JSON.stringify(users));
+}
+
 
 // LOGIN DO UTILIZADOR
 export function login(email, password) {
@@ -59,17 +70,17 @@ function getNextId() {
   return users.length > 0 ? users.length + 1 : 1;
 }
 
-
 class User {
   id = null;
   username = "";
   email = "";
   password = "";
 
-  constructor(username, password) {
+  constructor(username, email, password) {
     this.id = getNextId();
     this.username = username;
     this.email = email;
     this.password = password;
   }
 }
+

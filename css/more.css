@@ -2,13 +2,10 @@
     width: 100vw;
 }
 
-.sub-title {
-    padding-top: 50px;
-    margin-left: 0px;
-}
 
 .apresentation .title {
     margin-top: 120px;
+    padding-bottom: 50px;
 }
 
 .content {
@@ -28,7 +25,8 @@
 }
 
 .image img {
-    width: 40vw; 
+    width: 40vw;
+    padding-left: 50px; 
 }
 
 .study-plans .title {
@@ -104,7 +102,7 @@
     border-radius: 8px;
     padding: 20px;
     width: 30vw;
-    margin: 20px auto; /* Centraliza horizontalmente */
+    margin: 20px auto; 
 }
 
 .custom-card h5 {

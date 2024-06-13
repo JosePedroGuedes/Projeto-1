@@ -1,7 +1,7 @@
 let projects = [];
 
 //Guardar os projetos na LocalStorage
-export function init() {
+export function loadProjects() {
   if (localStorage.projects) {
     const tempProjects = JSON.parse(localStorage.projects);
     for (let project of tempProjects) {
@@ -13,7 +13,7 @@ export function init() {
 }
 
 //Adicionar projetos
-export function add(name, image, url) {
+export function addProjects(name, image, url) {
   if (projects.some((project) => project.name === name)) {
     throw Error(`Project with this "${name}" already exist!`);
   } else {
