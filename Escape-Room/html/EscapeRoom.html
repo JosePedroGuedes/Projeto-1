@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/EscapeRoomStyle.css">
+    <title>Escape Room</title>
+</head>
+
+<body>
+
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="500" height="500"></canvas>
+
+        <div id="inventoryContainer">
+            <div id="inventoryImageContainer">
+                <img src="../assets/inventory/inventario.png" alt="Inventário" id="inventoryImage">
+                <ul id="inventoryList" class="inventory-items"></ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="dialogBox" class="dialog-box">
+        <p id="dialogText"></p>
+    </div>
+
+    <div class="menu-container">
+        <div class="menu">
+            <div class="intro">
+                <h1 class="firsttitle">Escape Room TSIW</h1>
+                <p class="introduction">Bem-vindo ao Escape Room do TSIW! Aqui terá uma oportunidade de descobrir mais sobre o curso de uma forma diferente e desafiadora. Espero que se divirta!</p>
+              </div>
+            <h1 class="title">Como jogar</h1>
+            <p class="instructions">Encontra-se preso numa sala de escape Room na Esmad. O seu objetivo é superar os desafios
+                de cada sala para avançar e poder escapar. Tem um tempo máximo de 20 minutos para completar todos os desafios. Cada
+                sala apresenta desafios relacionados com as disciplinas de TSIW</p>
+            <h2 class="subtitle">Controlos</h2>
+            <ul class="controls-list">
+                <li><img src="../assets/menu/teclas/w.png" alt="W"> , <img src="../assets/menu/teclas/SetaCima.png"
+                        alt="Seta para cima"> : Mover para cima</li>
+                <li><img src="../assets/menu/teclas/a.png" alt="A"> , <img src="../assets/menu/teclas/SetaEsquerda.png"
+                        alt="Seta para a esquerda"> : Mover para a esquerda</li>
+                <li><img src="../assets/menu/teclas/s.png" alt="S"> , <img src="../assets/menu/teclas/SetaBaixo.png"
+                        alt="Seta para baixo"> : Mover para baixo</li>
+                <li><img src="../assets/menu/teclas/d.png" alt="D"> , <img src="../assets/menu/teclas/SetaDireita.png"
+                        alt="Seta para a direita"> : Mover para a direita</li>
+                <li><img src="../assets/menu/teclas/f.png" alt="F"> : Botão de interação/Ações</li>
+                <li><img src="../assets/menu/teclas/Esc.png" alt="Esc"> : Aceder Menu</li>
+            </ul>
+            <button class="start-button">Começar Jogo</button>
+        </div>
+    </div>
+
+    <div id="passwordPanel" class="password-panel hidden">
+        <input type="text" id="passwordInput" class="password-input" maxlength="4" pattern="[0-9]*"
+            placeholder="Insira o código">
+        <button id="confirmButton" class="confirm-button">Confirmar</button>
+        <button id="cancelButton" class="cancel-button">Cancelar</button>
+    </div>
+
+    <div id="mathQuestions" class="math-questions">
+        <div id="math-question" class="question">Aqui aparecerá a pergunta</div>
+        <div id="answer-options">
+            <button class="answer-option" id="option1">Opção 1</button>
+            <button class="answer-option" id="option2">Opção 2</button>
+            <button class="answer-option" id="option3">Opção 3</button>
+            <button class="answer-option" id="option4">Opção 4</button>
+        </div>
+    </div>
+
+    <div id="timerContainer">
+        <span id="timer">20:00</span>
+    </div>
+
+    <div id="pauseMenu" class="pause-menu">
+        <button id="closeButton" class="close-button">X</button>
+        <button id="continueButton">Continuar</button>
+        <button id="controlsButton">Controles</button>
+        <button id="exitButton">Sair</button>
+    </div>
+
+    <div id="minigamePuzzle">
+        <span class="close-btn" onclick="closeGamePuzzle()">X</span>
+        <h2>Puzzle da Esmad</h2>
+        <div id="board"></div>
+        <div id="turns">Tentativas: 0</div>
+    </div>
+
+    <div id="guessWordGame">
+        <span class="close-btn" onclick="closeGameGuessWord()">X</span>
+        <h2>Adivinhe a Palavra</h2>
+        <div id="wordInputs"></div>
+        <div class="hint">Dica: <span></span></div>
+        <div class="guessesLeft">Tentativas restantes: <span></span></div>
+        <div class="wrongLetters">Letras erradas: <span></span></div>
+        <div class="rightWords">Palavras Acertadas: <span>0/3</span></div>
+        <input type="text" id="letterInput" maxlength="1" class="typing-input">
+        <button class="reset-btn">Tentar novamente</button>
+    </div>
+
+
+    <div id="adminPainel">
+        <h2>Admin Control</h2>
+        <button onclick="loadLevelAdmin(0)">Corredor</button>
+        <button onclick="loadLevelAdmin(1)">Nível 1</button>
+        <button onclick="loadLevelAdmin(2)">Nível 2</button>
+        <button onclick="loadLevelAdmin(3)">Nível 3</button>
+        <button onclick="loadLevelAdmin(4)">Nível 4</button>
+        <button onclick="">Abrir Porta Final</button>
+        <button onclick="restartTimer()">Reniciar Tempo</button>
+        <button onclick="">Acabar Jogo</button>
+        <button onclick="">Bordas On/Off</button>
+        <!-- Adicione mais botões para outros níveis conforme necessário -->
+    </div>
+
+    <script src="../js/timer.js"></script>
+    <script src="../js/loadLevel.js"></script>
+    <script src="../js/gameObjects.js"></script>
+    <script src="../js/objectsCollision.js"></script>
+    <script src="../js/playerMovement.js"></script>
+    <script src="../js/inventory.js"></script>
+    <script src="../js/dialog.js"></script>
+    <script src="../js/pauseMenu.js"></script>
+    <script src="../js/puzzle.js"></script>
+    <script src="../js/guessWord.js"></script>
+    <script src="../js/corredor.js"></script>
+    <script src="../js/levels.js"></script>
+    <script src="../js/level1.js"></script>
+    <script src="../js/level2.js"></script>
+    <script src="../js/level3.js"></script>
+    <script src="../js/level4.js"></script>
+    <script src="../js/admin.js"></script>
+
+</body>
+
+</html>

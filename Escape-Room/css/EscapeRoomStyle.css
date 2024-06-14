@@ -1,0 +1,586 @@
+@font-face {
+    font-family: Retro;
+    src: url('../fonts/Retro\ Gaming.ttf') format('truetype');
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #151540;
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+}
+
+#gameContainer {
+    position: relative;
+}
+
+canvas {
+    background-image: url("../assets/backgrounds/SalaAula.png");
+}
+
+
+#inventoryContainer {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+.inventory-items {
+    position: absolute;
+    top: 6%;
+    right: 0;
+    left: 50%;
+    /* Define o ponto de referência para o centro como metade da largura do contêiner pai */
+    transform: translateX(-50%);
+    /* Move os itens 50% para a esquerda, centralizando-os horizontalmente */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.inventory-items div {
+    margin-bottom: 18.5%;
+}
+
+.inventory-items img {
+    width: 95%;
+    height: auto;
+}
+
+.password-panel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.password-input {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.confirm-button, .cancel-button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.confirm-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.cancel-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.confirm-button:hover, .cancel-button:hover {
+    opacity: 0.8;
+}
+
+.hidden {
+    display: none;
+}
+
+.dialog-box {
+    font-family: 'Retro', sans-serif;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 80px;
+    background-image: url('../assets/dialog/box.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    pointer-events: none;
+    z-index: 1000;
+    width: 80%;
+    max-width: 600px;
+    box-sizing: border-box;
+    font-size: large;
+}
+
+#dialogText {
+    padding: 10px;
+}
+
+@keyframes blink {
+    0%, 49.99% {
+        color: rgb(0, 0, 0);
+        /* Primeira cor */
+    }
+
+    50%, 100% {
+        color: rgb(87, 87, 87);
+        /* Segunda cor */
+    }
+}
+
+.blink {
+    animation: blink 2s infinite;
+}
+
+#timerContainer {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 10px;
+    box-shadow: inset 0 0 0 2px #595959;
+    background-color: #fff;
+}
+
+#timer {
+    font-size: 30px;
+    font-family: Retro;
+}
+
+
+
+.math-questions {
+    display: none;
+    font-family: Retro;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 80px 60px;
+    background-image: url('../assets/dialog/box.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: black;
+    text-align: left;
+    z-index: 1000;
+    width: 80%;
+    max-width: 600px;
+    box-sizing: border-box;
+    font-size: medium;
+}
+
+.question {
+    margin: 0;
+    /* Remove todas as margens */
+}
+
+.answer-option {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    font-size: 14px;
+    font-family: Retro;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.answer-option:hover {
+    background-color: rgba(0, 0, 0, 0.134);
+    color: rgba(0, 0, 0, 0.963);
+}
+
+.pause-menu {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 1001;
+    font-family: Retro;
+    width: 300px;
+    box-sizing: border-box;
+    /* Certificar que padding não afeta o tamanho */
+}
+
+.pause-menu button:not(.close-button) {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 18px;
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.pause-menu button:hover:not(.close-button) {
+    background-color: #555;
+}
+
+.close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    background: none;
+    border: none;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    line-height: 30px;
+    text-align: center;
+    padding: 0;
+    /* Remover padding padrão */
+}
+
+.close-button:hover {
+    color: rgb(166, 166, 166);
+}
+
+#minigamePuzzle {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: #f8f9fa;
+    /* Cor de fundo clara */
+    padding: 20px;
+    border-radius: 10px;
+    /* Cantos arredondados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Sombra suave */
+    text-align: center;
+    /* Centralizar texto */
+    width: max-content;
+    max-width: 100%;
+    /* Para garantir que o conteúdo não transborde */
+}
+
+#minigamePuzzle h2 {
+    margin: 10px 0 20px 0;
+    /* Margem em cima e embaixo */
+    font-size: 25px;
+    color: #343a40;
+    /* Cor do texto */
+    font-family: 'Retro', sans-serif;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    /* Corrigido para 3 colunas */
+    grid-template-rows: repeat(3, 100px);
+    /* 3 linhas */
+    border: 2px solid #6c757d;
+    /* Cor da borda */
+    gap: 5px;
+    /* Espaçamento entre as imagens */
+    background-color: #dee2e6;
+    /* Cor de fundo do tabuleiro */
+    padding: 10px;
+    /* Espaçamento interno */
+    border-radius: 5px;
+    /* Cantos arredondados no tabuleiro */
+}
+
+#board img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 3px;
+    /* Cantos ligeiramente arredondados nas imagens */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Sombra leve nas imagens */
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    /* Diminuir tamanho da fonte */
+    font-weight: bold;
+    color: #fff;
+    /* Cor do texto */
+    background-color: #dc3545;
+    /* Cor de fundo do botão */
+    border: none;
+    border-radius: 50%;
+    /* Botão redondo */
+    width: 20px;
+    /* Diminuir tamanho do botão */
+    height: 20px;
+    /* Diminuir tamanho do botão */
+    line-height: 20px;
+    /* Centralizar texto verticalmente */
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.close-btn:hover {
+    background-color: #c82333;
+    /* Cor de fundo ao passar o mouse */
+}
+
+#turns {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #495057;
+    /* Cor do texto */
+    font-family: 'Retro', sans-serif;
+}
+
+
+
+#adminPainel {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    z-index: 1001;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    font-family: 'Retro', sans-serif;
+    width: 12rem;
+    box-sizing: border-box;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+
+#adminPainel h2 {
+    margin-top: 0;
+    font-size: 1.4rem;
+}
+
+#adminPainel button {
+    display: block;
+    width: 10rem;
+    padding: 0.5rem;
+    margin: 0.3rem 0;
+    font-size: 0.8rem;
+    font-family: 'Retro', sans-serif;
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+#adminPainel button:hover {
+    background-color: #555;
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+}
+
+#guessWordGame {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: #f8f9fa;
+    /* Cor de fundo clara */
+    padding: 20px;
+    border-radius: 10px;
+    /* Cantos arredondados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Sombra suave */
+    text-align: center;
+    /* Centralizar texto */
+    width: max-content;
+    max-width: 100%;
+    /* Para garantir que o conteúdo não transborde */
+}
+
+#guessWordGame h2 {
+    margin: 0 0 20px 0;
+    /* Margem em cima e embaixo */
+    font-size: 25px;
+    color: #343a40;
+    /* Cor do texto */
+    font-family: 'Retro', sans-serif;
+}
+
+#wordInputs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    /* Espaçamento entre os inputs */
+}
+
+#wordInputs #eachLetter {
+    height: 57px;
+    width: 56px;
+    font-family: 'Retro', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #1ba98c;
+    text-align: center;
+    border-radius: 5px;
+    background: none;
+    pointer-events: none;
+    text-transform: uppercase;
+    border: 1px solid #B5B5B5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Sombra leve */
+}
+
+#guessWordGame .typing-input {
+    opacity: 0;
+    z-index: -999;
+    position: absolute;
+    pointer-events: none;
+}
+
+#guessWordGame .hint, .guessesLeft, .wrongLetters, .rightWords {
+    margin: 15px 0;
+    /* Margem para espaçar os elementos */
+    font-family: 'Retro', sans-serif;
+    font-size: 20px;
+    color: #393e44;
+    /* Cor do texto */
+}
+
+#guessWordGame .close-btn {
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 14px;
+    /* Diminuir tamanho da fonte */
+    font-weight: bold;
+    color: #fff;
+    /* Cor do texto */
+    background-color: #dc3545;
+    /* Cor de fundo do botão */
+    border: none;
+    border-radius: 50%;
+    /* Botão redondo */
+    width: 20px;
+    /* Diminuir tamanho do botão */
+    height: 20px;
+    /* Diminuir tamanho do botão */
+    line-height: 20px;
+    /* Centralizar texto verticalmente */
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+#guessWordGame .close-btn:hover {
+    background-color: #c82333;
+    /* Cor de fundo ao passar o mouse */
+}
+
+#guessWordGame .reset-btn {
+    display: none;
+    width: 100%;
+    border: none;
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    color: #fff;
+    outline: none;
+    padding: 15px 0;
+    font-family: 'Retro', sans-serif;
+    font-size: 20px;
+    border-radius: 5px;
+    background: #1BB295;
+    transition: all 0.3s ease;
+}
+
+#guessWordGame .reset-btn:hover {
+    background: #18a589;
+}
+
+.menu-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow-y: auto;
+    display: block; /* Alterando de "none" para "block" para tornar o menu visível */
+}
+
+.menu {
+    background-image: url("../assets/menu/menuImage.png");
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed; /* Adicionando a imagem de fundo fixa */
+    padding: 20px;
+    text-align: center;
+    font-family: 'Retro', sans-serif;
+}
+
+.menu .firsttitle {
+    color: #333;
+    font-size: 32px;
+    margin: 5px 0 15px 0;
+}
+
+.menu .introduction, .instructions {
+    font-size: 16px;
+    color: #000000;
+    margin: 0 180px 10px 180px; /* Adicionando margem inferior */
+}
+
+.menu .title, .subtitle {
+    font-size: 25px;
+    color: #333;
+    margin: 0 0 5px 0;
+}
+
+.menu .controls-list {
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+}
+
+.menu .controls-list li {
+    margin-bottom: 5px;
+}
+
+.menu .controls-list li img {
+    width: 22px; /* Aumentando o tamanho das imagens das teclas */
+    height: 22px; /* Aumentando o tamanho das imagens das teclas */
+    margin-top: 10px; /* Adicionando uma margem superior */
+}    
+.menu .start-button {
+    background-image: url("../assets/menu/botao.png");
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    background-size: contain;
+    background-repeat: no-repeat;
+    font-family: 'Retro', sans-serif;
+    width: 232px;
+    height: 77px;
+    border: none;
+    cursor: pointer;
+    margin-left: auto; /* Alinhando à esquerda */
+    margin-right: auto; /* Alinhando à direita */
+    display: block; /* Garantindo que o botão fique em uma linha separada */
+}
