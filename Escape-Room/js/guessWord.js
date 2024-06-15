@@ -148,6 +148,7 @@ function restartGame() {
 }
 
 function openGameGuessWord() {
+    addEventListeners();
     stopMovement = true;
     setTimeout(() => {
         document.getElementById("guessWordGame").style.display = "block";
@@ -161,6 +162,7 @@ function openGameGuessWord() {
 }
 
 function closeGameGuessWord() {
+    removeEventListeners()
     stopMovement = false;
     document.getElementById("guessWordGame").style.display = "none";
     document.removeEventListener("keydown", handleEscKey);
@@ -168,24 +170,24 @@ function closeGameGuessWord() {
 
 function handleEscKey(event) {
     if (event.key === "Escape") {
-        closeGameGuessWord();
+        removeEventListeners()
+        stopMovement = true;
+        document.getElementById("guessWordGame").style.display = "none";
+        document.removeEventListener("keydown", handleEscKey);
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const openPuzzleBtn = document.getElementById("openPuzzleBtn");
-    const closePuzzleBtn = document.getElementById("closePuzzleBtn");
-
-    if (openPuzzleBtn) {
-        openPuzzleBtn.addEventListener("click", openGameGuessWord);
-    }
-
-    if (closePuzzleBtn) {
-        closePuzzleBtn.addEventListener("click", closeGameGuessWord);
-    }
-    
+function addEventListeners() {
     resetBtn.addEventListener("click", restartGame);
     typingInput.addEventListener("input", initGame);
     inputs.addEventListener("click", () => typingInput.focus());
     document.addEventListener("keydown", () => typingInput.focus());
-});
+}
+
+function removeEventListeners() {
+    resetBtn.removeEventListener("click", restartGame);
+    typingInput.removeEventListener("input", initGame);
+    inputs.removeEventListener("click", () => typingInput.focus());
+    document.removeEventListener("keydown", () => typingInput.focus());
+}
+

@@ -25,16 +25,16 @@
         <p id="dialogText"></p>
     </div>
 
-    <div class="menu-container">
+    <div class="menu-container" id="menuContainer">
         <div class="menu">
             <div class="intro">
                 <h1 class="firsttitle">Escape Room TSIW</h1>
-                <p class="introduction">Bem-vindo ao Escape Room do TSIW! Aqui terá uma oportunidade de descobrir mais sobre o curso de uma forma diferente e desafiadora. Espero que se divirta!</p>
+                <p class="introduction">Bem-vindo ao Escape Room do TSIW, <span id="spanUsername"></span>! Aqui terá uma oportunidade de descobrir mais sobre o curso de uma forma diferente e desafiadora. Espero que se divirta!</p>
               </div>
             <h1 class="title">Como jogar</h1>
-            <p class="instructions">Encontra-se preso numa sala de escape Room na Esmad. O seu objetivo é superar os desafios
+            <p class="instructions">Encontra-se preso numa sala de Escape Room na Esmad. O seu objetivo é superar os desafios
                 de cada sala para avançar e poder escapar. Tem um tempo máximo de 20 minutos para completar todos os desafios. Cada
-                sala apresenta desafios relacionados com as disciplinas de TSIW</p>
+                sala apresenta desafios relacionados com disciplinas de TSIW</p>
             <h2 class="subtitle">Controlos</h2>
             <ul class="controls-list">
                 <li><img src="../assets/menu/teclas/w.png" alt="W"> , <img src="../assets/menu/teclas/SetaCima.png"
@@ -48,7 +48,7 @@
                 <li><img src="../assets/menu/teclas/f.png" alt="F"> : Botão de interação/Ações</li>
                 <li><img src="../assets/menu/teclas/Esc.png" alt="Esc"> : Aceder Menu</li>
             </ul>
-            <button class="start-button">Começar Jogo</button>
+            <button class="start-button" id="startGameBtn">Começar Jogo</button>
         </div>
     </div>
 
@@ -102,17 +102,53 @@
 
     <div id="adminPainel">
         <h2>Admin Control</h2>
-        <button onclick="loadLevelAdmin(0)">Corredor</button>
-        <button onclick="loadLevelAdmin(1)">Nível 1</button>
-        <button onclick="loadLevelAdmin(2)">Nível 2</button>
-        <button onclick="loadLevelAdmin(3)">Nível 3</button>
-        <button onclick="loadLevelAdmin(4)">Nível 4</button>
-        <button onclick="">Abrir Porta Final</button>
-        <button onclick="restartTimer()">Reniciar Tempo</button>
-        <button onclick="">Acabar Jogo</button>
-        <button onclick="">Bordas On/Off</button>
-        <!-- Adicione mais botões para outros níveis conforme necessário -->
+        <button id="corredorBtn">Corredor</button>
+        <button id="nivel1Btn">Nível 1</button>
+        <button id="nivel2Btn">Nível 2</button>
+        <button id="nivel3Btn">Nível 3</button>
+        <button id="restartTimerBtn">Reniciar Timer</button>
+        <button id="restartGameBtn">Reniciar Jogo</button>
+        <button id="acabarJogoBtn">Acabar Jogo</button>
+        <button id="bordasOnOffBtn">Bordas On/Off</button>
     </div>
+
+    <div class="endGame-container" id="endGameContainer">
+        <div class="endGame">
+            <div class="intro">
+                <h1 class="firsttitle">Muitos Parabéns!! Chegaste ao fim do jogo!</h1>
+                <p class="introduction">Obrigado por jogar o nosso Escape Room, <span id="spanUsername"></span>! Espero que se tenha divirtido!</p>
+            </div>
+            <h2 class="subtitle">Estatísticas do Jogo</h2>
+            <div class="stats-container">
+                <div class="stats-column">
+                    <h3>Tempos</h3>
+                    <ul>
+                        <li>Completou o nível 1 às <span>--:--</span></li>
+                        <li>Completou o nível 2 às <span>--:--</span></li>
+                        <li>Completou o nível 3 às <span>--:--</span></li>
+                        <li>Completou o Escape Room às <span>--:--</span></li>
+                        <li>Recorde Tempo Pessoal: <span>--:--</span></li>
+                    </ul>
+                </div>
+                <div class="stats-column">
+                    <h3>Outros</h3>
+                    <ul>
+                        <li>Nº de vezes que falhou o código binário: <span>0</span></li>
+                        <li>Nº de tentativas no Puzzle: <span>0</span></li>
+                        <li>Nº de palavras erradas no jogo das Palavras: <span>0</span></li>
+                        <li>Nº de perguntas erradas no quiz da Matemática: <span>0</span></li>
+                        <li>Nº de vezes erradas no desafio Final: <span>0</span></li>
+                        <li>Conseguiu aceder á sala secreta: <span>Nao</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="start-button-container">
+                <button class="start-button" id="exitGameBtn">Sair</button>
+                <button class="start-button" id="replayGameBtn">Jogar Novamente</button>
+            </div>
+        </div>
+    </div>
+    
 
     <script src="../js/timer.js"></script>
     <script src="../js/loadLevel.js"></script>
@@ -129,8 +165,8 @@
     <script src="../js/level1.js"></script>
     <script src="../js/level2.js"></script>
     <script src="../js/level3.js"></script>
-    <script src="../js/level4.js"></script>
     <script src="../js/admin.js"></script>
+    <script type="module" src="../js/endGame.js"></script>
 
 </body>
 

@@ -38,6 +38,8 @@ function loadLevel1() {
                 Sala1Door1.isOpen = true;
             }
         }, 200);
+
+        timeFirstLeve1 = timerElement.innerText;
     }
 
     let keyRadius = 55;
@@ -81,13 +83,15 @@ function loadLevel1() {
     }
 
     function drawDoorOpenArea() {
-        ctx.save();
-        ctx.strokeStyle = 'blue';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.arc(Sala1Door1.x + Sala1Door1.width / 2 + 20, Sala1Door1.y + Sala1Door1.height / 2, doorOpenRadius, 0, 2 * Math.PI);
-        ctx.stroke();
-        ctx.restore();
+        if(bordas){  
+            ctx.save();
+            ctx.strokeStyle = 'blue';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(Sala1Door1.x + Sala1Door1.width / 2 + 20, Sala1Door1.y + Sala1Door1.height / 2, doorOpenRadius, 0, 2 * Math.PI);
+            ctx.stroke();
+            ctx.restore();
+        }
     }
 
     let ticketRadius = 50;
@@ -124,23 +128,27 @@ function loadLevel1() {
     }
     
     function drawObstacles() {
+
         for (let obstacle of obstacles) {
             if (obstacle.image) {
                 ctx.drawImage(obstacle.image, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
             }
             // Draw collision areas for debugging
-            ctx.save();
-            ctx.strokeStyle = 'red';
-            ctx.lineWidth = 2;
-            ctx.strokeRect(obstacle.collisionArea.x, obstacle.collisionArea.y, obstacle.collisionArea.width, obstacle.collisionArea.height);
-            ctx.restore();
+            if (bordas) {
+                ctx.save();
+                ctx.strokeStyle = 'red';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(obstacle.collisionArea.x, obstacle.collisionArea.y, obstacle.collisionArea.width, obstacle.collisionArea.height);
+                ctx.restore();
+            }
         }
+
     }
     
     // Mesas
-    addObstacle(74, 218, 398, 80, '../assets/objects/Sala1-MesaGrande.png', { x: 74, y: 228, width: 398, height: 30 });
-    addObstacle(74, 305, 398, 80, '../assets/objects/Sala1-MesaGrande.png', { x: 74, y: 315, width: 398, height: 30 });
-    addObstacle(74, 392, 398, 80, '../assets/objects/Sala1-MesaGrande.png', { x: 74, y: 402, width: 398, height: 30 });
+    addObstacle(74, 218, 398, 27, '../assets/objects/Sala1-MesaGrande.png', { x: 74, y: 228, width: 398, height: 18 });
+    addObstacle(74, 305, 398, 27, '../assets/objects/Sala1-MesaGrande.png', { x: 74, y: 315, width: 398, height: 18 });
+    addObstacle(74, 392, 398, 27, '../assets/objects/Sala1-MesaGrande.png', { x: 74, y: 402, width: 398, height: 18 });
     
     // Mesa Professor
     addObstacle(377, 137, 95, 65, '../assets/objects/Sala1-MesaProfessor.png', { x: 377, y: 147, width: 95, height: 30 });
@@ -148,7 +156,7 @@ function loadLevel1() {
     // Bordas
     addObstacle(0, 75, 500, 10);
     addObstacle(0, 70, 15, 500);
-    addObstacle(0, 480, 500, 20, '../assets/objects/BordaFundo.png'), { x: 0, y: 500, width: 500, height: 1 };
+    addObstacle(0, 480, 500, 20, '../assets/objects/BordaFundo.png', { x: 0, y: 500, width: 500, height: 10 });
     addObstacle(485, 70, 15, 500);
     
     // Objetos
@@ -196,7 +204,7 @@ function loadLevel1() {
 
         if (checkDoorPassage() && levelLoad == 1) {
             clearGameObjects();
-            player.x = CorredorSala1.x - 100;
+            player.x = CorredorSala1.x - 50;
             player.y = CorredorSala1.y - 123;
             loadLevel(0);
             return;

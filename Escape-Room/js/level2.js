@@ -1,5 +1,4 @@
 function loadLevel2() {
-    
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
@@ -45,25 +44,30 @@ function loadLevel2() {
             if (obstacle.image) {
                 ctx.drawImage(obstacle.image, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
             }
-            ctx.save();
-            ctx.strokeStyle = 'red';
-            ctx.lineWidth = 2;
-            ctx.strokeRect(obstacle.collisionArea.x, obstacle.collisionArea.y, obstacle.collisionArea.width, obstacle.collisionArea.height);
-            ctx.restore();
+            if (bordas) {
+                ctx.save();
+                ctx.strokeStyle = 'red';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(obstacle.collisionArea.x, obstacle.collisionArea.y, obstacle.collisionArea.width, obstacle.collisionArea.height);
+                ctx.restore();
+            }
         }
     }
 
-    // Adding borders
+    // Bordas
     addObstacle(0, 105, 500, 10);
     addObstacle(0, 70, 15, 500);
-    addObstacle(0, 480, 500, 10);
+    addObstacle(0, 480, 500, 20, '../assets/objects/BordaFundo.png', { x: 0, y: 500, width: 500, height: 10 });
     addObstacle(485, 70, 15, 500);
 
+    // Mesa Professor
     addObstacle(205, 165, 94, 46, '../assets/objects/Sala2-MesaProfessor.png', { x: 205, y: 190, width: 94, height: 20 });
 
+    // Mesa com Pc
     addObstacle(39, 262, 118, 38, '../assets/objects/Sala2-MesaPc.png', { x: 42, y: 285, width: 113, height: 20 });
     addObstacle(345, 262, 118, 38, '../assets/objects/Sala2-MesaPc.png', { x: 346, y: 285, width: 113, height: 20 });
-    
+
+    // Mesas
     addObstacle(192, 270, 118, 35, '../assets/objects/Sala2-Mesa.png', { x: 195, y: 285, width: 112, height: 20 });
     addObstacle(38, 372, 118, 35, '../assets/objects/Sala2-Mesa.png', { x: 42, y: 385, width: 112, height: 20 });
     addObstacle(191, 372, 118, 35, '../assets/objects/Sala2-Mesa.png', { x: 195, y: 385, width: 112, height: 20 });
@@ -71,25 +75,27 @@ function loadLevel2() {
 
     // Adding interactive squares
     let pcRadius = [
-        { x: 95, y: 300, minigame: 1, finish: false},
-        { x: 410, y: 300, minigame: 2 , finish: false}
+        { x: 95, y: 300, minigame: 1, finish: false },
+        { x: 410, y: 300, minigame: 2, finish: false }
     ];
 
     let interactionRadius = 80;
     let activeMinigame = null;
 
     function drawPcRadius() {
-        ctx.save();
-        ctx.fillStyle = 'blue';
-        ctx.strokeStyle = 'blue';
-        ctx.lineWidth = 2;
-        for (let square of pcRadius) {
-            ctx.fillRect(square.x, square.y, 0, 0);
-            ctx.beginPath();
-            ctx.arc(square.x, square.y, interactionRadius, 0, 2 * Math.PI);
-            ctx.stroke();
+        if (bordas) {
+            ctx.save();
+            ctx.fillStyle = 'blue';
+            ctx.strokeStyle = 'blue';
+            ctx.lineWidth = 2;
+            for (let square of pcRadius) {
+                ctx.fillRect(square.x, square.y, 0, 0);
+                ctx.beginPath();
+                ctx.arc(square.x, square.y, interactionRadius, 0, 2 * Math.PI);
+                ctx.stroke();
+            }
+            ctx.restore();
         }
-        ctx.restore();
     }
 
     function checkSquareInteraction() {
@@ -109,12 +115,62 @@ function loadLevel2() {
         return null;
     }
 
+    // Listener de eventos fora do loop de jogo
+    document.addEventListener("keydown", function (event) {
+        if (event.code === 'KeyF' && checkSquareInteraction() && !stopMovement) {
+            // Aqui você pode verificar qual quadrado está sendo interagido
+            let minigame = checkSquareInteraction();
+
+            // Verifica se ambos os minigames estão concluídos
+            let isPuzzleComplete = pcRadius.find(square => square.minigame === 1 && !square.finish) === undefined;
+            let isGuessWordComplete = pcRadius.find(square => square.minigame === 2 && !square.finish) === undefined;
+
+            // Verifica e atualiza o estado dos minigames
+            if (!isPuzzleComplete) {
+                if (checkPuzzleFinish()) {
+                    let puzzleSquare = pcRadius.find(square => square.minigame === 1);
+                    puzzleSquare.finish = true;
+                    isPuzzleComplete = true; // Atualiza o estado localmente
+                }
+
+                if (!isGuessWordComplete) {
+                    if (checkGuessFinish()) {
+                        let guessSquare = pcRadius.find(square => square.minigame === 2);
+                        guessSquare.finish = true;
+                        isGuessWordComplete = true; // Atualiza o estado localmente
+                    }
+                }
+            }
+
+            // Se ambos os minigames estiverem concluídos, mostra o diálogo 12
+            if (isPuzzleComplete && isGuessWordComplete) {
+                showDialog(12);
+                return;
+            }
+
+            // Abre os minigames se ainda não estiverem concluídos
+            if (minigame === 1) {
+                if (!isPuzzleComplete) {
+                    openGamePuzzle();
+                } else {
+                    showDialog(10);
+                }
+            } else if (minigame === 2) {
+                if (!isGuessWordComplete) {
+                    openGameGuessWord();
+                } else {
+                    showDialog(11);
+                }
+            }
+        }
+    });
+
     // Game loop
     function gameLoop() {
         if (levelLoad != 2) {
             return; // Se o jogo não estiver em execução, saia do loop
         }
-        
+
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
         if (player && player.dx !== undefined && player.dy !== undefined) {
@@ -137,67 +193,13 @@ function loadLevel2() {
             }
         }
 
-
-
         if (checkDoorPassage() && levelLoad == 2) {
             clearGameObjects();
-            player.x = Sala2Door1.x - 50;
-            player.y = Sala2Door1.y;
+            player.x = CorredorSala2.x + 50;
+            player.y = CorredorSala2.y - 123;
             loadLevel(0);
             return;
         }
-        
-
-        document.addEventListener("keydown", function(event) {
-            if (event.code === 'KeyF' && checkSquareInteraction() && !stopMovement) {
-                // Aqui você pode verificar qual quadrado está sendo interagido
-                let minigame = checkSquareInteraction();
-                
-                // Verifica se ambos os minigames estão concluídos
-                const isPuzzleComplete = pcRadius.find(square => square.minigame === 1 && !square.finish) === undefined;
-                const isGuessWordComplete = pcRadius.find(square => square.minigame === 2 && !square.finish) === undefined;
-
-                if (!isPuzzleComplete && !isGuessWordComplete) {
-                    // Verifica se o minigame do quebra-cabeça foi concluído
-                    if (checkPuzzleFinish()) {
-                        // Altera o estado finish do primeiro minigame para true
-                        const puzzleSquare = pcRadius.find(square => square.minigame === 1);
-                        puzzleSquare.finish = true;
-                    }
-            
-                    // Verifica se o minigame de adivinhação de palavras foi concluído
-                    if (checkGuessFinish()) {
-                        // Altera o estado finish do segundo minigame para true
-                        const guessSquare = pcRadius.find(square => square.minigame === 2);
-                        guessSquare.finish = true;
-                    }
-                }
-                
-                // Se ambos os minigames estiverem concluídos, mostra o diálogo 12
-                if (isPuzzleComplete && isGuessWordComplete) {
-                    showDialog(12);
-                    return;
-                }
-        
-                if (minigame === 1) {
-                    // Verifique se o minigame do quebra-cabeça ainda não foi concluído
-                    if (!isPuzzleComplete) {
-                        openGamePuzzle();
-                    } else {
-                        // Se o minigame já estiver concluído, você pode adicionar uma mensagem ou lógica de tratamento aqui
-                        showDialog(10);
-                    }
-                } else if (minigame === 2) {
-                    // Verifique se o minigame de adivinhação de palavras ainda não foi concluído
-                    if (!isGuessWordComplete) {
-                        openGameGuessWord();
-                    } else {
-                        // Se o minigame já estiver concluído, você pode adicionar uma mensagem ou lógica de tratamento aqui
-                        showDialog(11);
-                    }
-                }
-            }
-        });      
 
         drawPlayer();
         drawObstacles();
