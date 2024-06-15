@@ -70,17 +70,20 @@ function getNextId() {
   return users.length > 0 ? users.length + 1 : 1;
 }
 
+
 class User {
   id = null;
   username = "";
   email = "";
   password = "";
+  bestTime = "--:--";
 
-  constructor(username, email, password) {
+  constructor(username, email, password, bestTime) {
     this.id = getNextId();
     this.username = username;
     this.email = email;
     this.password = password;
+    this.bestTime = bestTime;
   }
 }
 
