@@ -50,7 +50,7 @@ function handleKeyPressToAdvanceDialog(event) {
 }
 
 dialogMap[1] = "Bem vindo ao Escape Room do TSIW!! Aqui terá uma oportunidade de descobrir mais sobre este curso de uma forma diferente e desafiadora. Espero que se divirta!!";
-dialogMap[2] = `"O bilhete diz que o código da sala dos professores é ${ticket.binarycode}, mas ao o que parece o código está codificado"`;
+dialogMap[2] = `"O bilhete diz que o código da sala dos professores é ${ticket.binarycode}. O código está em binário, vou ter que o descodificar"(podes clicar no papel novamente para ver o código)`;
 dialogMap[3] = '"Ao que parece o código está errado. Devo ter errado em alguma coisa"';
 dialogMap[4] = "Nesta sala vamos testar o seu conhecimento sobre Matemática. Interaja com o quadro para começar o desafio e conseguir passar para a próxima fase";
 dialogMap[5] = "Ainda não completou todos os desafios para poder sair!";
@@ -61,3 +61,5 @@ dialogMap[9] = 'Parabéns! Acertou a todas as perguntas!! A próxima sala já es
 dialogMap[10] = 'Já completou o minigame do Puzzle. Agora falta acabar o outro minigame';
 dialogMap[11] = 'Já completou o minigame de Advinhar Palavras. Agora falta acabar o outro minigame';
 dialogMap[12] = 'Parabéns! Você completou ambos os minigames!! A porta para o próximo desafio foi aberta!!';
+dialogMap[13] = '"Falta-me encontrar onde está o código desta porta. Deve estar em algum bilhete por aí"';
+dialogMap[14] = 'Complete os outros desafios para poder aceder a esta porta';

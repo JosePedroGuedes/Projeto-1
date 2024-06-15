@@ -33,7 +33,3 @@ function pad(val) {
         return valString;
     }
 }
-
-
-// Iniciar o timer automaticamente (opcional)
-startTimer();

@@ -120,7 +120,7 @@ canvas {
     width: 80%;
     max-width: 600px;
     box-sizing: border-box;
-    font-size: large;
+    font-size: 1rem;
 }
 
 #dialogText {
@@ -523,6 +523,7 @@ canvas {
     transform: translate(-50%, -50%);
     overflow-y: auto;
     display: block; /* Alterando de "none" para "block" para tornar o menu visível */
+    width: 50rem;
 }
 
 .menu {
@@ -532,25 +533,25 @@ canvas {
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed; /* Adicionando a imagem de fundo fixa */
-    padding: 20px;
+    padding: 2rem 9.5rem 2rem 9.5rem;
     text-align: center;
     font-family: 'Retro', sans-serif;
 }
 
 .menu .firsttitle {
     color: #333;
-    font-size: 32px;
-    margin: 5px 0 15px 0;
+    font-size: 2rem;
+    margin: 0 0 15px 0;
 }
 
 .menu .introduction, .instructions {
-    font-size: 16px;
+    font-size: 1rem;
     color: #000000;
-    margin: 0 180px 10px 180px; /* Adicionando margem inferior */
+    margin: 0 0 10px 0; /* Adicionando margem inferior */
 }
 
 .menu .title, .subtitle {
-    font-size: 25px;
+    font-size: 1.5rem;
     color: #333;
     margin: 0 0 5px 0;
 }
@@ -562,25 +563,28 @@ canvas {
 }
 
 .menu .controls-list li {
-    margin-bottom: 5px;
+    margin-bottom: 0.1rem;
 }
 
 .menu .controls-list li img {
-    width: 22px; /* Aumentando o tamanho das imagens das teclas */
-    height: 22px; /* Aumentando o tamanho das imagens das teclas */
-    margin-top: 10px; /* Adicionando uma margem superior */
+    width: 1.2rem; /* Aumentando o tamanho das imagens das teclas */
+    height: 1.2rem; /* Aumentando o tamanho das imagens das teclas */
 }    
 .menu .start-button {
-    background-image: url("../assets/menu/botao.png");
+    background: none;
     cursor: url('../assets/dialog/Mouse.png'), auto;
     background-size: contain;
-    background-repeat: no-repeat;
     font-family: 'Retro', sans-serif;
-    width: 232px;
-    height: 77px;
+    font-size: 2rem;
+    color: #000000;
     border: none;
     cursor: pointer;
     margin-left: auto; /* Alinhando à esquerda */
     margin-right: auto; /* Alinhando à direita */
     display: block; /* Garantindo que o botão fique em uma linha separada */
+}
+
+.menu .start-button:hover {
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    color: #3b3b3b;
 }

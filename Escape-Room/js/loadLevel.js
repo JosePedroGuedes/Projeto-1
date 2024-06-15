@@ -27,23 +27,44 @@ function loadLevel(levelNumber) {
             loadLevel3();
             console.log("Entrou no nível 3");
             break;
-        case 4:
-            levelLoad = 4;
-            loadLevel4();   
-            console.log("Entrou no nível 4");
-            break;
         default:
             console.error("Nível não encontrado:", levelNumber);
             break;
     }
 }
 
-window.onload = function() {
-    startTimer();
-    loadLevel(1);
+const userInfo = JSON.parse(sessionStorage.getItem("loggedUser"));
+const username = userInfo.username;
+console.log(username);
+
+const adminPainelContainer = document.getElementById("adminPainel");
+const timerContainer = document.getElementById("timerContainer");
+const canvaContainer = document.getElementById("gameContainer");
+const inventoryContainer = document.getElementById("inventoryContainer");
+const menuContainer = document.getElementById("menuContainer");
+
+
+window.onload = function () {
+    timerContainer.style.display = "none";
+    inventoryContainer.style.display = "none";
+    adminPainelContainer.style.display = "none";
+    canvaContainer.style.display = "none";
 };
 
-function clearGameObjects() {
-    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    obstacles = [];
+document.getElementById('startGameBtn').addEventListener('click', function() {
+    startEscapeRoom();
+});
+
+function startEscapeRoom() {
+    restartTimer();
+    loadLevel(1);
+    stopMovement = false;
+
+    if (username == "Admin" || username == "admin") {
+        adminPainelContainer.style.display = "block";
+    }
+    timerContainer.style.display = "block";
+    canvaContainer.style.display = "block";
+    inventoryContainer.style.display = "block";
+    menuContainer.style.display = "none";
 }

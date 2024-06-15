@@ -115,19 +115,23 @@ function corredor() {
     }
 
     function drawObstacles() {
+
         for (let obstacle of obstacles) {
             if (obstacle.image) {
                 ctx.drawImage(obstacle.image, obstacle.x, obstacle.y - cameraY, obstacle.width, obstacle.height);
                 // Se não houver imagem definida, desenhe apenas a área de colisão para depuração
-                
+
             }
-            ctx.save();
-            ctx.strokeStyle = 'red';
-            ctx.lineWidth = 2;
-            const collisionX = obstacle.collisionArea.x;
-            const collisionY = obstacle.collisionArea.y - cameraY;
-            ctx.strokeRect(collisionX, collisionY, obstacle.collisionArea.width, obstacle.collisionArea.height * 2.05);
-            ctx.restore();
+            if (bordas) {
+                ctx.save();
+                ctx.strokeStyle = 'red';
+                ctx.lineWidth = 2;
+                let collisionX = obstacle.collisionArea.x;
+                let collisionY = obstacle.collisionArea.y - cameraY;
+                if(obstacle.collisionArea.y > 400) collisionY += 175;
+                ctx.strokeRect(collisionX, collisionY, obstacle.collisionArea.width, obstacle.collisionArea.height * 2.05);
+                ctx.restore();
+            }
         }
     }
     
@@ -136,8 +140,8 @@ function corredor() {
     }
 
     // Bordas
-    addObstacle(0, 70 + playerenterposition, canvasWidth, 15); // Borda superior 
-    addObstacle(0, 488 + playerenterposition, canvasWidth, 15); // Borda inferior
+    addObstacle(0, 70 + playerenterposition, canvasWidth, 15); // Borda superior
+    addObstacle(0, 670, canvasWidth, 20, '../assets/objects/BordaFundo.png', { x: 0, y: 495 + playerenterposition, width: canvasWidth, height: 10 });
     addObstacle(0, 0 + playerenterposition, 15, canvasHeight); // Borda esquerda
     addObstacle(canvasWidth - 15, 0 + playerenterposition, 15, canvasHeight); // Borda direita
 
@@ -151,6 +155,7 @@ function corredor() {
     addObstacle(15, 90 + playerenterposition, 145, 5);
     addObstacle(345, 90 + playerenterposition, 140, 5);
 
+    //Plantas
     addObstacle(18, 224, 67, 39, '../assets/objects/Corredor-Plantas.png');
     addObstacle(414, 224, 67, 39, '../assets/objects/Corredor-Plantas.png');
 

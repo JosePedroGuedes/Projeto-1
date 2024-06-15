@@ -23,7 +23,7 @@ function updateInventoryUI() {
             switch(item.name){
                 case "Bilhete":
                     console.log('O elemento Bilhete foi clicado!');
-                    showDialog(1);
+                    showDialog(2);
                     break;
                 case "Chave":
                     console.log('O elemento Chave foi clicado!');

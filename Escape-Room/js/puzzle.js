@@ -13,7 +13,6 @@ function checkPuzzleFinish(){
     return gameFinishedPuzzle;
 }
 
-
 function shuffleArray(array) {
     // Embaralhar o array e retornar o resultado
     for (let i = array.length - 1; i > 0; i--) {
@@ -61,23 +60,35 @@ function initializeGame() {
 
 function openGamePuzzle() {
     console.log("Abrindo o jogo de quebra-cabeça...");
+
+    // Carrega o script puzzle.js dinamicamente se ainda não estiver carregado
+    if (!gameStarted) {
+        initializeGame();
+        gameStarted = true;
+    } else {
+        initializeGame();
+    }
+
     document.getElementById("minigamePuzzle").style.display = "block";
     stopMovement = true;
-    initializeGame(); // Inicializa o tabuleiro
 
     // Adicionar ouvinte de evento para a tecla Esc
     document.addEventListener("keydown", handleEscKey);
 }
 
+
 function closeGamePuzzle() {
     console.log("Fechando o jogo de quebra-cabeça...");
     document.getElementById("minigamePuzzle").style.display = "none";
     stopMovement = false;
-    removeEventListeners(); // Remove os eventos de drag quando o jogo é fechado
+
+    // Remove os event listeners de drag quando o jogo é fechado
+    removeEventListeners();
 
     // Remover ouvinte de evento para a tecla Esc
     document.removeEventListener("keydown", handleEscKey);
 }
+
 
 // Função para remover os eventos de drag
 function removeEventListeners() {
@@ -98,10 +109,24 @@ function dragStart() {
     currTile = this; // A peça de origem
 }
 
+var dragOverTimeout = null;
+var dragOverDelay = 50; // Tempo de atraso em milissegundos
+
 function dragOver(e) {
     console.log("Arraste sobre...");
     e.preventDefault();
+
+    // Verifica se já existe um timeout em execução, se sim, não faz nada
+    if (dragOverTimeout) return;
+
+    // Aguarda um pequeno atraso para executar o processamento
+    dragOverTimeout = setTimeout(() => {
+        // Lógica de processamento aqui
+        // Por exemplo, você pode adicionar uma classe de destaque ou executar outras ações
+        dragOverTimeout = null; // Limpa o timeout para permitir o próximo processamento
+    }, dragOverDelay);
 }
+
 
 function dragEnter(e) {
     console.log("Entrando no alvo de arraste...");
@@ -121,7 +146,7 @@ function dragEnd() {
     console.log("Finalizando o arraste...");
     const blankTileSrc = "9.png"; // Apenas o nome da imagem da peça vazia
     const otherTileSrc = otherTile.src.split("/").pop(); // Apenas o nome da imagem da outra peça
-    
+
     if (otherTileSrc !== blankTileSrc) {
         console.log("A outra peça não é a peça vazia. Cancelando...");
         return;
@@ -144,20 +169,22 @@ function dragEnd() {
     let isAdjacent = moveLeft || moveRight || moveUp || moveDown;
 
     if (isAdjacent) {
-        console.log("Movimento válido. Trocando peças...");
-        let currImg = currTile.src;
-        let otherImg = otherTile.src;
+        setTimeout(() => {
+            console.log("Movimento válido. Trocando peças...");
+            let currImg = currTile.src;
+            let otherImg = otherTile.src;
 
-        currTile.src = otherImg;
-        otherTile.src = currImg;
+            currTile.src = otherImg;
+            otherTile.src = currImg;
 
-        // Atualizar a ordem das imagens
-        updateImgOrder();
+            // Atualizar a ordem das imagens
+            updateImgOrder();
 
-        turns += 1;
-        document.getElementById("turns").innerText = `Tentativas: ${turns}`;
+            turns += 1;
+            document.getElementById("turns").innerText = `Tentativas: ${turns}`;
 
-        checkCompletion();
+            checkCompletion();
+        }, 100); // Adiciona um atraso de 100ms
     } else {
         console.log("Movimento inválido. Cancelando...");
     }

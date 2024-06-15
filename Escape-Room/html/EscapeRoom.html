@@ -25,7 +25,7 @@
         <p id="dialogText"></p>
     </div>
 
-    <div class="menu-container">
+    <div class="menu-container" id="menuContainer">
         <div class="menu">
             <div class="intro">
                 <h1 class="firsttitle">Escape Room TSIW</h1>
@@ -48,7 +48,7 @@
                 <li><img src="../assets/menu/teclas/f.png" alt="F"> : Botão de interação/Ações</li>
                 <li><img src="../assets/menu/teclas/Esc.png" alt="Esc"> : Aceder Menu</li>
             </ul>
-            <button class="start-button">Começar Jogo</button>
+            <button class="start-button" id="startGameBtn">Começar Jogo</button>
         </div>
     </div>
 
@@ -102,17 +102,16 @@
 
     <div id="adminPainel">
         <h2>Admin Control</h2>
-        <button onclick="loadLevelAdmin(0)">Corredor</button>
-        <button onclick="loadLevelAdmin(1)">Nível 1</button>
-        <button onclick="loadLevelAdmin(2)">Nível 2</button>
-        <button onclick="loadLevelAdmin(3)">Nível 3</button>
-        <button onclick="loadLevelAdmin(4)">Nível 4</button>
-        <button onclick="">Abrir Porta Final</button>
-        <button onclick="restartTimer()">Reniciar Tempo</button>
-        <button onclick="">Acabar Jogo</button>
-        <button onclick="">Bordas On/Off</button>
-        <!-- Adicione mais botões para outros níveis conforme necessário -->
+        <button id="corredorBtn">Corredor</button>
+        <button id="nivel1Btn">Nível 1</button>
+        <button id="nivel2Btn">Nível 2</button>
+        <button id="nivel3Btn">Nível 3</button>
+        <button id="restartTimerBtn">Reniciar Timer</button>
+        <button id="restartGameBtn">Reniciar Jogo</button>
+        <button id="acabarJogoBtn">Acabar Jogo</button>
+        <button id="bordasOnOffBtn">Bordas On/Off</button>
     </div>
+    
 
     <script src="../js/timer.js"></script>
     <script src="../js/loadLevel.js"></script>
@@ -129,8 +128,8 @@
     <script src="../js/level1.js"></script>
     <script src="../js/level2.js"></script>
     <script src="../js/level3.js"></script>
-    <script src="../js/level4.js"></script>
     <script src="../js/admin.js"></script>
+    <script src="../js/endGame.js"></script>
 
 </body>
 

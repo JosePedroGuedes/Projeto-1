@@ -14,6 +14,11 @@ document.getElementById('inventoryContainer').style.left = novaPosicaoX + 'px';
 const canvasWidth2 = 500;
 const canvasHeight2 = 700;
 
+function clearGameObjects() {
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    obstacles = [];
+}
+
 // Define as variáveis do jogo
 const keyImage = new Image();
 keyImage.src = '../assets/collectibles/ChaveSala1.png';
@@ -72,7 +77,7 @@ Sala3Door1Image.src = '../assets/objects/RightDoorStage3.png';
 
 const Sala3Door1 = { // porta do nível 1
     x: 13,
-    y: 132,
+    y: 112,
     width: null, // Inicialmente null
     height: null, // Inicialmente null
     isOpen: true,
