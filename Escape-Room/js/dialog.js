@@ -63,3 +63,7 @@ dialogMap[11] = 'Já completou o minigame de Advinhar Palavras. Agora falta acab
 dialogMap[12] = 'Parabéns! Você completou ambos os minigames!! A porta para o próximo desafio foi aberta!!';
 dialogMap[13] = '"Falta-me encontrar onde está o código desta porta. Deve estar em algum bilhete por aí"';
 dialogMap[14] = 'Complete os outros desafios para poder aceder a esta porta';
+dialogMap[15] = '"Preciso de encontrar a chave para abrir esta porta"';
+dialogMap[16] = 'Tem de completar o desafio atual para ter acesso á porta!';
+dialogMap[17] = 'Tem de completar todos os desafios para poder finalizar!!';
+dialogMap[18] = 'Essa porta tem um segredo atrás dela. Só os jogadores mais atentos e exploradores que vão conseguir abrir a porta.';

@@ -38,6 +38,8 @@ function loadLevel1() {
                 Sala1Door1.isOpen = true;
             }
         }, 200);
+
+        timeFirstLeve1 = timerElement.innerText;
     }
 
     let keyRadius = 55;

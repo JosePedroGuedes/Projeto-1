@@ -170,7 +170,10 @@ function closeGameGuessWord() {
 
 function handleEscKey(event) {
     if (event.key === "Escape") {
-        closeGameGuessWord();
+        removeEventListeners()
+        stopMovement = true;
+        document.getElementById("guessWordGame").style.display = "none";
+        document.removeEventListener("keydown", handleEscKey);
     }
 }
 

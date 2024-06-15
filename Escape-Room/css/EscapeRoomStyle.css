@@ -588,3 +588,102 @@ canvas {
     cursor: url('../assets/dialog/Mouse.png'), auto;
     color: #3b3b3b;
 }
+
+.endGame-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow-y: auto;
+    display: block;
+    width: 50rem;
+}
+
+.endGame {
+    background-image: url("../assets/menu/menuImage.png");
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed; /* Adicionando a imagem de fundo fixa */
+    padding: 2rem 7.5rem 2rem 7.5rem;
+    text-align: center;
+    font-family: 'Retro', sans-serif;
+}
+
+.endGame .firsttitle {
+    color: #333;
+    font-size: 2rem;
+    margin: 0 0 15px 0;
+}
+
+.endGame .introduction, .instructions {
+    font-size: 1rem;
+    color: #000000;
+    margin: 0 0 10px 0; /* Adicionando margem inferior */
+}
+
+.endGame .title, .subtitle {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0 0 5px 0;
+}
+
+.endGame .stats-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    text-align: left;
+}
+
+.endGame .stats-column {
+    flex: 1;
+    padding: 0 1rem;
+}
+
+.endGame .stats-column h3 {
+    text-align: center;
+    margin: 1rem 0 0.5rem 0;
+    font-size: 1.2rem;
+    color: #960013;
+}
+
+.endGame .stats-column ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.endGame .stats-column li {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.endGame .stats-column span {
+    font-weight: bold;
+}
+
+.endGame .start-button-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem; /* Espaço entre os botões */
+    margin-top: 1.5rem;
+}
+
+.endGame .start-button {
+    background: none;
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    background-size: contain;
+    font-family: 'Retro', sans-serif;
+    font-size: 1.5rem; /* Reduzido o tamanho do texto */
+    color: #000;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: color 0.3s ease;
+}
+
+.endGame .start-button:hover {
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    color: #3b3b3b;
+}

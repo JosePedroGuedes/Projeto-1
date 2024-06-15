@@ -1,4 +1,21 @@
-// Função para carregar o nível de admin
+//Informações usadas no final do jogo
+
+let timeFirstLevel = "--:--";
+let timeFirstLeve2 = "--:--";
+let timeFirstLeve3 = "--:--";
+let timeEscapeRoom = "--:--";
+
+let numberFailsCode = 0;
+let numberTriesPuzzle = 0;
+let numberFailsWord = 0;
+
+let numberFailsMath = 0;
+
+let acessSecretRoom = "Nao";
+let numberBackpacks = 0;
+
+let didWin = "";
+
 function loadLevelAdmin(levelIndex) {
     if(levelIndex != levelLoad){
         clearGameObjects();
@@ -11,8 +28,7 @@ function loadLevelAdmin(levelIndex) {
 
 // Função para reiniciar o timer
 function restartTimer() {
-    // Parar o intervalo existente, se houver
-    clearInterval(timerInterval);
+
     // Resetar o total de segundos para o valor original (20 minutos em segundos)
     totalSeconds = 20 * 60;
     // Atualizar o elemento do timer para exibir o tempo original
@@ -48,7 +64,7 @@ document.getElementById('restartTimerBtn').addEventListener('click', function() 
 });
 
 document.getElementById('acabarJogoBtn').addEventListener('click', function() {
-    // Implementar lógica para acabar o jogo
+    window.location.href = '../html/endGame.html';
 });
 
 document.getElementById('bordasOnOffBtn').addEventListener('click', function() {
