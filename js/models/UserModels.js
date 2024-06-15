@@ -5,7 +5,7 @@ export function init() {
   if (localStorage.users) {
     const tempUsers = JSON.parse(localStorage.users);
     for (let user of tempUsers) {
-      users.push(new User(user.username, user.email, user.password));
+      users.push(new User(user.username, user.email, user.password, user.bestTime));
     }
   } else {
     users = [];
@@ -13,7 +13,7 @@ export function init() {
 }
 
 // ADICIONAR UTILIZADOR
-export function add(username, email, password) {
+export function add(username, email, password, bestTime) {
   if (
     users.some((user) => user.username === username || user.email === email)
   ) {
@@ -21,7 +21,7 @@ export function add(username, email, password) {
       `User with username "${username}" or email "${email}" already exists!`
     );
   } else {
-    users.push(new User(username, email, password));
+    users.push(new User(username, email, password, bestTime));
     localStorage.setItem("users", JSON.stringify(users));
   }
 }
