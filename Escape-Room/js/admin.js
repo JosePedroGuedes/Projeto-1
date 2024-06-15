@@ -1,21 +1,3 @@
-//Informações usadas no final do jogo
-
-let timeFirstLevel = "--:--";
-let timeFirstLeve2 = "--:--";
-let timeFirstLeve3 = "--:--";
-let timeEscapeRoom = "--:--";
-
-let numberFailsCode = 0;
-let numberTriesPuzzle = 0;
-let numberFailsWord = 0;
-
-let numberFailsMath = 0;
-
-let acessSecretRoom = "Nao";
-let numberBackpacks = 0;
-
-let didWin = "";
-
 function loadLevelAdmin(levelIndex) {
     if(levelIndex != levelLoad){
         clearGameObjects();
@@ -64,7 +46,7 @@ document.getElementById('restartTimerBtn').addEventListener('click', function() 
 });
 
 document.getElementById('acabarJogoBtn').addEventListener('click', function() {
-    window.location.href = '../html/endGame.html';
+    endEscapeRoom();
 });
 
 document.getElementById('bordasOnOffBtn').addEventListener('click', function() {

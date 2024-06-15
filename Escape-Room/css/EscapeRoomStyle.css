@@ -20,6 +20,7 @@ body {
 
 #gameContainer {
     position: relative;
+    display: none;
 }
 
 canvas {
@@ -28,6 +29,7 @@ canvas {
 
 
 #inventoryContainer {
+    display: none;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -144,6 +146,7 @@ canvas {
 }
 
 #timerContainer {
+    display: none;
     position: absolute;
     top: 10px;
     left: 10px;
@@ -355,6 +358,7 @@ canvas {
 
 
 #adminPainel {
+    display: none;
     position: absolute;
     top: 50%;
     left: 10px;
@@ -533,7 +537,7 @@ canvas {
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed; /* Adicionando a imagem de fundo fixa */
-    padding: 2rem 9.5rem 2rem 9.5rem;
+    padding: 1rem 9.5rem 2rem 9.5rem;
     text-align: center;
     font-family: 'Retro', sans-serif;
 }
@@ -541,7 +545,6 @@ canvas {
 .menu .firsttitle {
     color: #333;
     font-size: 2rem;
-    margin: 0 0 15px 0;
 }
 
 .menu .introduction, .instructions {
@@ -575,13 +578,14 @@ canvas {
     cursor: url('../assets/dialog/Mouse.png'), auto;
     background-size: contain;
     font-family: 'Retro', sans-serif;
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: #000000;
     border: none;
     cursor: pointer;
     margin-left: auto; /* Alinhando à esquerda */
     margin-right: auto; /* Alinhando à direita */
     display: block; /* Garantindo que o botão fique em uma linha separada */
+    margin-top: 1rem;
 }
 
 .menu .start-button:hover {
@@ -589,13 +593,14 @@ canvas {
     color: #3b3b3b;
 }
 
+
 .endGame-container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     overflow-y: auto;
-    display: block;
+    display: none;
     width: 50rem;
 }
 

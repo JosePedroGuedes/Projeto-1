@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <div id="dialogBox" class="dialog-box">
+    <div id="dialogBox" class="dialog-box hidden">
         <p id="dialogText"></p>
     </div>
 
@@ -123,22 +123,22 @@
                 <div class="stats-column">
                     <h3>Tempos</h3>
                     <ul>
-                        <li>Completou o nível 1 às <span>--:--</span></li>
-                        <li>Completou o nível 2 às <span>--:--</span></li>
-                        <li>Completou o nível 3 às <span>--:--</span></li>
-                        <li>Completou o Escape Room às <span>--:--</span></li>
-                        <li>Recorde Tempo Pessoal: <span>--:--</span></li>
+                        <li>Completou o nível 1 às <span id="timeLevel1">--:--</span></li>
+                        <li>Completou o nível 2 às <span id="timeLevel2">--:--</span></li>
+                        <li>Completou o nível 3 às <span id="timeLevel3">--:--</span></li>
+                        <li>Completou o Escape Room às <span id="timeEscapeRoom">--:--</span></li>
+                        <li>Recorde Tempo Pessoal: <span id="personalBestTime">--:--</span></li>
                     </ul>
                 </div>
                 <div class="stats-column">
                     <h3>Outros</h3>
                     <ul>
-                        <li>Nº de vezes que falhou o código binário: <span>0</span></li>
-                        <li>Nº de tentativas no Puzzle: <span>0</span></li>
-                        <li>Nº de palavras erradas no jogo das Palavras: <span>0</span></li>
-                        <li>Nº de perguntas erradas no quiz da Matemática: <span>0</span></li>
-                        <li>Nº de vezes erradas no desafio Final: <span>0</span></li>
-                        <li>Conseguiu aceder á sala secreta: <span>Nao</span></li>
+                        <li>Nº de vezes que falhou o código binário: <span id="numberFailsCode">0</span></li>
+                        <li>Nº de tentativas no Puzzle: <span id="numberTriesPuzzle">0</span></li>
+                        <li>Nº de palavras erradas no jogo das Palavras: <span id="numberFailsWord">0</span></li>
+                        <li>Nº de perguntas erradas no quiz da Matemática: <span id="numberFailsMath">0</span></li>
+                        <li>Nº de vezes erradas no desafio Final: <span id="numberFinalFails">0</span></li>
+                        <li>Conseguiu aceder á sala secreta: <span id="accessSecretRoom">Nao</span></li>
                     </ul>
                 </div>
             </div>
@@ -147,8 +147,7 @@
                 <button class="start-button" id="replayGameBtn">Jogar Novamente</button>
             </div>
         </div>
-    </div>
-    
+    </div>    
 
     <script src="../js/timer.js"></script>
     <script src="../js/loadLevel.js"></script>
@@ -165,8 +164,10 @@
     <script src="../js/level1.js"></script>
     <script src="../js/level2.js"></script>
     <script src="../js/level3.js"></script>
+    <script src="../js/finalGame.js"></script>
     <script src="../js/admin.js"></script>
-    <script type="module" src="../js/endGame.js"></script>
+    <script src="../js/statsEndGame.js"></script>
+    <script type="module" src="../js/updateBestTime.js"></script>
 
 </body>
 

@@ -39,7 +39,7 @@ function loadLevel1() {
             }
         }, 200);
 
-        timeFirstLeve1 = timerElement.innerText;
+        timeLevel1 = timerElement.innerText;
     }
 
     let keyRadius = 55;

@@ -1,10 +1,10 @@
 const userInfo = JSON.parse(sessionStorage.getItem("loggedUser"));
-const username = userInfo.username;
-
 if(!userInfo){
     window.location.href = '/index.html';
 }
-console.log(username);
+const username = userInfo.username;
+const idUser = userInfo.id;
+console.log("Bem vindo ao Escape Room" + username);
 
 const adminPainelContainer = document.getElementById("adminPainel");
 const timerContainer = document.getElementById("timerContainer");

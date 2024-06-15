@@ -2,8 +2,11 @@
 const playerImage = new Image();
 playerImage.src = '../assets/characters/walkCicle.png';
 
-const speedFactor = canvasWidth / 600; // Ajuste conforme necessário
-const playerSpeed = 2 * speedFactor; // Define uma velocidade inicial em pixels por segundo
+const referenceWidth = 2000; // Largura de referência
+const baseSpeed = 1.2; // Velocidade base em pixels por segundo
+const currentWidth = window.innerWidth; // Largura atual da tela
+const speedFactor = currentWidth / referenceWidth;
+const playerSpeed = baseSpeed * speedFactor;
 
 let player = {
   x: 20,
