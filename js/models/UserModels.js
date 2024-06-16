@@ -13,7 +13,7 @@ export function init() {
 }
 
 // ADICIONAR UTILIZADOR
-export function add(username, email, password, bestTime) {
+export function add(username, email, password, bestTime = "--:--") {
   if (
     users.some((user) => user.username === username || user.email === email)
   ) {
@@ -21,7 +21,8 @@ export function add(username, email, password, bestTime) {
       `User with username "${username}" or email "${email}" already exists!`
     );
   } else {
-    users.push(new User(username, email, password, bestTime));
+    const newUser = new User(username, email, password, bestTime);
+    users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
   }
 }
@@ -31,7 +32,6 @@ export function removeUser(username) {
   users = users.filter((user) => user.username !== username);
   localStorage.setItem("users", JSON.stringify(users));
 }
-
 
 // LOGIN DO UTILIZADOR
 export function login(email, password) {
@@ -70,7 +70,6 @@ function getNextId() {
   return users.length > 0 ? users.length + 1 : 1;
 }
 
-
 class User {
   id = null;
   username = "";
@@ -83,7 +82,6 @@ class User {
     this.username = username;
     this.email = email;
     this.password = password;
-    this.bestTime = bestTime;
+    this.bestTime = bestTime; // Atribui o valor de bestTime passado como parâmetro
   }
 }
-
