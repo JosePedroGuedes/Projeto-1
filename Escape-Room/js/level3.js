@@ -11,17 +11,6 @@ function loadLevel3() {
 
     let doorOpenRadius = 50;
 
-    function checkDoorInteraction() {
-        let playerCenterX = player.x + player.width / 2;
-        let playerCenterY = player.y + player.height / 2;
-        let doorCenterX = Sala3Door1.x + Sala3Door1.width / 2 + 20;
-        let doorCenterY = Sala3Door1.y + Sala3Door1.height / 2;
-
-        let distance = Math.sqrt(Math.pow(playerCenterX - doorCenterX, 2) + Math.pow(playerCenterY - doorCenterY, 2));
-
-        return distance < doorOpenRadius && key.isPickedUp && !Sala3Door1.isOpen && isKeyPressed('KeyF');
-    }
-
     function checkDoorPassage() {
         let playerCenterX = player.x + player.width / 2;
         let playerCenterY = player.y + player.height / 2 - 40;
@@ -160,8 +149,7 @@ function loadLevel3() {
         } else {
             finish = true;
             showDialog(9);
-            CorredorSala4Image.src = '../assets/objects/RightDoorStage3.png';
-            CorredorSala4.isOpen = true;
+            if(timeLevel3 != "--:--") timeLevel3 = timerElement.innerText;
             closePopup();
         }
     }
@@ -181,6 +169,7 @@ function loadLevel3() {
             currentQuestionIndex++;
             displayQuestion();
         } else {
+            numberFailsMath++;
             let randomDialog = Math.floor(Math.random() * 3) + 6;
             showDialog(randomDialog) //Dialogo 6, 7 ou 8
             closePopup();
@@ -252,15 +241,15 @@ function loadLevel3() {
     addObstacle(485, 70, 15, 500);
 
     // Mesa Professor
-    addObstacle(378, 138, 94, 21, '../assets/objects/Sala3-MesaProfessor.png', { x: 378, y: 153, width: 94, height: 15 });
+    addObstacle(378, 138, 94, 21, '../assets/objects/Sala3-MesaProfessor.png', { x: 378, y: 153, width: 94, height: 10 });
 
     //Mesas
-    addObstacle(290, 222, 182, 26, '../assets/objects/Sala3-Mesa.png', { x: 290, y: 232, width: 182, height: 20 });
-    addObstacle(290, 305, 182, 26, '../assets/objects/Sala3-Mesa.png', { x: 290, y: 315, width: 182, height: 20 });
-    addObstacle(290, 388, 182, 26, '../assets/objects/Sala3-Mesa.png', { x: 290, y: 398, width: 182, height: 20 });
-    addObstacle(38, 222, 182, 26, '../assets/objects/Sala3-Mesa.png', { x: 38, y: 232, width: 182, height: 20 });
-    addObstacle(38, 305, 182, 26, '../assets/objects/Sala3-Mesa.png', { x: 38, y: 315, width: 182, height: 20 });
-    addObstacle(38, 388, 182, 26, '../assets/objects/Sala3-Mesa.png', { x: 38, y: 398, width: 182, height: 20 });
+    addObstacle(290, 222, 182, 18, '../assets/objects/Sala3-Mesa.png', { x: 290, y: 232, width: 182, height: 10 });
+    addObstacle(290, 305, 182, 18, '../assets/objects/Sala3-Mesa.png', { x: 290, y: 315, width: 182, height: 10 });
+    addObstacle(290, 388, 182, 18, '../assets/objects/Sala3-Mesa.png', { x: 290, y: 398, width: 182, height: 10 });
+    addObstacle(38, 222, 182, 18, '../assets/objects/Sala3-Mesa.png', { x: 38, y: 232, width: 182, height: 10 });
+    addObstacle(38, 305, 182, 18, '../assets/objects/Sala3-Mesa.png', { x: 38, y: 315, width: 182, height: 10 });
+    addObstacle(38, 388, 182, 18, '../assets/objects/Sala3-Mesa.png', { x: 38, y: 398, width: 182, height: 10 });
 
     //Lixo
     addObstacle(15, 90, 22, 10);
@@ -292,10 +281,8 @@ function loadLevel3() {
                 player.y = nextY;
             }
 
-            if (isKeyPressed('KeyF') && !stopMovement) {
-                if (checkDoorInteraction()) {
-                    animateDoorOpening();
-                } else if (checkInteractionArea() && !stopMovement && !finish) {
+            if (isKeyPressed('KeyF') && !stopMovement && !isPaused) {
+                if (checkInteractionArea() && !stopMovement && !finish) {
                     showQuadroPopup();
                     generateMathQuestions();
                 }

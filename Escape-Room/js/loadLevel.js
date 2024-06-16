@@ -48,6 +48,7 @@ function endEscapeRoom() {
     inventoryContainer.style.display = "none";
     menuContainer.style.display = "none";
     endGameContainer.style.display = "block";
+    timeEscapeRoom = timerElement.innerText;
     updateStats();
 }
 

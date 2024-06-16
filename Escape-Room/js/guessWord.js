@@ -111,6 +111,7 @@ function initGame(e) {
             setTimeout(randomWord, 100);
         }
     } else if (maxGuesses < 1) {
+        numberFailsWord++;
         guessLeft.innerText = 0;
         resetBtn.style.display = "block";
         correctLetters = [];

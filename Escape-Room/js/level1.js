@@ -197,7 +197,6 @@ function loadLevel1() {
                 } else if (checkKeyInteraction() && !key.isPickedUp) {
                     key.isPickedUp = true;
                     addToInventory({ name: 'Chave', imageSrc: '../assets/inventory/Level1-Key.png' });
-                    localStorage.setItem('inventory', JSON.stringify(inventory));
                 }
             }
         }

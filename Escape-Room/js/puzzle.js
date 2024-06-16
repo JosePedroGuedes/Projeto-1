@@ -176,6 +176,7 @@ function checkCompletion() {
 
     gameFinishedPuzzle = true;
     document.getElementById("turns").innerText = `Parabéns! Fizeste o puzzle em ${turns} tentativas!`;
+    numberTriesPuzzle = turns;
 }
 
 document.addEventListener("DOMContentLoaded", () => {

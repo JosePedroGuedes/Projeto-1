@@ -35,6 +35,7 @@ function corredor() {
             drawDoors();
             hidePasswordPanel();
         } else {
+            numberFailsCode++;
             showDialog(3);
             hidePasswordPanel();
         }
@@ -158,7 +159,8 @@ function corredor() {
     //Plantas
     addObstacle(18, 224, 67, 39, '../assets/objects/Corredor-Plantas.png');
     addObstacle(414, 224, 67, 39, '../assets/objects/Corredor-Plantas.png');
-
+    addObstacle(16, 650, 34, 19, '../assets/objects/Corredor-PlantasPequenas.png', { x: 16, y: 488 + playerenterposition, width: 30, height: 3 });
+    addObstacle(450, 650, 34, 19, '../assets/objects/Corredor-PlantasPequenas.png', { x: 452, y: 488 + playerenterposition, width: 30, height: 3 });
 
     function drawDoors() {
         ctx.drawImage(CorredorSala1Image, CorredorSala1.x, CorredorSala1.y - cameraY, CorredorSala1.width, CorredorSala1.height);
@@ -265,8 +267,8 @@ function corredor() {
                 adjustedPlayerY + player.height > nextDoorAdjustedY + 50) {
                 if (levelLoad == 0) {
                     clearGameObjects();
-                    player.x = Sala2Door1.x - 50;
-                    player.y = Sala2Door1.y;
+                    player.x = Sala2Door1.x - 80;
+                    player.y = Sala2Door1.y + 50;
                     loadLevel(2);
                     return;
                 }

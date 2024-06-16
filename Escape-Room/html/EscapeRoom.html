@@ -48,7 +48,11 @@
                 <li><img src="../assets/menu/teclas/f.png" alt="F"> : Botão de interação/Ações</li>
                 <li><img src="../assets/menu/teclas/Esc.png" alt="Esc"> : Aceder Menu</li>
             </ul>
-            <button class="start-button" id="startGameBtn">Começar Jogo</button>
+            <div class="buttons-container">
+                <button class="start-button" id="startGameBtn">Começar Jogo</button>
+                <button class="leaderBoard-button" id="leaderBoardBtn">Leaderboard</button>
+                <button class="exit-button" id="exitGameBtn">Sair</button>
+            </div>
         </div>
     </div>
 
@@ -73,19 +77,43 @@
         <span id="timer">20:00</span>
     </div>
 
-    <div id="pauseMenu" class="pause-menu">
-        <button id="closeButton" class="close-button">X</button>
-        <button id="continueButton">Continuar</button>
-        <button id="controlsButton">Controles</button>
-        <button id="exitButton">Sair</button>
+    <div class="pauseMenu-container" id="pauseMenuContainer">
+        <div id="pauseMenu" class="pause-menu">
+            <h2 class="title">Menu de Pausa</h2>
+            <button id="continueButton">Continuar</button>
+            <button id="controlsButton">Controlos</button>
+            <button id="exitButton">Sair</button>
+        </div>
+    </div>
+
+    <div class="controlsMenu-container" id="controlsMenuContainer">
+        <div id="controlsMenu" class="controls-menu">
+            <h2 class="subtitle">Controlos</h2>
+            <ul class="controls-list">
+                <li><img src="../assets/menu/teclas/w.png" alt="W"> , <img src="../assets/menu/teclas/SetaCima.png"
+                        alt="Seta para cima"> : Mover para cima</li>
+                <li><img src="../assets/menu/teclas/a.png" alt="A"> , <img src="../assets/menu/teclas/SetaEsquerda.png"
+                        alt="Seta para a esquerda"> : Mover para a esquerda</li>
+                <li><img src="../assets/menu/teclas/s.png" alt="S"> , <img src="../assets/menu/teclas/SetaBaixo.png"
+                        alt="Seta para baixo"> : Mover para baixo</li>
+                <li><img src="../assets/menu/teclas/d.png" alt="D"> , <img src="../assets/menu/teclas/SetaDireita.png"
+                        alt="Seta para a direita"> : Mover para a direita</li>
+                <li><img src="../assets/menu/teclas/f.png" alt="F"> : Botão de interação/Ações</li>
+                <li><img src="../assets/menu/teclas/Esc.png" alt="Esc"> : Aceder Menu</li>
+            </ul>
+            <button class="goBack-button" id="goBackBtn">Voltar</button>
+        </div>
     </div>
 
     <div id="minigamePuzzle">
         <span class="close-btn" onclick="closeGamePuzzle()">X</span>
         <h2>Puzzle da Esmad</h2>
         <div id="board"></div>
-        <div id="turns">Tentativas: 0</div>
+        <div id="turns-container">
+            <div id="turns">Tentativas: 0</div>
+        </div>
     </div>
+       
 
     <div id="guessWordGame">
         <span class="close-btn" onclick="closeGameGuessWord()">X</span>
@@ -116,7 +144,7 @@
         <div class="endGame">
             <div class="intro">
                 <h1 class="firsttitle">Muitos Parabéns!! Chegaste ao fim do jogo!</h1>
-                <p class="introduction">Obrigado por jogar o nosso Escape Room, <span id="spanUsername"></span>! Espero que se tenha divirtido!</p>
+                <p class="introduction">Obrigado por jogar o nosso Escape Room, <span id="spanUsernameEnd"></span>! Espero que se tenha divirtido!</p>
             </div>
             <h2 class="subtitle">Estatísticas do Jogo</h2>
             <div class="stats-container">
@@ -142,13 +170,48 @@
                     </ul>
                 </div>
             </div>
-            <div class="start-button-container">
-                <button class="start-button" id="exitGameBtn">Sair</button>
-                <button class="start-button" id="replayGameBtn">Jogar Novamente</button>
+            <div class="buttons-container">              
+                <button class="replay-button" id="replayGameBtn">Jogar Novamente</button>
+                <button class="leaderBoard-button" id="leaderBoardBtn">Leaderboard</button>
+                <button class="exit-button" id="exitGameBtn">Sair</button>
             </div>
         </div>
-    </div>    
+    </div>
 
+    <div class="leaderboard-container">
+        <div class="leaderboard">
+            <h1 class="title">Leaderboard</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Posição</th>
+                        <th>Nome</th>
+                        <th>Pontuação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Player 1</td>
+                        <td>1000</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Player 2</td>
+                        <td>950</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Player 3</td>
+                        <td>900</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="goBack-button" id="goBackeBtn">Sair</button>
+        </div>
+    </div>
+
+    <script src="../js/statsEndGame.js"></script>
     <script src="../js/timer.js"></script>
     <script src="../js/loadLevel.js"></script>
     <script src="../js/gameObjects.js"></script>
@@ -166,8 +229,7 @@
     <script src="../js/level3.js"></script>
     <script src="../js/finalGame.js"></script>
     <script src="../js/admin.js"></script>
-    <script src="../js/statsEndGame.js"></script>
-    <script type="module" src="../js/updateBestTime.js"></script>
+    
 
 </body>
 

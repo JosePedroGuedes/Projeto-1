@@ -14,8 +14,8 @@ function loadLevel2() {
     function checkDoorPassage() {
         let playerCenterX = player.x + player.width / 2;
         let playerCenterY = player.y + player.height / 2 + 30;
-        let doorCenterX = (Sala2Door1.x + Sala2Door1.width / 2);
-        let doorCenterY = Sala2Door1.y + Sala2Door1.height / 2 + 10;
+        let doorCenterX = (Sala2Door1.x + Sala2Door1.width / 2) + 28;
+        let doorCenterY = Sala2Door1.y + Sala2Door1.height / 2 + 45;
 
         let distance = Math.sqrt(Math.pow(playerCenterX - doorCenterX, 2) + Math.pow(playerCenterY - doorCenterY, 2));
 
@@ -61,17 +61,17 @@ function loadLevel2() {
     addObstacle(485, 70, 15, 500);
 
     // Mesa Professor
-    addObstacle(205, 165, 94, 46, '../assets/objects/Sala2-MesaProfessor.png', { x: 205, y: 190, width: 94, height: 20 });
+    addObstacle(205, 165, 94, 35, '../assets/objects/Sala2-MesaProfessor.png', { x: 205, y: 190, width: 94, height: 12 });
 
     // Mesa com Pc
-    addObstacle(39, 262, 118, 38, '../assets/objects/Sala2-MesaPc.png', { x: 42, y: 285, width: 113, height: 20 });
-    addObstacle(345, 262, 118, 38, '../assets/objects/Sala2-MesaPc.png', { x: 346, y: 285, width: 113, height: 20 });
+    addObstacle(39, 262, 118, 28, '../assets/objects/Sala2-MesaPc.png', { x: 42, y: 285, width: 113, height: 8 });
+    addObstacle(345, 262, 118, 28, '../assets/objects/Sala2-MesaPc.png', { x: 346, y: 285, width: 113, height: 8 });
 
     // Mesas
-    addObstacle(192, 270, 118, 35, '../assets/objects/Sala2-Mesa.png', { x: 195, y: 285, width: 112, height: 20 });
-    addObstacle(38, 372, 118, 35, '../assets/objects/Sala2-Mesa.png', { x: 42, y: 385, width: 112, height: 20 });
-    addObstacle(191, 372, 118, 35, '../assets/objects/Sala2-Mesa.png', { x: 195, y: 385, width: 112, height: 20 });
-    addObstacle(346, 372, 118, 35, '../assets/objects/Sala2-Mesa.png', { x: 348, y: 385, width: 112, height: 20 });
+    addObstacle(192, 270, 118, 19, '../assets/objects/Sala2-Mesa.png', { x: 195, y: 285, width: 112, height: 8 });
+    addObstacle(38, 372, 118, 19, '../assets/objects/Sala2-Mesa.png', { x: 42, y: 385, width: 112, height: 8 });
+    addObstacle(191, 372, 118, 19, '../assets/objects/Sala2-Mesa.png', { x: 195, y: 385, width: 112, height: 8 });
+    addObstacle(346, 372, 118, 19, '../assets/objects/Sala2-Mesa.png', { x: 348, y: 385, width: 112, height: 8 });
 
     // Adding interactive squares
     let pcRadius = [
@@ -145,6 +145,7 @@ function loadLevel2() {
             // Se ambos os minigames estiverem concluídos, mostra o diálogo 12
             if (isPuzzleComplete && isGuessWordComplete) {
                 showDialog(12);
+                if(timeLevel2 != "--:--") timeLevel2 = timerElement.innerText;
                 return;
             }
 
