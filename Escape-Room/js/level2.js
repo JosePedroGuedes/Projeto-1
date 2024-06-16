@@ -22,6 +22,28 @@ function loadLevel2() {
         return distance < doorOpenRadius && Sala2Door1.isOpen;
     }
 
+    function drawMochila() {
+        if (!mochila3.isPickedUp) {
+            ctx.drawImage(Mochila3Image, mochila3.x, mochila3.y, mochila3.width, mochila3.height);
+        }
+    }
+
+    let mochilaRadius = 55;
+
+    function checkMochilaInteraction() {
+        if (!mochila3.isPickedUp) {
+            let playerCenterX = player.x + player.width / 2;
+            let playerCenterY = player.y + player.height / 2;
+            let mochilaCenterX = mochila3.x + mochila3.width / 2;
+            let mochilaCenterY = mochila3.y + mochila3.height / 2;
+
+            let distance = Math.sqrt(Math.pow(playerCenterX - mochilaCenterX, 2) + Math.pow(playerCenterY - mochilaCenterY, 2));
+
+            return distance < mochilaRadius;
+        }
+        return false;
+    }
+
     function addObstacle(x, y, width, height, imagePath, collisionArea) {
         const obstacle = { x, y, width, height, imagePath };
         if (collisionArea) {
@@ -117,7 +139,7 @@ function loadLevel2() {
 
     // Listener de eventos fora do loop de jogo
     document.addEventListener("keydown", function (event) {
-        if (event.code === 'KeyF' && checkSquareInteraction() && !stopMovement) {
+        if (event.code === 'KeyF' && checkSquareInteraction() && !stopMovement && levelLoad == 2) {
             // Aqui você pode verificar qual quadrado está sendo interagido
             let minigame = checkSquareInteraction();
 
@@ -148,6 +170,7 @@ function loadLevel2() {
                 if(timeLevel2 != "--:--") timeLevel2 = timerElement.innerText;
                 CorredorSala3.isOpen = true;
                 CorredorSala3Image.src = '../assets/objects/LeftDoorStage3.png';
+                CorredorSala3.x = 456.3;
                 return;
             }
 
@@ -165,6 +188,9 @@ function loadLevel2() {
                     showDialog(11);
                 }
             }
+        } else if (event.code === 'KeyF' && checkMochilaInteraction() && !mochila3.isPickedUp) {
+            mochila3.isPickedUp = true;
+            addToInventory({ name: 'Mochila3', imageSrc: '../assets/inventory/Mochila3.png' });
         }
     });
 
@@ -204,6 +230,7 @@ function loadLevel2() {
             return;
         }
 
+        drawMochila();
         drawPlayer();
         drawObstacles();
         drawDoor();

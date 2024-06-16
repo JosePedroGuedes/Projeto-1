@@ -3,9 +3,9 @@ function checkCollision(dx, dy) {
     let nextX = player.x + dx;
     let nextY = player.y + dy;
     let playerRect = { 
-        x: nextX + 18, // Adiciona um deslocamento para a direita
+        x: nextX + 14, // Adiciona um deslocamento para a esquerda
         y: nextY + 5, // Mantém a mesma posição vertical
-        width: player.width - 40, // Reduz a largura para as laterais
+        width: player.width - 35, // Reduz a largura para as laterais
         height: player.height - 10 // Mantém a mesma altura
     };
 

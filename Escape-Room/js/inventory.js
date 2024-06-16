@@ -2,6 +2,18 @@ let inventory = [];
 // Função para adicionar um item ao inventário
 function addToInventory(item) {
     inventory.push(item);
+    if(item.name == "Mochila1" || item.name == "Mochila2" || item.name == "Mochila3" || item.name == "Mochila4") {
+        numberBackpacks++;
+    }
+
+    if(numberBackpacks == 4 && item.name!= "Bilhete" && item.name!= "Chave"){
+        CorredorSala4.isOpen = true;
+        CorredorSala4.x = 13;
+        CorredorSala4Image.src = '../assets/objects/RightDoorStage3.png';
+        isStop = true;
+        isPaused = true;
+        showDialog(20);
+    }
     updateInventoryUI();
 }
 
@@ -17,35 +29,14 @@ function updateInventoryUI() {
         itemElement.appendChild(itemImage);
         inventoryList.appendChild(itemElement);
 
+        
+
         // Adiciona um ouvinte de evento de clique ao itemElement
         itemElement.addEventListener('click', function() {
             // Verifica qual item foi clicado usando switch
-            switch(item.name){
-                case "Bilhete":
-                    console.log('O elemento Bilhete foi clicado!');
-                    showDialog(2);
-                    break;
-                case "Chave":
-                    console.log('O elemento Chave foi clicado!');
-                    break;
-                // Adicione outros casos conforme necessário
-                default:
-                    console.log('Item não reconhecido.');
+            if(item.name == "Bilhete"){
+                showDialog(2);
             }
-        });
-    });
-}
-
-function clickInventory(){
-    var elemenoBilhete= document.querySelectorAll('[alt="Bilhete"]');
-
-    // Itera sobre os elementos encontrados
-    elemenoBilhete.forEach(function(elemento) {
-        // Adiciona um ouvinte de evento de clique a cada elemento
-        elemento.addEventListener('click', function() {
-            // Insira aqui o código que você quer executar quando o elemento com o atributo alt específico for clicado
-            console.log('O elemento com alt específico foi clicado!');
-    
         });
     });
 }

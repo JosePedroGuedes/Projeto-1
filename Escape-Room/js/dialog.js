@@ -1,5 +1,7 @@
 let dialogMap = {};
+let secretDialog = false;
 hideDialog();
+
 
 function showDialog(key) {
     const dialogBox = document.getElementById('dialogBox');
@@ -25,6 +27,7 @@ function showDialog(key) {
 }
 
 function hideDialog() {
+    
     const dialogBox = document.getElementById('dialogBox');
     dialogBox.classList.add('hidden');
     isStop = false;
@@ -35,6 +38,18 @@ function hideDialog() {
     // Removendo eventos de clique e tecla Enter ao ocultar o diálogo
     document.removeEventListener('click', handleClickToAdvanceDialog);
     document.removeEventListener('keydown', handleKeyPressToAdvanceDialog);
+
+    if(secretDialog){
+        CorredorSala4.isOpen = false;
+        CorredorSala4.x = 13;
+        CorredorSala4Image.src = '../assets/objects/RightDoorStage1.png';
+        showDialog(21);
+        addTime(1,30);
+        secretDialog = false;
+        loadLevel(0);
+        player.x = CorredorSala4.x + 30;
+        player.y = CorredorSala4.y;
+    }
 }
 
 function handleClickToAdvanceDialog(event) {
@@ -66,4 +81,8 @@ dialogMap[14] = 'Complete os outros desafios para poder aceder a esta porta';
 dialogMap[15] = '"Preciso de encontrar a chave para abrir esta porta"';
 dialogMap[16] = 'Tem de completar o desafio atual para ter acesso á porta!';
 dialogMap[17] = 'Tem de completar todos os desafios para poder finalizar!!';
-dialogMap[18] = 'Essa porta tem um segredo atrás dela. Só os jogadores mais atentos e exploradores que vão conseguir abrir a porta.';
+dialogMap[18] = 'Porta Secreta - para a abrir é preciso encontrares as cores verde, rosa, vermelho e azul';
+dialogMap[19] = 'Pensavamos que ninguém iria conseguir entrar nesta sala. Estamos impressionados!! Serás recompensado por o conseguires. Mas não é suposto estares aqui, por isso SAI!!';
+dialogMap[20] = 'Conseguiste decifrar o desafio da sala secreta! A porta está aberta.';
+dialogMap[21] = '*Foi adicionado mais 01:30 minutos ao seu tempo*';
+

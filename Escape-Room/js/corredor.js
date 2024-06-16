@@ -78,6 +78,28 @@ function corredor() {
         }, 200);
     }
 
+    function drawMochila() {
+        if (!mochila2.isPickedUp) {
+            ctx.drawImage(Mochila2Image, mochila2.x, mochila2.y - cameraY, mochila2.width, mochila2.height);
+        }
+    }
+
+    let mochilaRadius = 55;
+
+    function checkMochilaInteraction() {
+        if (!mochila2.isPickedUp) {
+            let playerCenterX = player.x + player.width / 2;
+            let playerCenterY = player.y + player.height / 2;
+            let mochilaCenterX = mochila2.x + mochila2.width / 2;
+            let mochilaCenterY = mochila2.y + mochila2.height / 2;
+
+            let distance = Math.sqrt(Math.pow(playerCenterX - mochilaCenterX, 2) + Math.pow(playerCenterY - mochilaCenterY, 2));
+
+            return distance < mochilaRadius;
+        }
+        return false;
+    }
+
     function addObstacle(x, y, width, height, imagePath, collisionArea) {
         const obstacle = { x, y, width, height, imagePath };
         if (collisionArea) {
@@ -204,8 +226,10 @@ function corredor() {
         cameraY = Math.max(0, Math.min(gameHeight - canvasHeight, player.y - canvasHeight / 2));
     
         // Draw game elements
+        
         drawBackground();
         drawLeaveDoor();
+        drawMochila();
         drawPlayer();
         drawObstacles();
         drawDoors();        
@@ -236,6 +260,9 @@ function corredor() {
                 adjustedPlayerY < CorredorSala2AdjustedY + CorredorSala2.height &&
                 adjustedPlayerY + player.height > CorredorSala2AdjustedY ) {
                 showPasswordPanel();
+            } else if (checkMochilaInteraction() && !mochila2.isPickedUp) {
+                mochila2.isPickedUp = true;
+                addToInventory({ name: 'Mochila2', imageSrc: '../assets/inventory/Mochila2.png' });
             }
         }
     
@@ -270,6 +297,42 @@ function corredor() {
                     player.x = Sala2Door1.x - 80;
                     player.y = Sala2Door1.y + 50;
                     loadLevel(2);
+                    return;
+                }
+            }
+        }
+
+        if (CorredorSala3.isOpen) {
+            const nextDoorAdjustedX = CorredorSala3.x;
+            const nextDoorAdjustedY = CorredorSala3.y + 80;
+    
+            if (adjustedPlayerX < nextDoorAdjustedX + CorredorSala3.width + 40 &&
+                adjustedPlayerX + player.width > nextDoorAdjustedX + 40 &&
+                adjustedPlayerY < nextDoorAdjustedY + CorredorSala3.height - 120 &&
+                adjustedPlayerY + player.height > nextDoorAdjustedY) {
+                if (levelLoad == 0) {
+                    clearGameObjects();
+                    player.x = Sala3Door1.x + 30;
+                    player.y = Sala3Door1.y + 20;
+                    loadLevel(3);
+                    return;
+                }
+            }
+        }
+
+        if (CorredorSala4.isOpen) {
+            const nextDoorAdjustedX = CorredorSala4.x;
+            const nextDoorAdjustedY = CorredorSala4.y + 50;
+    
+            if (adjustedPlayerX < nextDoorAdjustedX + CorredorSala4.width - 40 &&
+                adjustedPlayerX + player.width > nextDoorAdjustedX - 40 &&
+                adjustedPlayerY < nextDoorAdjustedY + CorredorSala4.height - 90 &&
+                adjustedPlayerY + player.height > nextDoorAdjustedY + 50) {
+                if (levelLoad == 0) {
+                    clearGameObjects();
+                    player.x = Sala2Door1.x - 30;
+                    player.y = Sala2Door1.y;
+                    loadLevel(-1);
                     return;
                 }
             }

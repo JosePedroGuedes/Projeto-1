@@ -846,7 +846,6 @@ body.menu-blur::before {
     max-width: 43rem;
     height: 100%;
     max-height: 43rem;
-    overflow: auto;
 }
 
 .leaderboard-container .leaderboard {
@@ -874,7 +873,7 @@ body.menu-blur::before {
 .leaderboard .table-container {
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
-    overflow: hidden;
+    overflow: auto;
     flex: 1;
     display: flex;
     justify-content: center; /* Centraliza horizontalmente */
@@ -882,7 +881,7 @@ body.menu-blur::before {
 }
 
 .leaderboard table {
-    width: 90%; /* Ajustado para 90% do container para deixar espaço nos lados */
+    width: 100%;
     max-width: 100%;
     border-collapse: collapse;
     overflow-y: auto;
@@ -919,3 +918,4 @@ body.menu-blur::before {
     cursor: url('../assets/dialog/Mouse.png'), auto;
     color: #3b3b3b;
 }
+

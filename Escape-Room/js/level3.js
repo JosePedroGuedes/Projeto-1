@@ -193,6 +193,27 @@ function loadLevel3() {
     }
 
 
+    function drawMochila() {
+        if (!mochila4.isPickedUp) {
+            ctx.drawImage(Mochila4Image, mochila4.x, mochila4.y, mochila4.width, mochila4.height);
+        }
+    }
+
+    let mochilaRadius = 55;
+
+    function checkMochilaInteraction() {
+        if (!mochila4.isPickedUp) {
+            let playerCenterX = player.x + player.width / 2;
+            let playerCenterY = player.y + player.height / 2;
+            let mochilaCenterX = mochila4.x + mochila4.width / 2;
+            let mochilaCenterY = mochila4.y + mochila4.height / 2;
+
+            let distance = Math.sqrt(Math.pow(playerCenterX - mochilaCenterX, 2) + Math.pow(playerCenterY - mochilaCenterY, 2));
+
+            return distance < mochilaRadius;
+        }
+        return false;
+    }
     
     function addObstacle(x, y, width, height, imagePath, collisionArea) {
         const obstacle = { x, y, width, height, imagePath };
@@ -285,6 +306,9 @@ function loadLevel3() {
                 if (checkInteractionArea() && !stopMovement && !finish) {
                     showQuadroPopup();
                     generateMathQuestions();
+                } else if (checkMochilaInteraction() && !mochila4.isPickedUp) {
+                    mochila4.isPickedUp = true;
+                    addToInventory({ name: 'Mochila4', imageSrc: '../assets/inventory/Mochila4.png' });
                 }
             }
         }
@@ -297,6 +321,7 @@ function loadLevel3() {
             return;
         }
 
+        drawMochila();
         drawPlayer();
         drawObstacles();
         drawDoor();

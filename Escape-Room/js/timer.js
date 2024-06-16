@@ -33,3 +33,13 @@ function pad(val) {
         return valString;
     }
 }
+
+function addTime(minutesToAdd, secondsToAdd) {
+    let additionalSeconds = minutesToAdd * 60 + secondsToAdd;
+    totalSeconds += additionalSeconds;
+
+    // Atualizar a exibição do timer imediatamente
+    let minutes = Math.floor(totalSeconds / 60);
+    let seconds = totalSeconds % 60;
+    timerElement.innerText = pad(minutes) + ":" + pad(seconds);
+}
