@@ -206,15 +206,20 @@ canvas {
 
 
 .pauseMenu-container {
-    display: none; /* Inicialmente oculto */
-    position: fixed; /* Posição fixa para manter o menu no lugar */
+    display: none;
+    /* Inicialmente oculto */
+    position: fixed;
+    /* Posição fixa para manter o menu no lugar */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 20rem; /* 400px convertido para rem */
-    height: 20rem; /* Ajuste a altura conforme necessário */
+    width: 20rem;
+    /* 400px convertido para rem */
+    height: 20rem;
+    /* Ajuste a altura conforme necessário */
     text-align: center;
-    z-index: 1002; /* Coloca o menu de pausa acima da sobreposição */
+    z-index: 1002;
+    /* Coloca o menu de pausa acima da sobreposição */
 }
 
 .pauseMenu-container .pause-menu {
@@ -226,63 +231,83 @@ canvas {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-attachment: fixed; /* Adicionando a imagem de fundo fixa */
-    padding: 2.2rem; /* Ajuste o padding conforme necessário */
+    background-attachment: fixed;
+    /* Adicionando a imagem de fundo fixa */
+    padding: 2.2rem;
+    /* Ajuste o padding conforme necessário */
     box-sizing: border-box;
     font-family: 'Retro', sans-serif;
 }
 
 .pause-menu .title {
-    color: #333; /* Cor do título */
-    font-size: 1.6rem; /* Tamanho do título */
-    margin: 0.2rem 0 0.5rem 0; /* Margem inferior */
+    color: #333;
+    /* Cor do título */
+    font-size: 1.6rem;
+    /* Tamanho do título */
+    margin: 0.2rem 0 0.5rem 0;
+    /* Margem inferior */
 }
 
 .pause-menu button {
-    display: inline-block; /* Alterado para inline-block para centralizar corretamente */
-    width: 80%; /* Ajuste a largura conforme necessário */
-    margin: 1.2rem auto; /* Centraliza verticalmente e horizontalmente */
+    display: inline-block;
+    /* Alterado para inline-block para centralizar corretamente */
+    width: 80%;
+    /* Ajuste a largura conforme necessário */
+    margin: 1.2rem auto;
+    /* Centraliza verticalmente e horizontalmente */
     padding: 0.1rem 0;
     font-size: 1.4rem;
     font-family: 'Retro', sans-serif;
     cursor: url('../assets/dialog/Mouse.png'), auto;
     background-color: transparent;
-    color: #000000e6; /* Cor do texto */
+    color: #000000e6;
+    /* Cor do texto */
     border: none;
     border-radius: 0.5rem;
 }
 
 .pause-menu button:hover {
-    color: #393939; /* Cor do texto ao passar o mouse */
+    color: #393939;
+    /* Cor do texto ao passar o mouse */
 }
 
 /* Efeito de desfoque e opacidade reduzida no fundo da página */
 body.menu-blur {
-    overflow: hidden; /* Impede a rolagem do corpo quando o menu está aberto */
+    overflow: hidden;
+    /* Impede a rolagem do corpo quando o menu está aberto */
 }
 
 body.menu-blur::before {
-    content: ''; /* Pseudo-elemento sem conteúdo */
-    position: fixed; /* Pseudo-elemento fixo para cobrir toda a tela */
+    content: '';
+    /* Pseudo-elemento sem conteúdo */
+    position: fixed;
+    /* Pseudo-elemento fixo para cobrir toda a tela */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    backdrop-filter: blur(1.5px); /* Efeito de desfoque */
-    z-index: 1002; /* Coloca o fundo semi-transparente abaixo do menu */
+    backdrop-filter: blur(1.5px);
+    /* Efeito de desfoque */
+    z-index: 1002;
+    /* Coloca o fundo semi-transparente abaixo do menu */
 }
 
 
 .controlsMenu-container {
-    display: none; /* Inicialmente oculto */
-    position: fixed; /* Posição fixa para manter o menu no lugar */
+    display: none;
+    /* Inicialmente oculto */
+    position: fixed;
+    /* Posição fixa para manter o menu no lugar */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 25rem; /* 400px convertido para rem */
-    height: 25rem; /* Ajuste a altura conforme necessário */
+    width: 25rem;
+    /* 400px convertido para rem */
+    height: 25rem;
+    /* Ajuste a altura conforme necessário */
     text-align: center;
-    z-index: 1002; /* Coloca o menu de pausa acima da sobreposição */
+    z-index: 1002;
+    /* Coloca o menu de pausa acima da sobreposição */
 }
 
 .controlsMenu-container .controls-menu {
@@ -294,51 +319,69 @@ body.menu-blur::before {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-attachment: fixed; /* Adicionando a imagem de fundo fixa */
-    padding: 2.2rem; /* Ajuste o padding conforme necessário */
+    background-attachment: fixed;
+    /* Adicionando a imagem de fundo fixa */
+    padding: 2.2rem;
+    /* Ajuste o padding conforme necessário */
     box-sizing: border-box;
     font-family: 'Retro', sans-serif;
 }
 
 .controls-menu .subtitle {
-    color: #333; /* Cor do título */
-    font-size: 1.8rem; /* Tamanho do título */
-    margin: 0.5rem 0 1.2rem 0; /* Margem inferior */
+    color: #333;
+    /* Cor do título */
+    font-size: 1.8rem;
+    /* Tamanho do título */
+    margin: 0.5rem 0 1.2rem 0;
+    /* Margem inferior */
 }
 
 .controls-menu .controls-list {
-    list-style: none; /* Remove os marcadores da lista */
+    list-style: none;
+    /* Remove os marcadores da lista */
     padding: 0;
     margin: 0;
 }
 
 .controls-menu .controls-list li {
-    font-size: 0.95rem; /* Tamanho do texto */
-    color: #202020; /* Cor do texto */
-    margin-bottom: 1rem; /* Espaçamento inferior entre os itens */
-    text-align: center; /* Alinhamento do texto à esquerda */
+    font-size: 0.95rem;
+    /* Tamanho do texto */
+    color: #202020;
+    /* Cor do texto */
+    margin-bottom: 1rem;
+    /* Espaçamento inferior entre os itens */
+    text-align: center;
+    /* Alinhamento do texto à esquerda */
 }
 
 .controls-menu .controls-list li img {
-    vertical-align: middle; /* Alinha verticalmente as imagens com o texto */
-    margin-right: 0.5rem; /* Margem à direita das imagens */
+    vertical-align: middle;
+    /* Alinha verticalmente as imagens com o texto */
+    margin-right: 0.5rem;
+    /* Margem à direita das imagens */
     width: 1.2rem;
 }
 
 .goBack-button {
-    display: block; /* Botão em bloco */
-    width: 100%; /* Largura total */
-    padding: 0.5rem 1.5rem; /* Preenchimento interno */
-    font-size: 1.2rem; /* Tamanho da fonte */
+    display: block;
+    /* Botão em bloco */
+    width: 100%;
+    /* Largura total */
+    padding: 0.5rem 1.5rem;
+    /* Preenchimento interno */
+    font-size: 1.2rem;
+    /* Tamanho da fonte */
     font-family: 'Retro', sans-serif;
     cursor: url('../assets/dialog/Mouse.png'), auto;
     background-color: transparent;
-    color: rgb(0, 0, 0); /* Cor do texto */
+    color: rgb(0, 0, 0);
+    /* Cor do texto */
     border: none;
 }
 
 .goBack-button:hover {
-    color: #555; /* Cor de fundo ao passar o mouse */
+    color: #555;
+    /* Cor de fundo ao passar o mouse */
 }
 
 
@@ -357,8 +400,10 @@ body.menu-blur::before {
     text-align: center;
     width: max-content;
     max-width: 100%;
-    min-width: 320px; /* Define uma largura mínima */
-    overflow-wrap: break-word; /* Adiciona quebra de palavra para o container */
+    min-width: 320px;
+    /* Define uma largura mínima */
+    overflow-wrap: break-word;
+    /* Adiciona quebra de palavra para o container */
 }
 
 #minigamePuzzle h2 {
@@ -597,7 +642,8 @@ body.menu-blur::before {
     left: 50%;
     transform: translate(-50%, -50%);
     overflow-y: auto;
-    display: block; /* Alterando de "none" para "block" para tornar o menu visível */
+    display: block;
+    /* Alterando de "none" para "block" para tornar o menu visível */
     width: 50rem;
 }
 
@@ -607,7 +653,8 @@ body.menu-blur::before {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-attachment: fixed; /* Adicionando a imagem de fundo fixa */
+    background-attachment: fixed;
+    /* Adicionando a imagem de fundo fixa */
     padding: 1rem 9.5rem 1.5rem 9.5rem;
     text-align: center;
     font-family: 'Retro', sans-serif;
@@ -621,7 +668,8 @@ body.menu-blur::before {
 .menu .introduction, .instructions {
     font-size: 1rem;
     color: #000000;
-    margin: 0 0 10px 0; /* Adicionando margem inferior */
+    margin: 0 0 10px 0;
+    /* Adicionando margem inferior */
 }
 
 .menu .title, .subtitle {
@@ -641,15 +689,20 @@ body.menu-blur::before {
 }
 
 .menu .controls-list li img {
-    width: 1.2rem; /* Aumentando o tamanho das imagens das teclas */
-    height: 1.2rem; /* Aumentando o tamanho das imagens das teclas */
+    width: 1.2rem;
+    /* Aumentando o tamanho das imagens das teclas */
+    height: 1.2rem;
+    /* Aumentando o tamanho das imagens das teclas */
 }
 
 .menu .buttons-container {
     display: flex;
-    flex-direction: column; /* Altera para disposição em coluna */
-    align-items: center; /* Centraliza os botões na coluna */
-    gap: 0.3rem; /* Espaço entre os botões */
+    flex-direction: column;
+    /* Altera para disposição em coluna */
+    align-items: center;
+    /* Centraliza os botões na coluna */
+    gap: 0.3rem;
+    /* Espaço entre os botões */
     margin-top: 0.5rem;
 }
 
@@ -658,13 +711,16 @@ body.menu-blur::before {
     cursor: url('../assets/dialog/Mouse.png'), auto;
     background-size: contain;
     font-family: 'Retro', sans-serif;
-    font-size: 1.6rem; /* Reduzido o tamanho do texto */
+    font-size: 1.6rem;
+    /* Reduzido o tamanho do texto */
     color: #000;
     border: none;
     padding: 0.4rem 0.2rem;
     transition: color 0.3s ease;
-    width: 100%; /* Define a largura total do botão */
-    text-align: center; /* Centraliza o texto dentro do botão */
+    width: 100%;
+    /* Define a largura total do botão */
+    text-align: center;
+    /* Centraliza o texto dentro do botão */
 }
 
 
@@ -689,7 +745,8 @@ body.menu-blur::before {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-attachment: fixed; /* Adicionando a imagem de fundo fixa */
+    background-attachment: fixed;
+    /* Adicionando a imagem de fundo fixa */
     padding: 2rem 7.5rem 2rem 7.5rem;
     text-align: center;
     font-family: 'Retro', sans-serif;
@@ -704,7 +761,8 @@ body.menu-blur::before {
 .endGame .introduction, .instructions {
     font-size: 1rem;
     color: #000000;
-    margin: 0 0 1rem 0; /* Adicionando margem inferior */
+    margin: 0 0 1rem 0;
+    /* Adicionando margem inferior */
 }
 
 .endGame .title, .subtitle {
@@ -747,9 +805,12 @@ body.menu-blur::before {
 
 .endGame .buttons-container {
     display: flex;
-    flex-direction: column; /* Altera para disposição em coluna */
-    align-items: center; /* Centraliza os botões na coluna */
-    gap: 0.3rem; /* Espaço entre os botões */
+    flex-direction: column;
+    /* Altera para disposição em coluna */
+    align-items: center;
+    /* Centraliza os botões na coluna */
+    gap: 0.3rem;
+    /* Espaço entre os botões */
     margin-top: 0.5rem;
 }
 
@@ -758,13 +819,16 @@ body.menu-blur::before {
     cursor: url('../assets/dialog/Mouse.png'), auto;
     background-size: contain;
     font-family: 'Retro', sans-serif;
-    font-size: 1.4rem; /* Reduzido o tamanho do texto */
+    font-size: 1.4rem;
+    /* Reduzido o tamanho do texto */
     color: #000;
     border: none;
     padding: 0.4rem 0.2rem;
     transition: color 0.3s ease;
-    width: 100%; /* Define a largura total do botão */
-    text-align: center; /* Centraliza o texto dentro do botão */
+    width: 100%;
+    /* Define a largura total do botão */
+    text-align: center;
+    /* Centraliza o texto dentro do botão */
 }
 
 .endGame .buttons-container button:hover {
@@ -777,55 +841,81 @@ body.menu-blur::before {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    overflow-y: auto;
     display: none;
-    width: 50rem;
+    width: 100%;
+    max-width: 43rem;
+    height: 100%;
+    max-height: 43rem;
+    overflow: auto;
 }
 
-.leaderboard {
+.leaderboard-container .leaderboard {
     background-image: url("../assets/menu/menuImage.png");
+    cursor: url('../assets/dialog/Mouse.png'), auto;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-attachment: fixed; /* Imagem de fundo fixa */
-    padding: 2rem 7.5rem 2rem 7.5rem;
+    background-attachment: fixed;
+    padding: 1rem 5rem;
     text-align: center;
     font-family: 'Retro', sans-serif;
-    color: #333; /* Cor do texto */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.leaderboard h2 {
+.leaderboard h1 {
+    color: #272727;
     font-size: 2rem;
-    margin: 0 0 15px 0;
+    margin: 2.5rem 0 1.8rem 0;
 }
 
 .leaderboard .table-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente para destacar a tabela */
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
-    overflow: hidden; /* Garante que a borda arredondada seja aplicada corretamente */
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
 }
 
 .leaderboard table {
-    width: 100%;
+    width: 90%; /* Ajustado para 90% do container para deixar espaço nos lados */
+    max-width: 100%;
     border-collapse: collapse;
+    overflow-y: auto;
 }
 
 .leaderboard th, .leaderboard td {
-    padding: 10px;
+    font-size: 1.1rem;
     text-align: center;
-    border-bottom: 1px solid white; /* Linhas divisórias brancas */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.556);
+    padding: 0.5rem;
 }
 
-.leaderboard th {
-    background-color: rgba(255, 255, 255, 0.1); /* Cor de fundo para cabeçalhos */
+.leaderboard tbody tr {
+    background-color: rgba(0, 0, 0, 0.042);
 }
 
-.leaderboard tbody tr:nth-child(even) {
-    background-color: rgba(255, 255, 255, 0.1); /* Cor de fundo alternada para linhas pares */
+.leaderboard button {
+    margin-bottom: 2.5rem;
+    background: none;
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    background-size: contain;
+    font-family: 'Retro', sans-serif;
+    font-size: 1.6rem;
+    color: #000;
+    border: none;
+    padding: 0.4rem 0.2rem;
+    transition: color 0.3s ease;
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
 }
 
-.leaderboard tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* Cor de fundo ao passar o mouse */
+.leaderboard button:hover {
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    color: #3b3b3b;
 }

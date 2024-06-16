@@ -172,13 +172,13 @@
             </div>
             <div class="buttons-container">              
                 <button class="replay-button" id="replayGameBtn">Jogar Novamente</button>
-                <button class="leaderBoard-button" id="leaderBoardBtn">Leaderboard</button>
-                <button class="exit-button" id="exitGameBtn">Sair</button>
+                <button class="leaderBoard-button" id="leaderBoardEndBtn">Leaderboard</button>
+                <button class="exit-button" id="exitEndGameBtn">Sair</button>
             </div>
         </div>
     </div>
 
-    <div class="leaderboard-container">
+    <div class="leaderboard-container" id="leaderboardContainer">
         <div class="leaderboard">
             <h1 class="title">Leaderboard</h1>
             <table>
@@ -186,28 +186,13 @@
                     <tr>
                         <th>Posição</th>
                         <th>Nome</th>
-                        <th>Pontuação</th>
+                        <th>Tempo</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Player 1</td>
-                        <td>1000</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Player 2</td>
-                        <td>950</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Player 3</td>
-                        <td>900</td>
-                    </tr>
                 </tbody>
             </table>
-            <button class="goBack-button" id="goBackeBtn">Sair</button>
+            <button class="leaderGoBack-button" id="LeaderGoBackeBtn">Voltar</button>
         </div>
     </div>
 
@@ -227,6 +212,7 @@
     <script src="../js/level1.js"></script>
     <script src="../js/level2.js"></script>
     <script src="../js/level3.js"></script>
+    <script src="../js/secretRoom.js"></script>
     <script src="../js/finalGame.js"></script>
     <script src="../js/admin.js"></script>
     

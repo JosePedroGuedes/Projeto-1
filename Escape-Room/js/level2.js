@@ -126,7 +126,7 @@ function loadLevel2() {
             let isGuessWordComplete = pcRadius.find(square => square.minigame === 2 && !square.finish) === undefined;
 
             // Verifica e atualiza o estado dos minigames
-            if (!isPuzzleComplete) {
+            if (!isPuzzleComplete || !isGuessWordComplete) {
                 if (checkPuzzleFinish()) {
                     let puzzleSquare = pcRadius.find(square => square.minigame === 1);
                     puzzleSquare.finish = true;
@@ -146,6 +146,8 @@ function loadLevel2() {
             if (isPuzzleComplete && isGuessWordComplete) {
                 showDialog(12);
                 if(timeLevel2 != "--:--") timeLevel2 = timerElement.innerText;
+                CorredorSala3.isOpen = true;
+                CorredorSala3Image.src = '../assets/objects/LeftDoorStage3.png';
                 return;
             }
 
