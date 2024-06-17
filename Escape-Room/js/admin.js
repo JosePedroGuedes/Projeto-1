@@ -46,6 +46,7 @@ document.getElementById('restartTimerBtn').addEventListener('click', function() 
 });
 
 document.getElementById('acabarJogoBtn').addEventListener('click', function() {
+    didWin = true;
     endEscapeRoom();
 });
 

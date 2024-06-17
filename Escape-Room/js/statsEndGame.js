@@ -8,7 +8,6 @@ let numberFailsCode = 0;
 let numberTriesPuzzle = 0;
 let numberFailsWord = 0;
 let numberFailsMath = 0;
-let numberFinalFails = 0; // Adicione esta variável se for necessária
 
 let accessSecretRoom = "Nao";
 let numberBackpacks = 0;
@@ -21,6 +20,9 @@ let allUsers = JSON.parse(localStorage.getItem("users"));
 
 // Atualiza estatísticas na interface
 function updateStats() {
+    if(didWin) document.getElementById("titleEndGame").innerText = "Muitos Parabéns!! Chegaste ao fim do jogo!";
+    else document.getElementById("titleEndGame").innerText = "O tempo acabou. Para a próxima corre melhor!!";
+    
     document.getElementById("spanUsernameEnd").innerText = userLogged.username;
 
     document.getElementById("timeLevel1").innerText = timeLevel1;
@@ -42,7 +44,6 @@ function updateStats() {
     document.getElementById("numberTriesPuzzle").innerText = numberTriesPuzzle;
     document.getElementById("numberFailsWord").innerText = numberFailsWord;
     document.getElementById("numberFailsMath").innerText = numberFailsMath;
-    document.getElementById("numberFinalFails").innerText = numberFinalFails; // Atualize esta linha se necessário
     document.getElementById("accessSecretRoom").innerText = accessSecretRoom;
 }
 
@@ -60,9 +61,7 @@ function updateBestTime(currentTime) {
     const parseTime = (timeString) => {
         if (timeString === "--:--") return 0; // Tratar "--:--" como um valor muito grande
         const [minutes, seconds] = timeString.split(":").map(Number);
-        console.log(`Parsing time: ${timeString} -> Minutes: ${minutes}, Seconds: ${seconds}`);
         if (isNaN(minutes) || isNaN(seconds)) {
-            console.error(`Invalid time format: ${timeString}`);
             return 0; // Tratar formatos inválidos como um valor muito grande
         }
         return minutes * 60 + seconds;
@@ -71,9 +70,6 @@ function updateBestTime(currentTime) {
     if (userLogged && userLogged.bestTime !== undefined) {
         const currentBestTotalSeconds = parseTime(userLogged.bestTime);
         const currentTotalSeconds = parseTime(currentTime);
-
-        console.log(`Current best time in seconds: ${currentBestTotalSeconds}`);
-        console.log(`Current time in seconds: ${currentTotalSeconds}`);
 
         if (currentTotalSeconds > currentBestTotalSeconds) {
             userLogged.bestTime = currentTime;

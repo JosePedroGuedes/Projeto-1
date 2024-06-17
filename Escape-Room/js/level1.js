@@ -1,4 +1,10 @@
+let dialogoInicialSala1 = false;
+
 function loadLevel1() {
+    if(!dialogoInicialSala1){
+        showDialog(25);
+        dialogoInicialSala1 = true;
+    }
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 

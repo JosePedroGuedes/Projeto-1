@@ -1,10 +1,18 @@
+let dialogoInicialSala3 = false;
+
 function loadLevel3() {
+    if(!dialogoInicialSala3){
+        showDialog(24);
+        dialogoInicialSala3 = true;
+    }
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
     let backgroundElement = document.getElementById("gameCanvas");
     backgroundElement.style.backgroundImage = "url('../assets/backgrounds/SalaMatematica.png')";
 
+    changeBoard();
+    
     function drawDoor() {
         ctx.drawImage(Sala3Door1Image, Sala3Door1.x, Sala3Door1.y, Sala3Door1.width, Sala3Door1.height);
     }
@@ -49,150 +57,6 @@ function loadLevel3() {
         }
     }
 
-    function showQuadroPopup() {
-        const popup = document.getElementById('mathQuestions');
-        popup.style.display = 'block';
-        stopMovement = true;
-        generateMathQuestions();
-    
-        const answerButtons = document.querySelectorAll('.answer-option');
-        answerButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                checkAnswer(this);
-            });
-        });
-    
-        setTimeout(function() {
-            document.addEventListener('keydown', handleKeyPressToAdvanceDialog);
-        }, 500);
-    }
-    
-
-    function closeQuadroPopup() {
-        const popup = document.getElementById('mathQuestions');
-        if (popup) {
-            popup.style.display = 'none';
-            document.removeEventListener('keydown', handleKeyPressToAdvanceDialog);
-            stopMovement = false;
-        }
-    }
-
-
-    function handleKeyPressToAdvanceDialog(event) {
-        if (event.key === 'Enter') {
-            closeQuadroPopup();
-        }
-    }
-
-    
-    
-
-    let finish = false;
-
-    const matrizesQuestions = [
-        { question: "Qual o componente (2,1) da matriz [[6, 5] [2, 3]]", answer: "2", wrong: ["5", "6", "3", "7", "1"] },
-        { question: "Qual é o determinante da matriz [[1, 2] [3, 4]]", answer: "-2", wrong: ["2", "0", "4", "-4", "1"] },
-        { question: "Qual é a transposta da matriz [[1, 3] [2, 4]]", answer: "[[1, 2] [3, 4]]", wrong: ["[[2, 1] [4, 3]]", "[[1, 3] [2, 4]]", "[[3, 1] [4, 2]]", "[[4, 3] [2, 1]]", "[[2, 4] [1, 3]]"] },
-        { question: "Qual é a matriz inversa de [[2, 0] [0, 2]]", answer: "[[0.5, 0] [0, 0.5]]", wrong: ["[[2, 0] [0, 2]]", "[[1, 0] [0, 1]]", "[[0, 0.5] [0.5, 0]]", "[[0.5, 0.5] [0.5, 0.5]]", "[[2, 2] [2, 2]]"] },
-        { question: "Qual é o traço da matriz [[1, 0] [0, 1]]", answer: "2", wrong: ["1", "0", "3", "-1", "4"] }
-    ];
-    
-    const vetoresQuestions = [
-        { question: "Qual é a magnitude do vetor [3, 4]", answer: "5", wrong: ["3", "4", "7", "6", "9"] },
-        { question: "Qual o produto escalar dos vetores [1, 2] e [3, 4]", answer: "11", wrong: ["8", "7", "6", "5", "12"] },
-        { question: "Qual o vetor soma de [1, 2] e [3, 4]", answer: "[4, 6]", wrong: ["[2, 6]", "[4, 2]", "[6, 8]", "[3, 5]", "[5, 7]"] },
-        { question: "Qual é o vetor oposto de [5, -3]", answer: "[-5, 3]", wrong: ["[5, 3]", "[-5, -3]", "[3, 5]", "[-3, 5]", "[0, 0]"] },
-        { question: "Qual a diferença dos vetores [7, 8] - [3, 4]", answer: "[4, 4]", wrong: ["[4, 3]", "[10, 12]", "[3, 4]", "[5, 4]", "[7, 4]"] }
-    ];
-    
-    const conjuntosQuestions = [
-        { question: "Qual é a união dos conjuntos {1, 2} e {2, 3}", answer: "{1, 2, 3}", wrong: ["{1, 2}", "{2, 3}", "{1, 3}", "{1, 2, 4}", "{2, 2, 3}"] },
-        { question: "Qual é a interseção dos conjuntos {1, 2} e {2, 3}", answer: "{2}", wrong: ["{1}", "{3}", "{1, 2}", "{2, 3}", "{1, 3}"] },
-        { question: "Qual é o complemento do conjunto {1, 2} em relação a {1, 2, 3}", answer: "{3}", wrong: ["{1}", "{2}", "{1, 3}", "{2, 3}", "{}"] },
-        { question: "Encontre a diferença dos conjuntos {1, 2} - {2, 3}", answer: "{1}", wrong: ["{2}", "{3}", "{1, 2}", "{1, 3}", "{}"] },
-        { question: "Qual é a diferença simétrica dos conjuntos {1, 2, 3} e {2, 3, 4}", answer: "{1, 4}", wrong: ["{2, 3}", "{1, 2}", "{3, 4}", "{1, 2, 3, 4}", "{1, 3}"] }
-    ];
-    
-    let currentQuestionIndex = 0;
-    let questions = [];
-    
-    // Gerar e exibir perguntas
-    function generateMathQuestions() {
-        questions = [
-            matrizesQuestions[Math.floor(Math.random() * matrizesQuestions.length)],
-            vetoresQuestions[Math.floor(Math.random() * vetoresQuestions.length)],
-            conjuntosQuestions[Math.floor(Math.random() * conjuntosQuestions.length)]
-        ];
-        currentQuestionIndex = 0;
-        displayQuestion();
-        document.getElementById('mathQuestions').style.display = 'block';
-    }
-    
-    // Exibir pergunta atual com múltiplas opções
-    function displayQuestion() {
-        if (currentQuestionIndex < questions.length) {
-            const currentQuestion = questions[currentQuestionIndex];
-            document.getElementById('math-question').innerText = currentQuestion.question;
-    
-            // Gerar quatro opções de resposta
-            const answerOptions = document.querySelectorAll('.answer-option');
-            const correctAnswerIndex = Math.floor(Math.random() * 4);
-            let incorrectAnswers = currentQuestion.wrong.slice(0, 3);
-    
-            for (let i = 0; i < answerOptions.length; i++) {
-                if (i === correctAnswerIndex) {
-                    answerOptions[i].innerText = currentQuestion.answer;
-                } else {
-                    answerOptions[i].innerText = incorrectAnswers.pop();
-                }
-            }
-        } else {
-            finish = true;
-            showDialog(9);
-            if(timeLevel3 != "--:--") timeLevel3 = timerElement.innerText;
-            closePopup();
-        }
-    }
-    
-    // Fechar o quadro popup
-    function closePopup() {
-        document.getElementById('mathQuestions').style.display = 'none';
-        
-    }
-    
-    // Verificar resposta
-    function checkAnswer(button) {
-        const userAnswer = button.innerText;
-        const correctAnswer = questions[currentQuestionIndex].answer;
-    
-        if (userAnswer === correctAnswer) {
-            currentQuestionIndex++;
-            displayQuestion();
-        } else {
-            numberFailsMath++;
-            let randomDialog = Math.floor(Math.random() * 3) + 6;
-            showDialog(randomDialog) //Dialogo 6, 7 ou 8
-            closePopup();
-        }
-    }
-    
-    document.addEventListener('DOMContentLoaded', function () {
-        const answerButtons = document.querySelectorAll('.answer-option');
-        answerButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                checkAnswer(this);
-            });
-        });
-    });
-    
-
-    // Fechar o quadro popup
-    function closePopup() {
-        document.getElementById('mathQuestions').style.display = 'none';
-        stopMovement = false;
-    }
-
-
     function drawMochila() {
         if (!mochila4.isPickedUp) {
             ctx.drawImage(Mochila4Image, mochila4.x, mochila4.y, mochila4.width, mochila4.height);
@@ -214,16 +78,16 @@ function loadLevel3() {
         }
         return false;
     }
-    
+
     function addObstacle(x, y, width, height, imagePath, collisionArea) {
         const obstacle = { x, y, width, height, imagePath };
-    
+
         if (collisionArea) {
             obstacle.collisionArea = collisionArea;
         } else {
             obstacle.collisionArea = { x, y, width, height };
         }
-    
+
         if (imagePath) {
             obstacle.image = new Image();
             obstacle.image.onload = function() {
@@ -234,7 +98,7 @@ function loadLevel3() {
             };
             obstacle.image.src = imagePath; // Define o src da imagem
         }
-    
+
         obstacles.push(obstacle);
     }
 
@@ -279,6 +143,7 @@ function loadLevel3() {
 
     function gameLoop() {
         if (levelLoad != 3) {
+            document.getElementById("mathQuizBox").style.display = "none";
             return; // Se o jogo não estiver em execução, saia do loop
         }
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -303,7 +168,7 @@ function loadLevel3() {
             }
 
             if (isKeyPressed('KeyF') && !stopMovement && !isPaused) {
-                if (checkInteractionArea() && !stopMovement && !finish) {
+                if (checkInteractionArea() && !stopMovement && !mathFinish) {
                     showQuadroPopup();
                     generateMathQuestions();
                 } else if (checkMochilaInteraction() && !mochila4.isPickedUp) {
@@ -331,4 +196,5 @@ function loadLevel3() {
     }
 
     gameLoop();
+
 }

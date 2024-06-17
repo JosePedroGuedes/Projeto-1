@@ -17,6 +17,7 @@ const canvasHeight2 = 700;
 function clearGameObjects() {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     obstacles = [];
+    document.getElementById("mathQuizBox").style.display = "none";
 }
 
 // Define as variáveis do jogo
@@ -64,7 +65,7 @@ const Mochila2Image = new Image();
 Mochila2Image.src = '../assets/collectibles/Mochila2.png';
 
 let mochila2 = {
-    x: 435,
+    x: 365,
     y: 115,
     width: 24,
     height: 30,

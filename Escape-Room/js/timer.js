@@ -1,6 +1,7 @@
 let timerElement = document.getElementById("timer");
 let timerInterval;
 let totalSeconds = 20 * 60;  // 20 minutes in seconds
+let endGameTime = false;
 
 // Função para iniciar o timer
 function startTimer() {
@@ -10,6 +11,7 @@ function startTimer() {
 
 // Função para atualizar o timer a cada segundo
 function updateTimer() {
+    if(endGameTime) return;
     if (!isPaused) {
         if (totalSeconds > 0) {
             totalSeconds--;
@@ -17,8 +19,10 @@ function updateTimer() {
             let seconds = totalSeconds % 60;
             timerElement.innerText = pad(minutes) + ":" + pad(seconds);
         } else {
+            endGameTime = true;
             clearInterval(timerInterval);
-            alert("O tempo acabou!");
+            didWin = false;
+            endEscapeRoom();
             timerElement.innerText = "00:00";
         }
     }

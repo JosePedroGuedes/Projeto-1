@@ -74,6 +74,7 @@ function endEscapeRoom() {
     menuContainer.style.display = "none";
     endGameContainer.style.display = "block";
     timeEscapeRoom = timerElement.innerText;
+    endGameTime = true;
     updateStats();
 }
 

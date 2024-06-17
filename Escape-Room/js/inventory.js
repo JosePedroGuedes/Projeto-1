@@ -6,6 +6,7 @@ function addToInventory(item) {
         numberBackpacks++;
     }
 
+    if(numberBackpacks == 1 && item.name!= "Bilhete" && item.name!= "Chave") showDialog(22);
     if(numberBackpacks == 4 && item.name!= "Bilhete" && item.name!= "Chave"){
         CorredorSala4.isOpen = true;
         CorredorSala4.x = 13;

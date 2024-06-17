@@ -183,12 +183,12 @@ canvas {
     font-size: medium;
 }
 
-.question {
+.math-questions .question {
     margin: 0;
     /* Remove todas as margens */
 }
 
-.answer-option {
+.math-questions .answer-option {
     width: 100%;
     background: none;
     border: none;
@@ -199,11 +199,31 @@ canvas {
     color: rgba(0, 0, 0, 0.7);
 }
 
-.answer-option:hover {
-    background-color: rgba(0, 0, 0, 0.134);
+.math-questions .answer-option {
+    background-color: rgba(135, 87, 16, 0.051);
     color: rgba(0, 0, 0, 0.963);
+    text-align: left;
 }
 
+.math-questions .answer-option:hover {
+    background-color: rgba(255, 252, 247, 0.099);
+}
+
+.mathQuizBox {
+    display: none;
+    font-family: Retro;
+    font-size: 0.9rem;
+    position: fixed;
+    top: calc(50% - 215px);
+    left: calc(50% + 6.5px);
+    transform: translateX(-50%);
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    z-index: 1000;
+    width: 165px;
+    height: 65px;
+}
 
 .pauseMenu-container {
     display: none;
@@ -643,7 +663,6 @@ body.menu-blur::before {
     transform: translate(-50%, -50%);
     overflow-y: auto;
     display: block;
-    /* Alterando de "none" para "block" para tornar o menu visível */
     width: 50rem;
 }
 
@@ -665,14 +684,14 @@ body.menu-blur::before {
     font-size: 2rem;
 }
 
-.menu .introduction, .instructions {
+.menu .introduction, .menu .instructions {
     font-size: 1rem;
     color: #000000;
     margin: 0 0 10px 0;
     /* Adicionando margem inferior */
 }
 
-.menu .title, .subtitle {
+.menu .title, .menu .subtitle {
     font-size: 1.5rem;
     color: #333;
     margin: 0 0 5px 0;
@@ -723,10 +742,25 @@ body.menu-blur::before {
     /* Centraliza o texto dentro do botão */
 }
 
-
 .menu .buttons-container button:hover {
     cursor: url('../assets/dialog/Mouse.png'), auto;
     color: #3b3b3b;
+}
+
+@media (min-width: 500px) {
+    #gameContainer{
+        zoom :0.8;
+    }
+    .menu-container, .leaderboard-container, .endGame-container {
+        zoom: 0.7;
+    }
+    .dialog-box {
+        zoom: 0.75;
+    }
+    #adminPainel {
+        zoom: 0.85;
+    }
+    
 }
 
 .endGame-container {
@@ -752,7 +786,7 @@ body.menu-blur::before {
     font-family: 'Retro', sans-serif;
 }
 
-.endGame .firsttitle {
+.endGame .firsttitleEndGame {
     color: #333;
     font-size: 1.6rem;
     margin: 0 0 1rem 0;

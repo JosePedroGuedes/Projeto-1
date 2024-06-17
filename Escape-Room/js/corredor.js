@@ -1,3 +1,6 @@
+let didFinalDoorOpen = false;
+let addFinalObjects = false;
+
 function corredor() {
     clearGameObjects();
     const canvasWidth = 500;
@@ -22,9 +25,13 @@ function corredor() {
     let cameraY = playerenterposition; // Start at the bottom of the game area
 
     function showPasswordPanel() {
-        document.getElementById('passwordPanel').style.display = 'block';
-        isPasswordPanelActive = true;
-        stopMovement = true;
+        if(ticket.isPickedUp == false) showDialog(13);
+        else {
+            document.getElementById('passwordPanel').style.display = 'block';
+            isPasswordPanelActive = true;
+            stopMovement = true; 
+        }
+        
     }
 
     document.getElementById('confirmButton').addEventListener('click', function() {
@@ -138,12 +145,9 @@ function corredor() {
     }
 
     function drawObstacles() {
-
         for (let obstacle of obstacles) {
             if (obstacle.image) {
                 ctx.drawImage(obstacle.image, obstacle.x, obstacle.y - cameraY, obstacle.width, obstacle.height);
-                // Se não houver imagem definida, desenhe apenas a área de colisão para depuração
-
             }
             if (bordas) {
                 ctx.save();
@@ -151,25 +155,29 @@ function corredor() {
                 ctx.lineWidth = 2;
                 let collisionX = obstacle.collisionArea.x;
                 let collisionY = obstacle.collisionArea.y - cameraY;
-                if(obstacle.collisionArea.y > 400) collisionY += 175;
+                if (obstacle.collisionArea.y > 400) collisionY += 175;
                 ctx.strokeRect(collisionX, collisionY, obstacle.collisionArea.width, obstacle.collisionArea.height * 2.05);
                 ctx.restore();
+                
             }
         }
     }
+    
     
     function drawBackground() {
         ctx.drawImage(backgroundImage, 0 , 0 - cameraY, gameWidth, gameHeight);
     }
 
     // Bordas
-    addObstacle(0, 70 + playerenterposition, canvasWidth, 15); // Borda superior
+    addObstacle(0, 70 + playerenterposition, canvasWidth, 15);
     addObstacle(0, 670, canvasWidth, 20, '../assets/objects/BordaFundo.png', { x: 0, y: 495 + playerenterposition, width: canvasWidth, height: 10 });
     addObstacle(0, 0 + playerenterposition, 15, canvasHeight); // Borda esquerda
     addObstacle(canvasWidth - 15, 0 + playerenterposition, 15, canvasHeight); // Borda direita
 
     addObstacle(0, 260 + playerenterposition, 100, 105); // Borda esquerda meio
     addObstacle(400, 260 + playerenterposition, 100, 105); // Borda direita meio
+    
+    addObstacle(0, 1, 500, 58, '../assets/objects/Corredor-CimaPorta.png', { x: 0, y: 0 + playerenterposition, width: 0, height: 0 });
 
     //Centro
     addObstacle(180, 250, 140, 39, '../assets/objects/CorredorCentro.png', { x: 180, y: 280 + playerenterposition, width: 140, height: 85 });
@@ -224,9 +232,7 @@ function corredor() {
     
         // Update camera position based on player's position
         cameraY = Math.max(0, Math.min(gameHeight - canvasHeight, player.y - canvasHeight / 2));
-    
-        // Draw game elements
-        
+
         drawBackground();
         drawLeaveDoor();
         drawMochila();
@@ -234,22 +240,60 @@ function corredor() {
         drawObstacles();
         drawDoors();        
         
-    
         const adjustedPlayerX = player.x;
         const adjustedPlayerY = player.y - cameraY;
     
         // Check interaction with CorredorSala2
-        if (!isPasswordPanelActive && isKeyPressed('KeyF') && !stopMovement) {
-            const LeaveDoorAdjustedX = LeaveDoor.x;
-            const LeaveDoorAdjustedY = LeaveDoor.y - cameraY;
+        if (isKeyPressed('KeyF') && !stopMovement) {
+            const LeaveDoorAdjustedX = LeaveDoor.x + 30;
+            const LeaveDoorAdjustedY = LeaveDoor.y - 100;
         
-            if (adjustedPlayerX < LeaveDoorAdjustedX + LeaveDoor.width &&
+            if (adjustedPlayerX < LeaveDoorAdjustedX + LeaveDoor.width - 50 &&
                 adjustedPlayerX + player.width > LeaveDoorAdjustedX  &&
                 adjustedPlayerY < LeaveDoorAdjustedY + LeaveDoor.height + 100 &&
-                adjustedPlayerY + player.height > LeaveDoorAdjustedY + 100 ) {
-                animateDoorOpening(LeaveDoor, LeaveDoorImage, "Double");
+                adjustedPlayerY + player.height > LeaveDoorAdjustedY + 100) {
+                    if(!LeaveDoor.isOpen) showDialog(16);
+                    else if(LeaveDoor.isOpen == true && !didFinalDoorOpen) {
+                        if (LeaveDoor.isOpen == true && !addFinalObjects) {
+                            // Remover o primeiro elemento de obstacles
+                            obstacles.splice(0, 1);
+                            
+                            // Adicionar dois novos objetos ao array obstacles
+                            obstacles.push(
+                                { x: 0, y: 70 + playerenterposition, width: 210, height: 15, imagePath: undefined, collisionArea: {
+                                    x: 0,
+                                    y: 70 - cameraY,
+                                    width: 210,
+                                    height: 15
+                                }},
+                                { x: 290, y: 70 + playerenterposition, width: 220, height: 15, imagePath: undefined , collisionArea: {
+                                    x: 290,
+                                    y: 70 - cameraY,
+                                    width: 220,
+                                    height: 15
+                                }},
+                                { x: 200, y: 0 + playerenterposition, width: 10, height: 45, imagePath: undefined , collisionArea: {
+                                    x: 200, 
+                                    y: 0 - cameraY, 
+                                    width: 10, 
+                                    height: 45
+                                }},
+                                { x: 288, y: 0 + playerenterposition, width: 10, height: 45, imagePath: undefined , collisionArea: {
+                                    x: 288, 
+                                    y: 0 - cameraY, 
+                                    width: 10, 
+                                    height: 45
+                                }}
+                            );
+                            addFinalObjects = true;
+                        }
+                        didFinalDoorOpen = true;
+                        animateDoorOpening(LeaveDoor, LeaveDoorImage, "Double");
+                        
+                    }
             }
         }
+       
 
         if (isKeyPressed('KeyF') && !CorredorSala2.isOpen && !stopMovement) {
             const CorredorSala2AdjustedX = CorredorSala2.x + 30;
@@ -260,11 +304,13 @@ function corredor() {
                 adjustedPlayerY < CorredorSala2AdjustedY + CorredorSala2.height &&
                 adjustedPlayerY + player.height > CorredorSala2AdjustedY ) {
                 showPasswordPanel();
-            } else if (checkMochilaInteraction() && !mochila2.isPickedUp) {
+            }
+        }
+        
+        if (isKeyPressed('KeyF') && checkMochilaInteraction() && !mochila2.isPickedUp && !stopMovement) {
                 mochila2.isPickedUp = true;
                 addToInventory({ name: 'Mochila2', imageSrc: '../assets/inventory/Mochila2.png' });
             }
-        }
     
         // Check interaction with return door
         const returnDoorAdjustedX = CorredorSala1.x;
@@ -274,7 +320,7 @@ function corredor() {
             adjustedPlayerX + player.width > returnDoorAdjustedX + 40 &&
             adjustedPlayerY < returnDoorAdjustedY + CorredorSala1.height - 90 &&
             adjustedPlayerY + player.height > returnDoorAdjustedY + 50) {
-            if (levelLoad == 0) {
+            if (levelLoad == 0 && !stopMovement) {
                 clearGameObjects();
                 player.x = Sala1Door1.x + 40;
                 player.y = Sala1Door1.y;
@@ -292,7 +338,7 @@ function corredor() {
                 adjustedPlayerX + player.width > nextDoorAdjustedX - 40 &&
                 adjustedPlayerY < nextDoorAdjustedY + CorredorSala2.height - 90 &&
                 adjustedPlayerY + player.height > nextDoorAdjustedY + 50) {
-                if (levelLoad == 0) {
+                if (levelLoad == 0 && !stopMovement) {
                     clearGameObjects();
                     player.x = Sala2Door1.x - 80;
                     player.y = Sala2Door1.y + 50;
@@ -302,23 +348,44 @@ function corredor() {
             }
         }
 
-        if (CorredorSala3.isOpen) {
-            const nextDoorAdjustedX = CorredorSala3.x;
-            const nextDoorAdjustedY = CorredorSala3.y + 80;
-    
-            if (adjustedPlayerX < nextDoorAdjustedX + CorredorSala3.width + 40 &&
-                adjustedPlayerX + player.width > nextDoorAdjustedX + 40 &&
-                adjustedPlayerY < nextDoorAdjustedY + CorredorSala3.height - 120 &&
-                adjustedPlayerY + player.height > nextDoorAdjustedY) {
-                if (levelLoad == 0) {
-                    clearGameObjects();
-                    player.x = Sala3Door1.x + 30;
-                    player.y = Sala3Door1.y + 20;
-                    loadLevel(3);
-                    return;
-                }
+        const CloseDoorAdjustedX = 415;
+        const CloseDoorAdjustedY = CorredorSala3.y + 60;
+
+        if (
+            adjustedPlayerX < CloseDoorAdjustedX + CorredorSala3.width + 40 &&
+            adjustedPlayerX + player.width > CloseDoorAdjustedX + 40 &&
+            adjustedPlayerY <
+            CloseDoorAdjustedY + CorredorSala3.height - 90 &&
+            adjustedPlayerY + player.height > CloseDoorAdjustedY
+        ) {
+            if (
+            levelLoad == 0 &&
+            isKeyPressed("KeyF") &&
+            CorredorSala3.isOpen == false && !stopMovement
+            ) {
+            showDialog(16);
             }
         }
+
+        const nextDoorAdjustedX = CorredorSala3.x;
+        const nextDoorAdjustedY = CorredorSala3.y + 80;
+
+        if (
+            adjustedPlayerX < nextDoorAdjustedX + CorredorSala3.width + 40 &&
+            adjustedPlayerX + player.width > nextDoorAdjustedX + 40 &&
+            adjustedPlayerY <
+            nextDoorAdjustedY + CorredorSala3.height - 120 &&
+            adjustedPlayerY + player.height > nextDoorAdjustedY
+        ) {
+            if (levelLoad == 0 && CorredorSala3.isOpen == true && !stopMovement) {
+                clearGameObjects();
+                player.x = Sala3Door1.x + 30;
+                player.y = Sala3Door1.y + 20;
+                loadLevel(3);
+                return;
+            }
+        }
+        
 
         if (CorredorSala4.isOpen) {
             const nextDoorAdjustedX = CorredorSala4.x;
@@ -328,7 +395,7 @@ function corredor() {
                 adjustedPlayerX + player.width > nextDoorAdjustedX - 40 &&
                 adjustedPlayerY < nextDoorAdjustedY + CorredorSala4.height - 90 &&
                 adjustedPlayerY + player.height > nextDoorAdjustedY + 50) {
-                if (levelLoad == 0) {
+                if (levelLoad == 0 && !stopMovement) {
                     clearGameObjects();
                     player.x = Sala2Door1.x - 30;
                     player.y = Sala2Door1.y;
@@ -336,8 +403,25 @@ function corredor() {
                     return;
                 }
             }
+        } else if (!CorredorSala4.isOpen && isKeyPressed('KeyF')) {
+            const SecretDoorAdjustedX = 70;
+            const SecretDoorAdjustedY = CorredorSala4.y - 20;
+
+            if (adjustedPlayerX < SecretDoorAdjustedX + CorredorSala4.width - 40 &&
+                adjustedPlayerX + player.width > SecretDoorAdjustedX - 40 &&
+                adjustedPlayerY < SecretDoorAdjustedY + CorredorSala4.height &&
+                adjustedPlayerY + player.height > SecretDoorAdjustedY + 50) {
+                if (levelLoad == 0 && numberBackpacks != 4 && !stopMovement) {
+                    showDialog(18);
+                }
+            }
         }
-    
+
+        if(player.y <= 15) {
+            didWin = true;
+            endEscapeRoom();
+        }
+        
         requestAnimationFrame(gameLoop);
     }
     

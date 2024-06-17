@@ -72,6 +72,7 @@
             <button class="answer-option" id="option4">Opção 4</button>
         </div>
     </div>
+    <div id="mathQuizBox" class="mathQuizBox"></div>
 
     <div id="timerContainer">
         <span id="timer">20:00</span>
@@ -143,7 +144,7 @@
     <div class="endGame-container" id="endGameContainer">
         <div class="endGame">
             <div class="intro">
-                <h1 class="firsttitle">Muitos Parabéns!! Chegaste ao fim do jogo!</h1>
+                <h1 class="firsttitleEndGame" id="titleEndGame">Titulo</h1>
                 <p class="introduction">Obrigado por jogar o nosso Escape Room, <span id="spanUsernameEnd"></span>! Espero que se tenha divirtido!</p>
             </div>
             <h2 class="subtitle">Estatísticas do Jogo</h2>
@@ -165,7 +166,6 @@
                         <li>Nº de tentativas no Puzzle: <span id="numberTriesPuzzle">0</span></li>
                         <li>Nº de palavras erradas no jogo das Palavras: <span id="numberFailsWord">0</span></li>
                         <li>Nº de perguntas erradas no quiz da Matemática: <span id="numberFailsMath">0</span></li>
-                        <li>Nº de vezes erradas no desafio Final: <span id="numberFinalFails">0</span></li>
                         <li>Conseguiu aceder á sala secreta: <span id="accessSecretRoom">Nao</span></li>
                     </ul>
                 </div>
@@ -207,13 +207,12 @@
     <script src="../js/pauseMenu.js"></script>
     <script src="../js/puzzle.js"></script>
     <script src="../js/guessWord.js"></script>
+    <script src="../js/mathQuiz.js"></script>
     <script src="../js/corredor.js"></script>
-    <script src="../js/levels.js"></script>
     <script src="../js/level1.js"></script>
     <script src="../js/level2.js"></script>
     <script src="../js/level3.js"></script>
     <script src="../js/secretRoom.js"></script>
-    <script src="../js/finalGame.js"></script>
     <script src="../js/admin.js"></script>
     
 

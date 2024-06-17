@@ -1,4 +1,10 @@
+let dialogoInicialSala2 = false;
+
 function loadLevel2() {
+    if(!dialogoInicialSala2){
+        showDialog(23);
+        dialogoInicialSala2 = true;
+    }
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
@@ -153,6 +159,7 @@ function loadLevel2() {
                     let puzzleSquare = pcRadius.find(square => square.minigame === 1);
                     puzzleSquare.finish = true;
                     isPuzzleComplete = true; // Atualiza o estado localmente
+                    
                 }
 
                 if (!isGuessWordComplete) {
@@ -167,10 +174,6 @@ function loadLevel2() {
             // Se ambos os minigames estiverem concluídos, mostra o diálogo 12
             if (isPuzzleComplete && isGuessWordComplete) {
                 showDialog(12);
-                if(timeLevel2 != "--:--") timeLevel2 = timerElement.innerText;
-                CorredorSala3.isOpen = true;
-                CorredorSala3Image.src = '../assets/objects/LeftDoorStage3.png';
-                CorredorSala3.x = 456.3;
                 return;
             }
 
@@ -199,6 +202,15 @@ function loadLevel2() {
         if (levelLoad != 2) {
             return; // Se o jogo não estiver em execução, saia do loop
         }
+
+        if(minigamesOn == 2) {
+           showDialog(12);
+           if(timeLevel2 != "--:--") timeLevel2 = timerElement.innerText;
+           CorredorSala3.isOpen = true;
+           CorredorSala3Image.src = '../assets/objects/LeftDoorStage3.png';
+           CorredorSala3.x = 456.3;
+           minigamesOn = 3;
+        } 
 
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
