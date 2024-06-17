@@ -110,6 +110,7 @@ function movePlayer(event) {
         player.dy = 0;
         isMoving = false;
         player.col = 0;
+        stopPlayer(event);
     }
 }
 

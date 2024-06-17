@@ -77,6 +77,11 @@ function loadLevel1() {
 
         let distance = Math.sqrt(Math.pow(playerCenterX - doorCenterX, 2) + Math.pow(playerCenterY - doorCenterY, 2));
 
+        if(distance < doorOpenRadius && !key.isPickedUp && !Sala1Door1.isOpen && isKeyPressed('KeyF')) {
+            isStop = true;
+            isPaused = true;
+            showDialog(15); 
+        } 
         return distance < doorOpenRadius && key.isPickedUp && !Sala1Door1.isOpen && isKeyPressed('KeyF');
     }
 
@@ -215,7 +220,8 @@ function loadLevel1() {
             if (isKeyPressed('KeyF') && !stopMovement) {
                 if (checkDoorInteraction() && !didOpen) {
                     animateDoorOpening();
-                } else if (checkTicketInteraction() && !ticket.isPickedUp) {
+                } 
+                 else if (checkTicketInteraction() && !ticket.isPickedUp) {
                     ticket.isPickedUp = true;
                     addToInventory({ name: 'Bilhete', imageSrc: '../assets/inventory/Level1-Paper.png' });
                     showDialog(2);
