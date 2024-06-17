@@ -2,13 +2,14 @@
 const playerImage = new Image();
 playerImage.src = '../assets/characters/walkCicle.png';
 
-const referenceWidth = 2000; // Largura de referência
-const baseSpeed = 1.2; // Velocidade base em pixels por segundo
-const minSpeed = 2; // Velocidade mínima em pixels por segundo
-
 const currentWidth = window.innerWidth; // Largura atual da tela
-const speedFactor = currentWidth / referenceWidth;
-const playerSpeed = Math.max(baseSpeed * speedFactor, minSpeed);
+let playerSpeed;
+
+if (currentWidth < 850) {
+  playerSpeed = 2;
+} else {
+  playerSpeed = 1.3; // Velocidade fixa para telas maiores ou iguais a 850px
+}
 
 let player = {
   x: 20,

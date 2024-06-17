@@ -191,7 +191,7 @@ function loadLevel2() {
                     showDialog(11);
                 }
             }
-        } else if (event.code === 'KeyF' && checkMochilaInteraction() && !mochila3.isPickedUp) {
+        } else if (event.code === 'KeyF' && checkMochilaInteraction() && !mochila3.isPickedUp && loadLevel == 2) {
             mochila3.isPickedUp = true;
             addToInventory({ name: 'Mochila3', imageSrc: '../assets/inventory/Mochila3.png' });
         }

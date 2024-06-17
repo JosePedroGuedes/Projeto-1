@@ -5,9 +5,10 @@ const popup = document.getElementById('mathQuestions');
 const quadro = document.getElementById('mathQuizBox');
 
 function changeBoard() {
-    document.getElementById('mathQuizBox').style.display = 'block';
-    document.getElementById('mathQuizBox').style.fontSize = '0.9rem';
-    document.getElementById('mathQuizBox').innerHTML = 'Quiz de Matemática';
+    quadro.style.display = 'block';
+    quadro.style.fontSize = '0.9rem';
+    quadro.innerHTML = 'Quiz de Matemática';
+    quadro.style.top = "calc(50% - 205px)";
 }
 
 function showQuadroPopup() {
@@ -16,7 +17,10 @@ function showQuadroPopup() {
     isPopupOpen = true; // Marcar o popup como aberto
     popup.style.display = 'block'; // Mostrar o popup
     quadro.style.fontSize = "0.6rem";
+    quadro.style.top = "calc(50% - 195px)";
     stopMovement = true;
+    currentQuestionIndex = 0;
+    questions = [];
     generateMathQuestions();
 
     const answerButtons = document.querySelectorAll('.answer-option');
@@ -118,6 +122,8 @@ function displayQuestion() {
         mathFinish = true;
         showDialog(9);
         closeQuadroPopup();
+        quadro.innerHTML = 'Parabéns!! Passas-te a Matemática!';
+        quadro.style.fontSize = "0.6rem";
         LeaveDoor.isOpen = true;
     }
 }

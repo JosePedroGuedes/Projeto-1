@@ -184,8 +184,7 @@ canvas {
 }
 
 .math-questions .question {
-    margin: 0;
-    /* Remove todas as margens */
+    font-size: 0.9rem;
 }
 
 .math-questions .answer-option {
@@ -193,7 +192,7 @@ canvas {
     background: none;
     border: none;
     cursor: url('../assets/dialog/Mouse.png'), auto;
-    font-size: 14px;
+    font-size: 0.9rem;
     font-family: Retro;
     text-align: left;
     color: rgba(0, 0, 0, 0.7);
@@ -214,7 +213,7 @@ canvas {
     font-family: Retro;
     font-size: 0.9rem;
     position: fixed;
-    top: calc(50% - 215px);
+    top: calc(50% - 205px);
     left: calc(50% + 6.5px);
     transform: translateX(-50%);
     background-color: transparent;
@@ -222,7 +221,7 @@ canvas {
     text-align: center;
     z-index: 1000;
     width: 165px;
-    height: 65px;
+    height: 45px;
 }
 
 .pauseMenu-container {
@@ -747,22 +746,6 @@ body.menu-blur::before {
     color: #3b3b3b;
 }
 
-@media (min-width: 500px) {
-    #gameContainer{
-        zoom :0.8;
-    }
-    .menu-container, .leaderboard-container, .endGame-container {
-        zoom: 0.7;
-    }
-    .dialog-box {
-        zoom: 0.75;
-    }
-    #adminPainel {
-        zoom: 0.85;
-    }
-    
-}
-
 .endGame-container {
     position: absolute;
     top: 50%;
@@ -953,3 +936,18 @@ body.menu-blur::before {
     color: #3b3b3b;
 }
 
+@media (min-width: 550px) and (max-width: 800px) {
+    #gameContainer{
+        zoom :0.8;
+    }
+    .menu-container, .leaderboard-container, .endGame-container {
+        zoom: 0.7;
+    }
+    .dialog-box {
+        zoom: 0.75;
+    }
+    #adminPainel {
+        zoom: 0.85;
+    }
+    
+}
