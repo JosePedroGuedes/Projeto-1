@@ -936,7 +936,7 @@ body.menu-blur::before {
     color: #3b3b3b;
 }
 
-@media (min-width: 550px) and (max-width: 1400px) {
+@media (min-width: 150px) and (max-width: 1400px) {
     #gameContainer{
         zoom :0.8;
     }

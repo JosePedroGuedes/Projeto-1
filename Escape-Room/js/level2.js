@@ -191,16 +191,20 @@ function loadLevel2() {
                     showDialog(11);
                 }
             }
-        } else if (event.code === 'KeyF' && checkMochilaInteraction() && !mochila3.isPickedUp && loadLevel == 2) {
-            mochila3.isPickedUp = true;
-            addToInventory({ name: 'Mochila3', imageSrc: '../assets/inventory/Mochila3.png' });
-        }
+        } 
+        
+        
     });
 
     // Game loop
     function gameLoop() {
         if (levelLoad != 2) {
             return; // Se o jogo não estiver em execução, saia do loop
+        }
+
+        if (isKeyPressed('KeyF') && checkMochilaInteraction() && !mochila3.isPickedUp) {
+            mochila3.isPickedUp = true;
+            addToInventory({ name: 'Mochila3', imageSrc: '../assets/inventory/Mochila3.png' });
         }
 
         if(minigamesOn == 2) {
