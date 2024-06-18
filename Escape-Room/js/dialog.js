@@ -13,6 +13,7 @@ function showDialog(key) {
         dialogBox.classList.remove('hidden');
         isStop = true;
         isPaused = true;
+        stopMovement = true;
         clearInterval(timerInterval);
         timerElement.classList.add("blink");
 
@@ -30,6 +31,7 @@ function hideDialog() {
     
     const dialogBox = document.getElementById('dialogBox');
     dialogBox.classList.add('hidden');
+    stopMovement = false;
     isStop = false;
     isPaused = false;
     timerElement.classList.remove("blink");

@@ -1,14 +1,16 @@
 let mathFinish = false;
 let isPopupOpen = false; // Variável para rastrear o estado do popup
+let currentQuestionIndex = 0;
+let questions = [];
 
 const popup = document.getElementById('mathQuestions');
 const quadro = document.getElementById('mathQuizBox');
 
 function changeBoard() {
     quadro.style.display = 'block';
-    quadro.style.fontSize = '0.9rem';
+    quadro.style.fontSize = '0.8rem';
     quadro.innerHTML = 'Quiz de Matemática';
-    quadro.style.top = "calc(50% - 205px)";
+    quadro.style.top = "calc(50% - 165px)";
 }
 
 function showQuadroPopup() {
@@ -16,19 +18,14 @@ function showQuadroPopup() {
 
     isPopupOpen = true; // Marcar o popup como aberto
     popup.style.display = 'block'; // Mostrar o popup
-    quadro.style.fontSize = "0.6rem";
-    quadro.style.top = "calc(50% - 195px)";
+    quadro.style.fontSize = "0.5rem";
+    quadro.style.top = "calc(50% - 160px)";
     stopMovement = true;
     currentQuestionIndex = 0;
     questions = [];
     generateMathQuestions();
 
-    const answerButtons = document.querySelectorAll('.answer-option');
-    answerButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            checkAnswer(this);
-        });
-    });
+    resetAnswerButtons();
 
     setTimeout(function () {
         document.addEventListener('keydown', handleKeyPressToAdvanceDialog);
@@ -40,6 +37,15 @@ function closeQuadroPopup() {
     stopMovement = false;
     isPopupOpen = false; // Marcar o popup como fechado
     document.removeEventListener('keydown', handleKeyPressToAdvanceDialog);
+
+    // Resetar estado das perguntas
+    resetQuiz();
+}
+
+function resetQuiz() {
+    currentQuestionIndex = 0;
+    questions = [];
+    resetAnswerButtons();
 }
 
 function handleKeyPressToAdvanceDialog(event) {
@@ -65,15 +71,12 @@ const vetoresQuestions = [
 ];
 
 const conjuntosQuestions = [
-    { question: 'Qual é a união dos conjuntos {1, 2} e {2, 3}', answer: '{1, 2, 3}', wrong: ['{1, 2}', '{2, 3}', '{1, 3}', '{1, 2, 4}', '{2, 2, 3}'] },
-    { question: 'Qual é a interseção dos conjuntos {1, 2} e {2, 3}', answer: '{2}', wrong: ['{1}', '{3}', '{1, 2}', '{2, 3}', '{1, 3}'] },
-    { question: 'Qual é o complemento do conjunto {1, 2} em relação a {1, 2, 3}', answer: '{3}', wrong: ['{1}', '{2}', '{1, 3}', '{2, 3}', '{}'] },
-    { question: 'Encontre a diferença dos conjuntos {1, 2} - {2, 3}', answer: '{1}', wrong: ['{2}', '{3}', '{1, 2}', '{1, 3}', '{}'] },
-    { question: 'Qual é a diferença simétrica dos conjuntos {1, 2, 3} e {2, 3, 4}', answer: '{1, 4}', wrong: ['{2, 3}', '{1, 2}', '{3, 4}', '{1, 2, 3, 4}', '{1, 3}'] }
+    { question: 'Qual a união dos conjuntos {1, 2} {2, 3}', answer: '{1, 2, 3}', wrong: ['{1, 2}', '{2, 3}', '{1, 3}', '{1, 2, 4}', '{2, 2, 3}'] },
+    { question: 'Qual a interseção dos conjuntos {1, 2} {2, 3}', answer: '{2}', wrong: ['{1}', '{3}', '{1, 2}', '{2, 3}', '{1, 3}'] },
+    { question: 'Qual o complemento do conjunto {1, 2} em relação {1, 2, 3}', answer: '{3}', wrong: ['{1}', '{2}', '{1, 3}', '{2, 3}', '{}'] },
+    { question: 'Encontre a diferença dos conjuntos {1, 2} {2, 3}', answer: '{1}', wrong: ['{2}', '{3}', '{1, 2}', '{1, 3}', '{}'] },
+    { question: 'Qual o resultado de: {1, 2, 3} - {2, 3, 4}', answer: '{1, 4}', wrong: ['{2, 3}', '{1, 2}', '{3, 4}', '{1, 2, 3, 4}', '{1, 3}'] }
 ];
-
-let currentQuestionIndex = 0;
-let questions = [];
 
 // Gerar e exibir perguntas
 function generateMathQuestions() {
@@ -100,7 +103,7 @@ function displayQuestion() {
         console.log(`Pergunta correta: ${currentQuestion.question}`);
         console.log(`Resposta correta: ${correctAnswer}`);
 
-        document.getElementById('math-question').innerText = currentQuestion.question;
+        document.getElementById('math-question').innerText = (currentQuestionIndex + 1) + ". " + currentQuestion.question;
         quadro.innerText = currentQuestion.question;
 
         // Gerar quatro opções de resposta
@@ -124,6 +127,7 @@ function displayQuestion() {
         closeQuadroPopup();
         quadro.innerHTML = 'Parabéns!! Passas-te a Matemática!';
         quadro.style.fontSize = "0.6rem";
+        quadro.style.top = "calc(50% - 165px)";
         LeaveDoor.isOpen = true;
     }
 }
@@ -134,6 +138,19 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
+}
+
+// Resetar os botões de resposta
+function resetAnswerButtons() {
+    const answerButtons = document.querySelectorAll('.answer-option');
+    answerButtons.forEach(button => {
+        button.removeEventListener('click', handleAnswerClick);
+        button.addEventListener('click', handleAnswerClick);
+    });
+}
+
+function handleAnswerClick(event) {
+    checkAnswer(event.target);
 }
 
 // Verificar resposta
@@ -151,8 +168,8 @@ function checkAnswer(button) {
             numberFailsMath++;
             let randomDialog = Math.floor(Math.random() * 3) + 6;
             showDialog(randomDialog); // Mostrar um diálogo aleatório de erro
-            closeQuadroPopup(); // Fechar o popup após resposta errada
+            closeQuadroPopup();
+            changeBoard(); // Fechar o popup após resposta errada
         }
     }
 }
- 

@@ -1,4 +1,3 @@
-// playerMovement.js
 const playerImage = new Image();
 playerImage.src = '../assets/characters/walkCicle.png';
 
@@ -72,9 +71,6 @@ function updatePlayerAnimation(timestamp) {
     drawPlayer();
 }
 
-
-// playerMovement.js
-
 // Variável para controlar se o jogador está se movendo
 let isMoving = false;
 
@@ -82,8 +78,9 @@ let isStop = false; // Variável para controlar se o jogador está parado
 
 // Função para mover o jogador
 function movePlayer(event) {
+    const key = event.key.toLowerCase(); // Converte a tecla para minúsculas
+
     if (!isStop && !stopMovement) { // Verifica se o jogador não está parado
-        const key = event.key.toLowerCase(); // Converte a tecla para minúsculas
         switch (key) {
             case 'arrowup':
             case 'w':
@@ -107,20 +104,13 @@ function movePlayer(event) {
                 break;
         }
     }
-
-    else {
-        player.dx = 0;
-        player.dy = 0;
-        isMoving = false;
-        player.col = 0;
-        stopPlayer(event);
-    }
 }
 
 // Função para parar o movimento do jogador quando a tecla é solta
 function stopPlayer(event) {
-    if (!isStop) { // Verifica se o jogador não está parado
-        const key = event.key.toLowerCase(); // Converte a tecla para minúsculas
+    const key = event.key.toLowerCase(); // Converte a tecla para minúsculas
+
+    if (!isStop && !stopMovement) { // Verifica se o jogador não está parado
         switch (key) {
             case 'arrowup':
             case 'w':
@@ -160,8 +150,6 @@ window.addEventListener('keyup', function(event) {
     stopPlayer(event);
 });
 
-
-
 function animate(timestamp) {
     // Limpa o canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -169,12 +157,18 @@ function animate(timestamp) {
     // Atualiza a animação do jogador apenas se estiver se movendo e não estiver parado
     if (isMoving && !isStop && !stopMovement) {
         updatePlayerAnimation(timestamp);
+    } else {
+        // Se o movimento estiver parado, redefine dx e dy
+        player.dx = 0;
+        player.dy = 0;
+        isMoving = false;
+        player.col = 0;
+        drawPlayer();
     }
 
     // Solicita uma nova animação
     requestAnimationFrame(animate);
 }
-
 
 // Inicia a animação
 animate();
