@@ -168,7 +168,7 @@ function loadLevel3() {
             }
 
             if (isKeyPressed('KeyF') && !stopMovement && !isPaused && levelLoad == 3) {
-                if (checkInteractionArea() && !stopMovement && !mathFinish) {
+                if (checkInteractionArea() && !stopMovement && !isPaused && !mathFinish && !isPopupOpen) {
                     showQuadroPopup();
                     generateMathQuestions();
                 } else if (checkMochilaInteraction() && !mochila4.isPickedUp) {

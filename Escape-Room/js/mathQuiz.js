@@ -48,12 +48,6 @@ function resetQuiz() {
     resetAnswerButtons();
 }
 
-function handleKeyPressToAdvanceDialog(event) {
-    if ((event.key === 'f' || event.key === 'F') && !isPopupOpen && levelLoad == 3) { // Verificar se o popup não está aberto
-        showQuadroPopup();
-    }
-}
-
 const matrizesQuestions = [
     { question: 'Qual o componente (2,1) da matriz [[6, 5], [2, 3]]', answer: '2', wrong: ['5', '6', '3', '7', '1'] },
     { question: 'Qual é o determinante da matriz [[1, 2], [3, 4]]', answer: '-2', wrong: ['2', '0', '4', '-4', '1'] },
@@ -113,12 +107,15 @@ function displayQuestion() {
         let incorrectAnswers = shuffleArray(currentQuestion.wrong.slice(0, 3));
         const correctAnswerIndex = Math.floor(Math.random() * 4);
 
+        // Prefixos para as respostas
+        const prefixes = ['a)', 'b)', 'c)', 'd)'];
+
         // Inserir a resposta correta na posição correta e as incorretas nas demais posições
         for (let i = 0; i < answerOptions.length; i++) {
             if (i === correctAnswerIndex) {
-                answerOptions[i].innerText = correctAnswer;
+                answerOptions[i].innerText = prefixes[i] + " " + correctAnswer;
             } else {
-                answerOptions[i].innerText = incorrectAnswers.pop();
+                answerOptions[i].innerText = prefixes[i] + " " + incorrectAnswers.pop();
             }
         }
     } else {
@@ -131,6 +128,7 @@ function displayQuestion() {
         LeaveDoor.isOpen = true;
     }
 }
+
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {

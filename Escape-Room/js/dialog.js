@@ -59,7 +59,8 @@ function handleClickToAdvanceDialog(event) {
 }
 
 function handleKeyPressToAdvanceDialog(event) {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' || event.key === 'f' || event.key === 'F' && isStop && isPaused ) {
+        console.log(1);
         hideDialog();
     }
 }
