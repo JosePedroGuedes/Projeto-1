@@ -9,9 +9,10 @@ function addToInventory(item) {
     if(numberBackpacks == 1 && item.name!= "Bilhete" && item.name!= "Chave") showDialog(22);
     if(numberBackpacks == 4 && item.name!= "Bilhete" && item.name!= "Chave"){
         if(levelLoad == 0) animateSecretDoorOpening(CorredorSala4, CorredorSala4Image, "Right", "open");
+        else CorredorSala4Image.src = '../assets/objects/RightDoorStage3.png';
         CorredorSala4.isOpen = true;
         CorredorSala4.x = 13;
-        CorredorSala4Image.src = '../assets/objects/RightDoorStage3.png';
+
         isStop = true;
         isPaused = true;
         showDialog(20);

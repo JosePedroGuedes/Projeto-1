@@ -160,8 +160,6 @@ canvas {
     font-family: Retro;
 }
 
-
-
 .math-questions {
     display: none;
     font-family: Retro;
@@ -213,7 +211,7 @@ canvas {
     font-family: Retro;
     font-size: 0.8rem;
     position: fixed;
-    top: calc(50% - 165px);
+    top: calc(50% - 200px);
     left: calc(50% + 5px);
     transform: translateX(-50%);
     background-color: transparent;
@@ -946,7 +944,7 @@ body.menu-blur::before {
     .dialog-box {
         zoom: 0.75;
     }
-    .math-questions{
+    .math-questions, .mathQuizBox{
         zoom: 0.8;
     }
     #adminPainel {

@@ -10,7 +10,7 @@ function changeBoard() {
     quadro.style.display = 'block';
     quadro.style.fontSize = '0.8rem';
     quadro.innerHTML = 'Quiz de Matemática';
-    quadro.style.top = "calc(50% - 165px)";
+    quadro.style.top = "calc(50% - 200px);";
 }
 
 function showQuadroPopup() {
@@ -18,8 +18,8 @@ function showQuadroPopup() {
 
     isPopupOpen = true; // Marcar o popup como aberto
     popup.style.display = 'block'; // Mostrar o popup
-    quadro.style.fontSize = "0.5rem";
-    quadro.style.top = "calc(50% - 160px)";
+    quadro.style.fontSize = "0.6rem";
+    quadro.style.top = "calc(50% - 205px)";
     stopMovement = true;
     currentQuestionIndex = 0;
     questions = [];
@@ -169,7 +169,8 @@ function checkAnswer(button) {
             let randomDialog = Math.floor(Math.random() * 3) + 6;
             showDialog(randomDialog); // Mostrar um diálogo aleatório de erro
             closeQuadroPopup();
-            changeBoard(); // Fechar o popup após resposta errada
+            changeBoard();
+            quadro.innerHTML = 'Não tem mal, podes tentar outra vez!'; // Fechar o popup após resposta errada
         }
     }
 }
