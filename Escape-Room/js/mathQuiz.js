@@ -49,7 +49,7 @@ function resetQuiz() {
 }
 
 function handleKeyPressToAdvanceDialog(event) {
-    if ((event.key === 'f' || event.key === 'F') && !isPopupOpen) { // Verificar se o popup não está aberto
+    if ((event.key === 'f' || event.key === 'F') && !isPopupOpen && levelLoad == 3) { // Verificar se o popup não está aberto
         showQuadroPopup();
     }
 }

@@ -167,7 +167,7 @@ function loadLevel3() {
                 player.y = nextY;
             }
 
-            if (isKeyPressed('KeyF') && !stopMovement && !isPaused) {
+            if (isKeyPressed('KeyF') && !stopMovement && !isPaused && levelLoad == 3) {
                 if (checkInteractionArea() && !stopMovement && !mathFinish) {
                     showQuadroPopup();
                     generateMathQuestions();
