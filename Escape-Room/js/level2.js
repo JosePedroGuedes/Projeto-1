@@ -1,4 +1,6 @@
 let dialogoInicialSala2 = false;
+let dialogoGamePuzzle = false;
+let dialogoGameWord = false;
 
 function loadLevel2() {
     if(!dialogoInicialSala2){
@@ -108,7 +110,6 @@ function loadLevel2() {
     ];
 
     let interactionRadius = 80;
-    let activeMinigame = null;
 
     function drawPcRadius() {
         if (bordas) {
@@ -148,6 +149,18 @@ function loadLevel2() {
         if (event.code === 'KeyF' && checkSquareInteraction() && !stopMovement && levelLoad == 2) {
             // Aqui você pode verificar qual quadrado está sendo interagido
             let minigame = checkSquareInteraction();
+
+            if(minigame == 1 && !dialogoGamePuzzle) {
+                showDialog(26);
+                dialogoGamePuzzle = true;
+                return;
+            }
+
+            else if(minigame == 2 && !dialogoGameWord) {
+                showDialog(27);
+                dialogoGameWord = true;
+                return;
+            }
 
             // Verifica se ambos os minigames estão concluídos
             let isPuzzleComplete = pcRadius.find(square => square.minigame === 1 && !square.finish) === undefined;
@@ -209,7 +222,7 @@ function loadLevel2() {
 
         if(minigamesOn == 2) {
            showDialog(12);
-           if(timeLevel2 != "--:--") timeLevel2 = timerElement.innerText;
+           if(timeLevel2 == "--:--") timeLevel2 = timerElement.innerText;
            CorredorSala3.isOpen = true;
            CorredorSala3Image.src = '../assets/objects/LeftDoorStage3.png';
            CorredorSala3.x = 456.3;

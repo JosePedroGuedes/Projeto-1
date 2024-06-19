@@ -124,8 +124,9 @@ function displayQuestion() {
         closeQuadroPopup();
         quadro.innerHTML = 'Parabéns!! Passas-te a Matemática!';
         quadro.style.fontSize = "0.6rem";
-        quadro.style.top = "calc(50% - 165px)";
+        quadro.style.top = "calc(50% - 203px)";
         LeaveDoor.isOpen = true;
+        timeLevel3 = timerElement.innerText;
     }
 }
 
@@ -154,12 +155,13 @@ function handleAnswerClick(event) {
 // Verificar resposta
 function checkAnswer(button) {
     const userAnswer = button.innerText; // Obter a resposta do usuário
+    const userAnswerText = userAnswer.substring(3); // Remover o prefixo a), b), c), d)
 
     if (currentQuestionIndex < questions.length) {
         const correctAnswer = questions[currentQuestionIndex].answer; // Obter a resposta correta
 
         // Comparar diretamente as respostas
-        if (userAnswer === correctAnswer) {
+        if (userAnswerText === correctAnswer) {
             currentQuestionIndex++;
             displayQuestion(); // Exibir próxima pergunta
         } else {
@@ -172,3 +174,4 @@ function checkAnswer(button) {
         }
     }
 }
+

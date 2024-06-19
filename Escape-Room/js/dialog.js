@@ -90,4 +90,5 @@ dialogMap[22] = '"Para saber para que serve este objeto, interaja com a porta do
 dialogMap[23] = '"Bem-vindo à sala de Design. Nesta sala tem dois computadores, cada um com um minigame que tem de completar. Interaja com os computadores para jogar."';
 dialogMap[24] = '"Bem-vindo à sala de Matemática. Nesta sala terá que responder a um quiz com 3 perguntas. Interaja com o quadro para começar."';
 dialogMap[25] = '"Bem-vindo à sala Inicial. Esta sala serve para te acostumares com as mecânicas do jogo. Descobre uma maneira de sair da sala."';
-
+dialogMap[26] = 'A imagem da Esmad foi dividida em 9 peças e espalahadas aleatoriamente. O teu objetivo é reconstruir a imagem, mexendo as peças com o espaço vazio.';
+dialogMap[27] = 'Este é um minigame parecido com o jogo da forca. Tens uma palavra para adivinhar e ao clicar numa letra o jogo mostra onde essa letra pertence ou se não existe.';

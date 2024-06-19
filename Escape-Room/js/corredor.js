@@ -1,5 +1,4 @@
 let didFinalDoorOpen = false;
-let addFinalObjects = false;
 
 function corredor() {
     clearGameObjects();
@@ -7,6 +6,8 @@ function corredor() {
     const canvasHeight = 500;
     const gameWidth = 500;
     const gameHeight = 700;
+    
+    let addFinalObjects = false;
 
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
@@ -241,59 +242,59 @@ function corredor() {
         drawDoors();        
         
         const adjustedPlayerX = player.x;
-        const adjustedPlayerY = player.y - cameraY;
-    
-        // Check interaction with CorredorSala2
-        if (isKeyPressed('KeyF') && !stopMovement) {
-            const LeaveDoorAdjustedX = LeaveDoor.x + 30;
-            const LeaveDoorAdjustedY = LeaveDoor.y - 100;
+        const adjustedPlayerY = player.y - cameraY;            
         
+        const LeaveDoorAdjustedX = LeaveDoor.x + 30;
+        const LeaveDoorAdjustedY = LeaveDoor.y - 100;
+    
+        if (isKeyPressed('KeyF') && !stopMovement) {
             if (adjustedPlayerX < LeaveDoorAdjustedX + LeaveDoor.width - 50 &&
                 adjustedPlayerX + player.width > LeaveDoorAdjustedX  &&
                 adjustedPlayerY < LeaveDoorAdjustedY + LeaveDoor.height + 100 &&
                 adjustedPlayerY + player.height > LeaveDoorAdjustedY + 100) {
                     if(!LeaveDoor.isOpen) showDialog(16);
-                    else if(LeaveDoor.isOpen == true && !didFinalDoorOpen) {
-                        if (LeaveDoor.isOpen == true && !addFinalObjects) {
-                            // Remover o primeiro elemento de obstacles
-                            obstacles.splice(0, 1);
-                            
-                            // Adicionar dois novos objetos ao array obstacles
-                            obstacles.push(
-                                { x: 0, y: 70 + playerenterposition, width: 210, height: 15, imagePath: undefined, collisionArea: {
-                                    x: 0,
-                                    y: 70 - cameraY,
-                                    width: 210,
-                                    height: 15
-                                }},
-                                { x: 290, y: 70 + playerenterposition, width: 220, height: 15, imagePath: undefined , collisionArea: {
-                                    x: 290,
-                                    y: 70 - cameraY,
-                                    width: 220,
-                                    height: 15
-                                }},
-                                { x: 200, y: 0 + playerenterposition, width: 10, height: 45, imagePath: undefined , collisionArea: {
-                                    x: 200, 
-                                    y: 0 - cameraY, 
-                                    width: 10, 
-                                    height: 45
-                                }},
-                                { x: 288, y: 0 + playerenterposition, width: 10, height: 45, imagePath: undefined , collisionArea: {
-                                    x: 288, 
-                                    y: 0 - cameraY, 
-                                    width: 10, 
-                                    height: 45
-                                }}
-                            );
-                            addFinalObjects = true;
-                        }
-                        didFinalDoorOpen = true;
+                    else if(!didFinalDoorOpen) {
                         animateDoorOpening(LeaveDoor, LeaveDoorImage, "Double");
-                        
+                        didFinalDoorOpen = true;
                     }
-            }
+                }
         }
-       
+
+        if(didFinalDoorOpen == true && !addFinalObjects) {
+            addFinalObjects = true;
+
+            setTimeout(function() {
+                obstacles.splice(0, 1);
+                obstacles.push(
+                    { x: 0, y: 70 + playerenterposition, width: 210, height: 15, imagePath: undefined, collisionArea: {
+                        x: 0,
+                        y: 70 - cameraY,
+                        width: 210,
+                        height: 15
+                    }},
+                    { x: 290, y: 70 + playerenterposition, width: 220, height: 15, imagePath: undefined, collisionArea: {
+                        x: 290,
+                        y: 70 - cameraY,
+                        width: 220,
+                        height: 15
+                    }},
+                    { x: 200, y: 0 + playerenterposition, width: 10, height: 45, imagePath: undefined, collisionArea: {
+                        x: 200, 
+                        y: 0 - cameraY, 
+                        width: 10, 
+                        height: 45
+                    }},
+                    { x: 288, y: 0 + playerenterposition, width: 10, height: 45, imagePath: undefined, collisionArea: {
+                        x: 288, 
+                        y: 0 - cameraY, 
+                        width: 10, 
+                        height: 45
+                    }}
+                );
+            }, 1000); // 500 ms delay
+
+        }
+                        
 
         if (isKeyPressed('KeyF') && !CorredorSala2.isOpen && !stopMovement) {
             const CorredorSala2AdjustedX = CorredorSala2.x + 30;
