@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("adminSettings").style.display = "none";
     }
 
-    // Logout event listener
+    
     document.getElementById("logout").addEventListener("click", function (event) {
         event.preventDefault();
         logout();
@@ -30,14 +30,14 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("login").style.display = "block";
       });
 
-    // User button click event listener
+    
     document.getElementById("userButton").addEventListener("click", function () {
 
         var popup = document.getElementById("myPopup");
         popup.classList.toggle("show");
       });
 
-    // Populate user table
+    
     var tbody = document.querySelector("#userTable tbody");
     if (tbody) {
       let users = JSON.parse(localStorage.getItem("users")) || [];
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
-    // Handle Edit Profile Popup
+    
     const editProfilePopup = document.getElementById("editProfilePopup");
     const editProfileForm = document.getElementById("editProfileForm");
     const closeEditProfilePopup = document.getElementById("closeEditProfilePopup");
@@ -105,10 +105,10 @@ document.addEventListener("DOMContentLoaded", function () {
     
         document.getElementById("userName").textContent = username;
     
-        confirm("User updated successfully!");
+        confirm("Utilizador alterado com sucesso!");
         window.location.reload();
       } else {
-        alert("User not found.");
+        alert("Utilizador não encontrado.");
       }
     });
   }

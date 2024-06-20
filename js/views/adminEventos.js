@@ -124,17 +124,17 @@ function handleEventosActions(event) {
 
   if (!row) return;
 
-  if (event.target.classList.contains("remove")) {
+  if (event.target.classList.contains("remove")) {                  // Remove evento
     const name = row.cells[0].innerText;
-    if (confirm("Are you sure you want to delete this Evento?")) {
+    if (confirm("Tem a certeza que deseja remover este evento?")) {
       
       removeEventos(name);
       row.remove();
-      alert("Evento removed");
+      alert("Evento removido com sucesso!");
     }
   }
 
-  if (event.target.classList.contains("edit")) {
+  if (event.target.classList.contains("edit")) {                    // Editar evento
     const eventEdit = document.getElementById("eventEdit");
 
     const oldName = row.cells[0].innerText;
