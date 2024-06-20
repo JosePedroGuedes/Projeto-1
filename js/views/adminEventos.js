@@ -38,17 +38,20 @@ document.getElementById("create-btn").onclick = function () {
   document.getElementById("createEvent").style.display = "block";
 
   const imageUpload = document.getElementById("imageUploadCreateEvent");
+
+  
+  const imagePreview = document.createElement("img");
+  imagePreview.style.maxWidth = "200px";
+  const imageContainer = document.getElementById("imagePreviewContainerEvent");
+  imageContainer.innerHTML = "";
+  imageContainer.appendChild(imagePreview);
+
   imageUpload.addEventListener("change", function () {
     const file = imageUpload.files[0];
     const reader = new FileReader();
     reader.onload = function (e) {
       const newImage = e.target.result;
-      const imagePreview = document.createElement("img");
       imagePreview.src = newImage;
-      imagePreview.style.maxWidth = "200px";
-      const imageContainer = document.getElementById("imagePreviewContainerEvent");
-      imageContainer.innerHTML = "";
-      imageContainer.appendChild(imagePreview);
     };
     if (file) {
       reader.readAsDataURL(file);
@@ -60,12 +63,10 @@ document.getElementById("create-btn").onclick = function () {
     const name = document.getElementById("name").value;
     const description = document.getElementById("description").value;
     const url = document.getElementById("url").value;
-    const image = document.getElementById("imageUploadCreateEvent").src;
-    
-    
+    const image = imagePreview.src; 
+
     addEventos(name, description, image, url);
-    
-    
+
     location.reload();
   });
 
