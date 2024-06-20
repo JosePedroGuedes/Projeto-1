@@ -205,3 +205,40 @@
     width: 10vw;
     margin-left: 40px;
 }
+
+.image-12 {
+    width: 20vw;
+}
+
+
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+
+    .navbar-toggler {
+        font-size: 1.25rem;
+    }
+
+    .study-plans .title,
+    .study-plans .sub-title,
+    .apresentation .title {
+        font-size: 1.5rem;
+    }
+
+    .text {
+        margin: 20px 0;
+        font-size: 0.9rem;
+    }
+
+    .content {
+        flex-direction: column;
+        align-items: center;
+        margin-left: 0;
+        padding-right: 0;
+    }
+
+    .custom-card {
+        width: 80%;
+    }
+}
