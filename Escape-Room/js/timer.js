@@ -1,6 +1,6 @@
 let timerElement = document.getElementById("timer");
 let timerInterval;
-let totalSeconds = 20 * 60;  // 20 minutes in seconds
+let totalSeconds = 20 * 60;  // 20 minutos em segundos
 let endGameTime = false;
 
 // Função para iniciar o timer
@@ -38,11 +38,11 @@ function pad(val) {
     }
 }
 
+// Função para adicionar tempo extra ao tempo existente
 function addTime(minutesToAdd, secondsToAdd) {
     let additionalSeconds = minutesToAdd * 60 + secondsToAdd;
     totalSeconds += additionalSeconds;
 
-    // Atualizar a exibição do timer imediatamente
     let minutes = Math.floor(totalSeconds / 60);
     let seconds = totalSeconds % 60;
     timerElement.innerText = pad(minutes) + ":" + pad(seconds);

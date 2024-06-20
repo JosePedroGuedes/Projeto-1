@@ -1,22 +1,26 @@
-let dialogoInicialSala3 = false;
+let dialogoInicialSala3 = false; // Gerada fora da função para só ser usada uma vez. Mostra o diálogo inicial da sala
 
 function loadLevel3() {
-    if(!dialogoInicialSala3){
+    if(!dialogoInicialSala3) { // Mostra o diálogo inicial uma única vez
         showDialog(24);
         dialogoInicialSala3 = true;
     }
+
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
+    // Imagem de fundo
     let backgroundElement = document.getElementById("gameCanvas");
     backgroundElement.style.backgroundImage = "url('../assets/backgrounds/SalaMatematica.png')";
 
-    changeBoard();
-    
+    changeBoard(); // Função defenida no MathQuiz.js para redefenir o texto e tamanho do quadro
+
+    // Função que desenha a porta
     function drawDoor() {
         ctx.drawImage(Sala3Door1Image, Sala3Door1.x, Sala3Door1.y, Sala3Door1.width, Sala3Door1.height);
     }
 
+    // Área de interação do quadro do quiz
     const interactionArea = {
         x: 155,
         y: 60,
@@ -24,6 +28,7 @@ function loadLevel3() {
         height: 70
     };
 
+    // Função que verifica se o jogador está na área de interação
     function checkInteractionArea() {
         let playerCenterX = player.x + player.width / 2;
         let playerCenterY = player.y + player.height / 2;
@@ -34,14 +39,16 @@ function loadLevel3() {
             playerCenterY < interactionArea.height + interactionArea.y;
     }
 
+    // Função que desenha a mochila
     function drawMochila() {
         if (!mochila4.isPickedUp) {
             ctx.drawImage(Mochila4Image, mochila4.x, mochila4.y, mochila4.width, mochila4.height);
         }
     }
 
+    // Função que verifica se o jogador está a interagir com a mochila
+    
     let mochilaRadius = 55;
-
     function checkMochilaInteraction() {
         if (!mochila4.isPickedUp) {
             let playerCenterX = player.x + player.width / 2;
@@ -56,12 +63,13 @@ function loadLevel3() {
         return false;
     }
 
+    // Função que adiciona as bordas e os objetos com imagem
     function addObstacle(x, y, width, height, imagePath, collisionArea) {
         const obstacle = { x, y, width, height, imagePath };
 
         if (collisionArea) {
             obstacle.collisionArea = collisionArea;
-        } else {
+        } else { // Caso não tenha área de colisão própria, ela se torna os valores originais
             obstacle.collisionArea = { x, y, width, height };
         }
 
@@ -79,17 +87,18 @@ function loadLevel3() {
         obstacles.push(obstacle);
     }
 
+    // Função que desenha as bordas e os objetos
     function drawObstacles() {
-
         for (let obstacle of obstacles) {
             if (obstacle.image) {
                 ctx.drawImage(obstacle.image, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
             }
-            // Draw collision areas for debugging
         }
     }
 
-    //Bordas
+    // Inserção das bordas e objetos
+
+    // Bordas
     addObstacle(0, 75, 500, 10);
     addObstacle(0, 70, 15, 500);
     addObstacle(0, 480, 500, 20, '../assets/objects/BordaFundo.png', { x: 0, y: 500, width: 500, height: 10 });
@@ -98,7 +107,7 @@ function loadLevel3() {
     // Mesa Professor
     addObstacle(378, 138, 94, 21, '../assets/objects/Sala3-MesaProfessor.png', { x: 378, y: 153, width: 94, height: 10 });
 
-    //Mesas
+    // Mesas
     addObstacle(290, 222, 182, 18, '../assets/objects/Sala3-Mesa.png', { x: 290, y: 232, width: 182, height: 10 });
     addObstacle(290, 305, 182, 18, '../assets/objects/Sala3-Mesa.png', { x: 290, y: 315, width: 182, height: 10 });
     addObstacle(290, 388, 182, 18, '../assets/objects/Sala3-Mesa.png', { x: 290, y: 398, width: 182, height: 10 });
@@ -106,12 +115,14 @@ function loadLevel3() {
     addObstacle(38, 305, 182, 18, '../assets/objects/Sala3-Mesa.png', { x: 38, y: 315, width: 182, height: 10 });
     addObstacle(38, 388, 182, 18, '../assets/objects/Sala3-Mesa.png', { x: 38, y: 398, width: 182, height: 10 });
 
-    //Lixo
+    // Lixo
     addObstacle(15, 90, 22, 10);
 
+    // Função que desenha as bordas de todos os objetos, áreas de interação e de colisão
     function drawBorders() {
         if (bordas) {
             ctx.save();
+            //Desenhar as bordas da sala e dos objetos
             ctx.strokeStyle = 'red';
             ctx.lineWidth = 2;
             for (let obstacle of obstacles) {
@@ -119,15 +130,17 @@ function loadLevel3() {
                     ctx.strokeRect(obstacle.collisionArea.x, obstacle.collisionArea.y, obstacle.collisionArea.width, obstacle.collisionArea.height);
                 }
             }
+             // Desenhar o limite de passagem da porta
             ctx.strokeStyle = 'yellow';
             ctx.lineWidth = 2;
             ctx.strokeRect(passageRect.x, passageRect.y, passageRect.width, passageRect.height);
-    
+
+            // Desenhar limite de intereação do quadro
             ctx.strokeStyle = 'blue';
             ctx.lineWidth = 2;
             ctx.strokeRect(interactionArea.x, interactionArea.y, interactionArea.width, interactionArea.height);
     
-            // Desenhar círculos para a chave, bilhete e mochila
+            // Desenhar círculos para a mochila
             ctx.strokeStyle = 'white';
             ctx.lineWidth = 2;
     
@@ -141,13 +154,15 @@ function loadLevel3() {
         }
     }    
 
+    // Retângulo de passagem da porta
     const passageRect = {
-        x: Sala3Door1.x, // Coordenada x do retângulo de passagem
-        y: Sala3Door1.y + 50, // Coordenada y do retângulo de passagem
-        width: 15, // Largura do retângulo de passagem
-        height: 35, // Altura do retângulo de passagem
+        x: Sala3Door1.x, 
+        y: Sala3Door1.y + 50,
+        width: 15,
+        height: 35,
     };
 
+    // Função que verifica se o jogador está a colidir com o retângulo de passagem para avançar para o próximo nível
     function checkPassageRectDoorCollision() {
         let playerCenterX = player.x + player.width / 2;
         let playerCenterY = player.y + player.height / 2;
@@ -161,16 +176,18 @@ function loadLevel3() {
         let thresholdX = (player.width / 2) + (passageRect.width / 2) - 20;
         let thresholdY = (player.height / 2) + (passageRect.height / 2) - 20;
     
-        return distanceX < thresholdX && distanceY < thresholdY;
+        return distanceX < thresholdX && distanceY < thresholdY; // Retorna se o jogador está a querer sair ou não
     }
 
+    // Loop do jogo
     function gameLoop() {
         if (levelLoad != 3) {
             document.getElementById("mathQuizBox").style.display = "none";
-            return; // Se o jogo não estiver em execução, saia do loop
+            return; // Se o jogo não estiver no respetivo nivel, não deixa o loop avançar
         }
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
+        //Verificar se o jogador está a colidir com algo
         if (player && player.dx !== undefined && player.dy !== undefined) {
             let nextX = player.x + player.dx;
             let nextY = player.y + player.dy;
@@ -190,17 +207,20 @@ function loadLevel3() {
                 player.y = nextY;
             }
 
+            //Verificar se o jogador está a interagir com o quadro ou com a mochila
             if (isKeyPressed('KeyF') && !stopMovement && !isPaused && levelLoad == 3) {
-                if (checkInteractionArea() && !stopMovement && !isPaused && !mathFinish && !isPopupOpen) {
+                if (checkInteractionArea() && !stopMovement && !isPaused && !mathFinish && !isPopupOpen) {//Interação com o quadro
                     showQuadroPopup();
                     generateMathQuestions();
-                } else if (checkMochilaInteraction() && !mochila4.isPickedUp) {
+
+                } else if (checkMochilaInteraction() && !mochila4.isPickedUp) {//Interação com a mochila, e a guarda no inventario caso seja verdade
                     mochila4.isPickedUp = true;
                     addToInventory({ name: 'Mochila4', imageSrc: '../assets/inventory/Mochila4.png' });
                 }
             }
         }
 
+        //Verificação se o jogador quer sair da sala
         if (checkPassageRectDoorCollision() && levelLoad == 3) {
             clearGameObjects();
             player.x = CorredorSala3.x - 50;
@@ -209,15 +229,16 @@ function loadLevel3() {
             return;
         }
 
+        //Desenha o jogador, objetos e bordas
         drawMochila();
         drawPlayer();
         drawObstacles();
         drawDoor();
-        drawBorders(); // Desenha a área de interação
+        drawBorders();
 
+        //Reiniciar o loop
         requestAnimationFrame(gameLoop);
     }
 
-    gameLoop();
-
+    gameLoop(); // Inicia o loop do jogo
 }

@@ -1,53 +1,52 @@
+//Defenir a imagem do personagem
 const playerImage = new Image();
 playerImage.src = '../assets/characters/walkCicle.png';
 
+//Contas necessárias para calcular a velocidade do jogador conforme o tamanho da tela, pois a velocidade dele muda drasticamente de computador para computador, mas este código previne isso
 const currentWidth = window.innerWidth; // Largura atual da tela
 let playerSpeed;
-
 if (currentWidth < 1300) {
   playerSpeed = 2;
 } else {
   playerSpeed = 1.3; // Velocidade fixa para telas maiores ou iguais a 850px
 }
 
+//Defenir o objeto do personagem
 let player = {
   x: 20,
   y: 250,
-  width: 58, // Largura do jogador
-  height: 58, // Altura do jogador
-  speed: playerSpeed, // Velocidade do jogador ajustada dinamicamente
-  dx: 0,
-  dy: 0,
-  row: 0, // Linha atual da animação
-  col: 0, // Coluna atual da animação
-  lastFrameChangeTime: 0 // Tempo da última mudança de frame
+  width: 58,
+  height: 58,
+  speed: playerSpeed,
+  dx: 0, //Ver variação do x do movimento do personagem
+  dy: 0,    //Ver variação do x do movimento do personagem
+  row: 0, // Linha atual da imagem do walk cycle
+  col: 0, // Coluna atual da imagem do walk cycle 
+  lastFrameChangeTime: 0
 };
 
-// Define as dimensões de cada frame na imagem (64x64 pixels)
+// Define as dimensões de cada frame na imagem, o total de frames, quantos frames por linha e o tempo em ms entre cada imagem para criar a animação
 const FRAME_WIDTH = 64;
 const FRAME_HEIGHT = 64;
-// Define o número total de frames (16 frames no total)
 const TOTAL_FRAMES = 16;
-// Define o número de frames por direção (4 frames por direção)
 const FRAMES_PER_DIRECTION = 4;
-// Define o tempo de mudança de frame (em milissegundos)
-const FRAME_CHANGE_TIME = 100; // Altere conforme necessário
+const FRAME_CHANGE_TIME = 100; 
 
+
+//Usado para saber que tecla está pressionada no momento para poder ter mais que uma pressionada
 const pressedKeys = {};
-
 function isKeyPressed(key) {
     return !!pressedKeys[key];
 }
 
 // Função para desenhar o jogador
 function drawPlayer() {
-    // Desenha o frame atual da imagem do jogador no contexto do canvas
     ctx.drawImage(playerImage, player.col * FRAME_WIDTH, player.row * FRAME_HEIGHT, FRAME_WIDTH, FRAME_HEIGHT, player.x, player.y, player.width, player.height);
 }
 
 // Função para atualizar a animação do jogador
 function updatePlayerAnimation(timestamp) {
-    // Verifica se é hora de mudar para o próximo frame com base no tempo decorrido
+    // Verifica se é para o próximo frame com base no tempo decorrido
     if (timestamp - player.lastFrameChangeTime >= FRAME_CHANGE_TIME) {
         // Atualiza o tempo da última mudança de frame
         player.lastFrameChangeTime = timestamp;
@@ -67,13 +66,11 @@ function updatePlayerAnimation(timestamp) {
         player.row = 2;
     }
 
-    // Desenha o jogador
     drawPlayer();
 }
 
-// Variável para controlar se o jogador está se movendo
-let isMoving = false;
 
+let isMoving = false; // Variável para controlar se o jogador está se movendo
 let isStop = false; // Variável para controlar se o jogador está parado
 
 // Função para mover o jogador
@@ -144,12 +141,12 @@ window.addEventListener('keydown', function(event) {
     pressedKeys[event.code] = true;
     movePlayer(event);
 });
-
 window.addEventListener('keyup', function(event) {
     pressedKeys[event.code] = false;
     stopPlayer(event);
 });
 
+//Função que trata da animação do personagem
 function animate(timestamp) {
     // Limpa o canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -157,8 +154,7 @@ function animate(timestamp) {
     // Atualiza a animação do jogador apenas se estiver se movendo e não estiver parado
     if (isMoving && !isStop && !stopMovement) {
         updatePlayerAnimation(timestamp);
-    } else {
-        // Se o movimento estiver parado, redefine dx e dy
+    } else {// Se o movimento estiver parado, redefine dx e dy
         player.dx = 0;
         player.dy = 0;
         isMoving = false;
@@ -166,9 +162,7 @@ function animate(timestamp) {
         drawPlayer();
     }
 
-    // Solicita uma nova animação
-    requestAnimationFrame(animate);
+    requestAnimationFrame(animate); // Criar um loop para estar sempre a animar
 }
 
-// Inicia a animação
 animate();

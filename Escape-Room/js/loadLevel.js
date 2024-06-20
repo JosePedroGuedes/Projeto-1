@@ -1,11 +1,13 @@
+// Obter que user está atualmente a jogar
 const userInfo = JSON.parse(sessionStorage.getItem("loggedUser"));
 if(!userInfo){
-    window.location.href = '/index.html';
+    window.location.href = '/html/login.html';
 }
 const username = userInfo.username;
 const idUser = userInfo.id;
 console.log("Bem vindo ao Escape Room " + username);
 
+// Meter em variaveis os Id's de todos os menus e paineis para poderem serem modificados
 const adminPainelContainer = document.getElementById("adminPainel");
 const timerContainer = document.getElementById("timerContainer");
 const canvaContainer = document.getElementById("gameContainer");
@@ -15,7 +17,7 @@ const spanUsername = document.getElementById("spanUsername");
 const endGameContainer = document.getElementById("endGameContainer");
 const leaderboardContainer = document.getElementById("leaderboardContainer");
 
-window.onload = function () {
+window.onload = function () { //Ao iniciar a página, esconder tudo que não seja o menu principal
     timerContainer.style.display = "none";
     inventoryContainer.style.display = "none";
     adminPainelContainer.style.display = "none";
@@ -25,6 +27,7 @@ window.onload = function () {
     clearInterval(timerInterval);
 };
 
+// Eventos de clique de botões dos menus
 document.getElementById('startGameBtn').addEventListener('click', function() {
     startEscapeRoom();
 });
@@ -53,31 +56,7 @@ document.getElementById('LeaderGoBackeBtn').addEventListener('click', function()
     }
 });
 
-function startEscapeRoom() {
-    restartTimer();
-    loadLevel(1);
-    stopMovement = false;
-
-    if (username == "Admin" || username == "admin") {
-        adminPainelContainer.style.display = "block";
-    }
-    timerContainer.style.display = "block";
-    canvaContainer.style.display = "block";
-    inventoryContainer.style.display = "block";
-    menuContainer.style.display = "none";
-}
-
-function endEscapeRoom() {
-    timerContainer.style.display = "none";
-    canvaContainer.style.display = "none";
-    inventoryContainer.style.display = "none";
-    menuContainer.style.display = "none";
-    endGameContainer.style.display = "block";
-    timeEscapeRoom = timerElement.innerText;
-    endGameTime = true;
-    updateStats();
-}
-
+// Função usada para obter os valores para serem mostrados no Leaderboard
 function showLeaderBoard() {
     leaderboardContainer.style.display = "block";
     menuContainer.style.display = "none";
@@ -131,35 +110,64 @@ function timeToSeconds(timeString) {
     return minutes * 60 + seconds;
 }
 
+// Função que começa o escaoe room
+function startEscapeRoom() {
+    restartTimer();
+    loadLevel(1);
+    stopMovement = false;
+
+    if (username == "Admin" || username == "admin") { // Mostrar o painel de Admin caso seja ele quem esteja logado
+        adminPainelContainer.style.display = "block";
+    }
+    timerContainer.style.display = "block";
+    canvaContainer.style.display = "block";
+    inventoryContainer.style.display = "block";
+    menuContainer.style.display = "none";
+}
+
+// Função que começa o escaoe room
+function endEscapeRoom() {
+    timerContainer.style.display = "none";
+    canvaContainer.style.display = "none";
+    inventoryContainer.style.display = "none";
+    menuContainer.style.display = "none";
+    endGameContainer.style.display = "block";
+    timeEscapeRoom = timerElement.innerText;
+    endGameTime = true;
+    updateStats();
+}
+
+// FUnção responsável por trocar de níveis e apagar todos os objetos desenhados do nível anterior
 let levelLoad = 1;
 function loadLevel(levelNumber) {
     clearGameObjects();
+    document.getElementById('mathQuizBox').style.display = "none"; //este texto deu problemas de aparecer onde não devia, e isto é para prevenir isso
     switch (levelNumber) {
         case 0:
             levelLoad = 0;
             corredor();
-            console.log("Entrou no corredor");
+            if(username == "admin") console.log("Entrou no corredor");
             break;
         case 1:
             levelLoad = 1;
             loadLevel1();
-            console.log("Entrou no nível 1");
+            if(username == "admin") console.log("Entrou no nível 1");
             break;
         
         case 2:
             levelLoad = 2;
             loadLevel2();    
-            console.log("Entrou no nível 2");
+            if(username == "admin") console.log("Entrou no nível 2");
             break;
         case 3:
             levelLoad = 3;
             loadLevel3();
-            console.log("Entrou no nível 3");
+            if(username == "admin") console.log("Entrou no nível 3");
             break;
         case -1:
             levelLoad = -1;
             secretLevel();
-            console.log("Descobriu o nível secreto");
+            if(username == "admin") console.log("Descobriu o nível secreto");
             break;
         default:
             console.error("Nível não encontrado:", levelNumber);

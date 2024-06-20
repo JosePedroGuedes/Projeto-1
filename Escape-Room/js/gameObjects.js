@@ -1,3 +1,4 @@
+//Defenir a variável do canvas
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -5,22 +6,29 @@ const ctx = canvas.getContext('2d');
 const canvasWidth = canvas.width;
 const canvasHeight = canvas.height;
 
+//Ajustar inventário para estar alinhado com o canvas
 document.getElementById('inventoryImage').style.height = canvasHeight + 'px';
-
 var novaPosicaoX = canvasWidth + 80;
-
 document.getElementById('inventoryContainer').style.left = novaPosicaoX + 'px';
 
+//Tamanho do canvas do Corredor
 const canvasWidth2 = 500;
 const canvasHeight2 = 700;
 
+//Função responsável por limpar os objetos do nível anterior
+
+let obstacles = []; 
 function clearGameObjects() {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     obstacles = [];
     document.getElementById("mathQuizBox").style.display = "none";
 }
 
+let stopMovement = false; //Variável responsável por saber se o jogador está parado
+
 // Define as variáveis do jogo
+
+// Definir as variáveis da chave e do bilhete
 const keyImage = new Image();
 keyImage.src = '../assets/collectibles/ChaveSala1.png';
 
@@ -32,9 +40,9 @@ let key = {
     isPickedUp: false
 };
 
-// Gera automaticamente o ticket com código aleatório
-const randomNumberTicket = Math.floor(Math.random() * (999 - 100 + 1)) + 100; // Número aleatório entre 100 e 999
-const binaryCode = randomNumberTicket.toString(2).padStart(7, '0'); // Transforma em binário e adiciona zeros à esquerda para garantir 7 dígitos
+// Gerador do código binário
+const randomNumberTicket = Math.floor(Math.random() * (999 - 100 + 1)) + 100; // Número aleatório entre 100 e 999 para ter sempre 3 dígitos
+const binaryCode = randomNumberTicket.toString(2).padStart(7, '0');
 
 const ticketImage = new Image();
 ticketImage.src = '../assets/collectibles/bilhete.png';
@@ -47,6 +55,8 @@ const ticket = {
     binarycode: binaryCode,
     isPickedUp: false,
 };
+
+// Definir as variáveis das mochilas
 
 const Mochila1Image = new Image();
 Mochila1Image.src = '../assets/collectibles/Mochila1.png';
@@ -92,15 +102,15 @@ let mochila4 = {
     isPickedUp: false
 };
 
-// Define as variáveis da porta
+// Definir as variáveis das portas
 const Sala1Door1Image = new Image();
 Sala1Door1Image.src = '../assets/objects/RightDoorStage1.png';
 
 const Sala1Door1 = { // porta do nível 1
     x: 13,
     y: 122,
-    width: null, // Inicialmente null
-    height: null, // Inicialmente null
+    width: null, 
+    height: null, 
     isOpen: false,
     isDoor: true
 };
@@ -190,6 +200,8 @@ const LeaveDoor = {
     isDoor: true
 };
 
+// Funções responsáveis por aumentar o tamanho das imagens das portas para ficarem bem no cenário e prevenir que as imagens não bugem
+
 function adjustDoorSize(door, doorImage) {
     door.width = doorImage.width * 1.1;
     door.height = doorImage.height * 1.2;
@@ -226,7 +238,3 @@ CorredorSala4Image.onload = function() {
 LeaveDoorImage.onload = function() {
     adjustDoorSize(LeaveDoor, LeaveDoorImage);
 };
-
-let obstacles = [];
-
-let stopMovement = false;

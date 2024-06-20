@@ -1,11 +1,12 @@
-let mathFinish = false;
-let isPopupOpen = false; // Variável para rastrear o estado do popup
+let mathFinish = false; // Variável para saber quando o jogo foi finalizado
+isPopupOpen = false; // Variável para rastrear o estado do popup
 let currentQuestionIndex = 0;
 let questions = [];
 
 const popup = document.getElementById('mathQuestions');
 const quadro = document.getElementById('mathQuizBox');
 
+// Mudar o texto do quadro para o inicial
 function changeBoard() {
     quadro.style.display = 'block';
     quadro.style.fontSize = '0.8rem';
@@ -14,29 +15,26 @@ function changeBoard() {
 }
 
 function showQuadroPopup() {
-    if (isPopupOpen) return; // Impedir que o popup seja mostrado se já está aberto
+    if (isPopupOpen) return; // Impedir que o popup seja aberto se já está aberto, para não abrir mais que uma vez
 
-    isPopupOpen = true; // Marcar o popup como aberto
-    popup.style.display = 'block'; // Mostrar o popup
+    isPopupOpen = true;
+    popup.style.display = 'block';
+    //mudar o estilo para a pergunta ficar bem no quadro
     quadro.style.fontSize = "0.6rem";
     quadro.style.top = "calc(50% - 205px)";
-    stopMovement = true;
+    stopMovement = true; //impedir que o jogador se mova
     currentQuestionIndex = 0;
     questions = [];
-    generateMathQuestions();
+    generateMathQuestions(); //função que gera as perguntas
 
-    resetAnswerButtons();
-
-    setTimeout(function () {
-        document.addEventListener('keydown', handleKeyPressToAdvanceDialog);
-    }, 500);
+    resetAnswerButtons(); //apagar as respostas da pergunta anterior
 }
 
+//Função para fechar o quiz
 function closeQuadroPopup() {
     popup.style.display = 'none'; // Esconder o popup
     stopMovement = false;
     isPopupOpen = false; // Marcar o popup como fechado
-    document.removeEventListener('keydown', handleKeyPressToAdvanceDialog);
 
     // Resetar estado das perguntas
     resetQuiz();
@@ -47,6 +45,8 @@ function resetQuiz() {
     questions = [];
     resetAnswerButtons();
 }
+
+//Local onde estão guardadas as perguntas e suas respostas + respostas erradas
 
 const matrizesQuestions = [
     { question: 'Qual o componente (2,1) da matriz [[6, 5], [2, 3]]', answer: '2', wrong: ['5', '6', '3', '7', '1'] },
@@ -69,10 +69,11 @@ const conjuntosQuestions = [
     { question: 'Qual a interseção dos conjuntos {1, 2} {2, 3}', answer: '{2}', wrong: ['{1}', '{3}', '{1, 2}', '{2, 3}', '{1, 3}'] },
     { question: 'Qual o complemento do conjunto {1, 2} em relação {1, 2, 3}', answer: '{3}', wrong: ['{1}', '{2}', '{1, 3}', '{2, 3}', '{}'] },
     { question: 'Encontre a diferença dos conjuntos {1, 2} {2, 3}', answer: '{1}', wrong: ['{2}', '{3}', '{1, 2}', '{1, 3}', '{}'] },
-    { question: 'Qual o resultado de: {1, 2, 3} - {2, 3, 4}', answer: '{1, 4}', wrong: ['{2, 3}', '{1, 2}', '{3, 4}', '{1, 2, 3, 4}', '{1, 3}'] }
+    { question: 'Qual o resultado dos conjuntos: {1, 2, 3} - {2, 3, 4}', answer: '{1}', wrong: ['{2, 3}', '{1, 2}', '{3, 4}', '{1, 2, 3, 4}', '{1, 3}'] }
 ];
 
-// Gerar e exibir perguntas
+
+// Gerar aleatoriamente qual pergunta aparecerá
 function generateMathQuestions() {
     const matrizIndex = Math.floor(Math.random() * matrizesQuestions.length);
     const vetorIndex = Math.floor(Math.random() * vetoresQuestions.length);
@@ -88,18 +89,19 @@ function generateMathQuestions() {
     displayQuestion();
 }
 
+//Mostrar a pegunta e as respostas
 function displayQuestion() {
-    if (currentQuestionIndex < questions.length) {
+    if (currentQuestionIndex < questions.length) { //verificar se todas as perguntas já foram respondidas
         const currentQuestion = questions[currentQuestionIndex];
-        const correctAnswer = currentQuestion.answer; // Obter a resposta correta
+        const correctAnswer = currentQuestion.answer;
 
-        // Mostrar a pergunta correta no console
+        // Mostrar a pergunta correta no console para o admin
         if(username == "admin") {
             console.log(`Pergunta correta: ${currentQuestion.question}`);
             console.log(`Resposta correta: ${correctAnswer}`);
         }
 
-        document.getElementById('math-question').innerText = (currentQuestionIndex + 1) + ". " + currentQuestion.question;
+        document.getElementById('math-question').innerText = (currentQuestionIndex + 1) + ". " + currentQuestion.question; //Mostrar pergunta com o seu index atrás (Ex: 1. Qual a união dos conjuntos {1, 2} {2, 3})
         quadro.innerText = currentQuestion.question;
 
         // Gerar quatro opções de resposta
@@ -120,7 +122,7 @@ function displayQuestion() {
                 answerOptions[i].innerText = prefixes[i] + " " + incorrectAnswers.pop();
             }
         }
-    } else {
+    } else { //caso o jogador tenha acertado ás 3 perguntas
         mathFinish = true;
         showDialog(9);
         closeQuadroPopup();
@@ -132,7 +134,7 @@ function displayQuestion() {
     }
 }
 
-
+//Função que escolhe e baralha as respostas incorretas
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));

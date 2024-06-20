@@ -1,77 +1,86 @@
-let didFinalDoorOpen = false;
+let didFinalDoorOpen = false; //Gerada fora da função para não ser resetada
 
 function corredor() {
     clearGameObjects();
+    //Como o corredor tem uma camara, é defenido o tmanho do canvas como o tamanho máximo que pode ter
     const canvasWidth = 500;
     const canvasHeight = 500;
     const gameWidth = 500;
     const gameHeight = 700;
     
-    let addFinalObjects = false;
+    let addFinalObjects = false; //variavel que será usada para prevenir que as bordas de quando a porta final se abra só são alteradas uma unica vez
 
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
+    //local onde será desenhado s objetos
     const ctx = canvas.getContext('2d');
     let backgroundElement = document.getElementById("gameCanvas");
     backgroundElement.style.backgroundImage = "none";
     
+    //Image de fundo
     let backgroundImage = new Image();
     backgroundImage.src = '../assets/backgrounds/Corredor.png';
 
-    let isPasswordPanelActive = false;
+    let isPasswordPanelActive = false; //Painel do código binário
 
-    let playerenterposition = CorredorSala1.y - 123;
+    let playerenterposition = CorredorSala1.y - 123; //Redefenir a posição do jogador por causa da posição onde a camara nasce
 
-    let cameraY = playerenterposition; // Start at the bottom of the game area
+    let cameraY = playerenterposition; // Defenir a camara na mesma posição que o jogador
 
+    //Função que mostra o painel para submeter o código binario
     function showPasswordPanel() {
-        if(ticket.isPickedUp == false) showDialog(13);
+        if(ticket.isPickedUp == false) showDialog(13); //caso não tenha coletado o bilhete, não deixa avançar
         else {
             document.getElementById('passwordPanel').style.display = 'block';
-            isPasswordPanelActive = true;
+            isPasswordPanelActive = true; //não deixar o jogador se mexer
             stopMovement = true; 
         }
         
     }
 
+    //Botão de confirmação do painel
     document.getElementById('confirmButton').addEventListener('click', function() {
         const userInput = document.getElementById('passwordInput').value;
-        if (userInput === CorredorSala2.code.toString()) {
+        if (userInput === CorredorSala2.code.toString()) { //caso o código esteje correto
             CorredorSala2.isOpen = true;
             animateDoorOpening(CorredorSala2, CorredorSala2Image, "Right");
             drawDoors();
             hidePasswordPanel();
-        } else {
-            numberFailsCode++;
+        } else { //caso o código esteje errado
+            numberFailsCode++; //adicionar ás estatisticas
             showDialog(3);
             hidePasswordPanel();
         }
     });
 
-    document.getElementById('cancelButton').addEventListener('click', function() {
+    //botão de cancelar o codigo/fechar o painel
+    document.getElementById('cancelButton').addEventListener('click', function() { 
         hidePasswordPanel();
     });
-
-    function hidePasswordPanel() {
+ 
+    //Função que esonde o painel
+    function hidePasswordPanel() { 
         document.getElementById('passwordPanel').style.display = 'none';
         isPasswordPanelActive = false;
         stopMovement = false;
     }
 
+    //Código que faz com que so seja possivel escrever numeros apartir do teclado
     document.getElementById('passwordInput').addEventListener('keydown', function(event) {
         if (!((event.keyCode > 47 && event.keyCode < 58) || (event.keyCode > 95 && event.keyCode < 106) || event.keyCode === 8 || event.keyCode === 46)) {
             event.preventDefault();
         }
     });
 
-    function animateDoorOpening(door, doorimage, side) {
+    //Função responsável por criar a animação da porta a abrir
+    function animateDoorOpening(door, doorimage, side) { //recebe qual a porta, a sua imagem, e se é uma porta do lado esquerdo ou direito
         let frame = 1;
         const totalFrames = 3;
 
-        const doorOpeningInterval = setInterval(() => {
+        const doorOpeningInterval = setInterval(() => {//Desenha os 3 frames um de cada vez e apaga e repoe a porta com um novo frame
             if (frame <= totalFrames) {
-                const doorImagePath = `../assets/objects/${side}DoorStage${frame}.png`;
+                const doorImagePath = `../assets/objects/${side}DoorStage${frame}.png`; //Muda a imagem da porta conforme o frame
                 doorimage.src = doorImagePath;
                 ctx.clearRect(door.x, door.y - cameraY, door.width, door.height);
                 ctx.drawImage(doorimage, door.x, door.y - cameraY, door.width, door.height);
@@ -83,17 +92,19 @@ function corredor() {
             } else {
                 clearInterval(doorOpeningInterval);
             }
-        }, 200);
+        }, 200);//Deixa um pequeno intervalo entre frames
     }
 
+    //Função que desenha a mochila
     function drawMochila() {
         if (!mochila2.isPickedUp) {
             ctx.drawImage(Mochila2Image, mochila2.x, mochila2.y - cameraY, mochila2.width, mochila2.height);
         }
     }
 
-    let mochilaRadius = 55;
+    //Função que verifica se o jogador quer coletar a mochila
 
+    let mochilaRadius = 55;
     function checkMochilaInteraction() {
         if (!mochila2.isPickedUp) {
             let playerCenterX = player.x + player.width / 2;
@@ -108,7 +119,8 @@ function corredor() {
         return false;
     }
 
-    function addObstacle(x, y, width, height, imagePath, collisionArea) {
+    //Função que adiciona as bordas e os objetos com imagem
+    function addObstacle(x, y, width, height, imagePath, collisionArea) {//recebe a posição, tamanho, se tem imagem ou não, e se tem uma área de colisão própria
         const obstacle = { x, y, width, height, imagePath };
         if (collisionArea) {
             // Ajuste as coordenadas da área de colisão de acordo com a posição da câmera
@@ -118,7 +130,7 @@ function corredor() {
                 width: collisionArea.width,
                 height: collisionArea.height
             };
-        } else {
+        } else { //caso não tenha área de colisão propria, ela se torna os valores originais
             obstacle.collisionArea = {
                 x: x,
                 y: y - cameraY,
@@ -126,7 +138,7 @@ function corredor() {
                 height: height
             };
         }
-        if (imagePath) {
+        if (imagePath) { //guardar caso tenha imagem
             obstacle.image = new Image();
             obstacle.image.onload = function() {
                 drawObstacles();
@@ -140,33 +152,21 @@ function corredor() {
         obstacles.push(obstacle);
     }
     
-
-    function clearPreviousFrame() {
-        ctx.clearRect(0, 0, gameWidth, gameHeight);
-    }
-
+    //Função que desenha as bordas e os objetos
     function drawObstacles() {
         for (let obstacle of obstacles) {
             if (obstacle.image) {
                 ctx.drawImage(obstacle.image, obstacle.x, obstacle.y - cameraY, obstacle.width, obstacle.height);
             }
-            if (bordas) {
-                ctx.save();
-                ctx.strokeStyle = 'red';
-                ctx.lineWidth = 2;
-                let collisionX = obstacle.collisionArea.x;
-                let collisionY = obstacle.collisionArea.y - cameraY;
-                if (obstacle.collisionArea.y > 400) collisionY += 175;
-                ctx.strokeRect(collisionX, collisionY, obstacle.collisionArea.width, obstacle.collisionArea.height * 2.05);
-                ctx.restore();
-                
-            }
         }
     }
     
+    //Função que desenha o cenário
     function drawBackground() {
         ctx.drawImage(backgroundImage, 0 , 0 - cameraY, gameWidth, gameHeight);
     }
+
+    //Inserção das bordas e objetos
 
     // Bordas
     addObstacle(0, 70 + playerenterposition, canvasWidth, 15);
@@ -192,6 +192,7 @@ function corredor() {
     addObstacle(16, 650, 34, 19, '../assets/objects/Corredor-PlantasPequenas.png', { x: 16, y: 488 + playerenterposition, width: 30, height: 3 });
     addObstacle(450, 650, 34, 19, '../assets/objects/Corredor-PlantasPequenas.png', { x: 452, y: 488 + playerenterposition, width: 30, height: 3 });
 
+    //Função que desenha as portas
     function drawDoors() {
         ctx.drawImage(CorredorSala1Image, CorredorSala1.x, CorredorSala1.y - cameraY, CorredorSala1.width, CorredorSala1.height);
         ctx.drawImage(CorredorSala2Image, CorredorSala2.x, CorredorSala2.y - cameraY, CorredorSala2.width, CorredorSala2.height);
@@ -199,13 +200,16 @@ function corredor() {
         ctx.drawImage(CorredorSala4Image, CorredorSala4.x, CorredorSala4.y - cameraY, CorredorSala4.width, CorredorSala4.height);
     }
 
+    //Função que desenha a porta final
     function drawLeaveDoor() {
         ctx.drawImage(LeaveDoorImage, LeaveDoor.x, LeaveDoor.y - cameraY, LeaveDoor.width, LeaveDoor.height);
     }
 
+    //Função que desenha as bordas de todos os objetos, áreas de interação e de colisão
     function drawBorders(obstacles, doorCircles, mochila2, cameraY, bordas, doorOpenRadius, passageRects) {
         if (bordas) {
             ctx.save();
+            //Desenhar as bordas da sala e dos objetos
             ctx.strokeStyle = 'red';
             ctx.lineWidth = 2;
             
@@ -216,7 +220,7 @@ function corredor() {
                 ctx.strokeRect(collisionX, collisionY, obstacle.collisionArea.width, obstacle.collisionArea.height * 2.05);
             }
     
-            // Desenhar passageRect para cada porta
+            // Desenhar os limites de passagem para cada porta
             ctx.strokeStyle = 'yellow';
             ctx.lineWidth = 2;
             ctx.strokeRect(passageRects[0].x, passageRects[0].y - cameraY, passageRects[0].width, passageRects[0].height);
@@ -224,7 +228,7 @@ function corredor() {
             ctx.strokeRect(passageRects[2].x, passageRects[2].y - cameraY, passageRects[2].width, passageRects[2].height);
             ctx.strokeRect(passageRects[3].x, passageRects[3].y - cameraY, passageRects[3].width, passageRects[3].height);
     
-            // Desenhar círculo azul para LeaveDoor
+            // Desenhar limite de intereação de cada porta
             for (let circle of doorCircles) {
                 if (!circle.door.isOpen || (!didFinalDoorOpen && circle.door == LeaveDoor)) {
                     ctx.strokeStyle = 'blue';
@@ -237,6 +241,7 @@ function corredor() {
                 }
             }
     
+            //Desenhar limite de interação da mochila
             ctx.strokeStyle = 'white';
             ctx.lineWidth = 2;
     
@@ -250,15 +255,17 @@ function corredor() {
         }
     }
 
+    //Representações da área de passagem de cada porta, menos a final que não tem
+
     const passageRectSala1 = { x: CorredorSala1.x + 20, y: CorredorSala1.y + 65, width: 15, height: 35 };
     const passageRectSala2 = { x: CorredorSala2.x, y: CorredorSala2.y + 65, width: 15, height: 35 };
     const passageRectSala3 = { x: CorredorSala3.x - 10, y: CorredorSala3.y + 58, width: 15, height: 35 };
     const passageRectSala4 = { x: CorredorSala4.x, y: CorredorSala4.y + 58, width: 15, height: 35 };
 
     if(CorredorSala3.isOpen == true) passageRectSala3.x = 470;
-        
-    const doorOpenRadius = 55; // Raio do círculo azul
 
+    // Raios das interações de cada porta
+    const doorOpenRadius = 55; 
     const doorCircles = [
         { door: CorredorSala2, x: CorredorSala2.x + CorredorSala2.width / 2, y: CorredorSala2.y + CorredorSala2.height / 2 },
         { door: CorredorSala3, x: CorredorSala3.x + CorredorSala3.width / 2, y: CorredorSala3.y + CorredorSala3.height / 2 },
@@ -282,32 +289,29 @@ function corredor() {
             const doorY = doorCircle.y - cameraY;
     
             if (isKeyPressed('KeyF') && !stopMovement) {
-                if(door != LeaveDoor) {
-                // Verificar se o jogador está próximo o suficiente da porta
+                if(door != LeaveDoor) {// Verificar se o jogador está próximo de qualquer porta sem ser a final
                     if (playerRect.x < doorX + door.width &&
                         playerRect.x + playerRect.width > doorX &&
                         playerRect.y < doorY + door.height &&
                         playerRect.y + playerRect.height > doorY) {
                         
-                        // Determinar ação com base na porta específica
-                        if (door === CorredorSala4 && !CorredorSala4.isOpen) {
+                        if (door === CorredorSala4 && !CorredorSala4.isOpen) {//Caso a porta secreta estar fechada, mostra dialogo
                             showDialog(18);
-                        } else if (door === CorredorSala3 && !CorredorSala3.isOpen) {
+                        } else if (door === CorredorSala3 && !CorredorSala3.isOpen) {//Caso a porta da sala 3 estar fechada, mostra dialogo
                             showDialog(16);
-                        } else if (door === CorredorSala2 && !CorredorSala2.isOpen) {
+                        } else if (door === CorredorSala2 && !CorredorSala2.isOpen) {//Caso seja a porta 2 e ainda nao esteja aberta, mostra o painel
                             showPasswordPanel();
                         }
                     }
-                } else {
+                } else { //Caso a porta seja a final. Esta condição existe por causa de a porta ser frontal enquanto que as outras são laterais
                     if (playerRect.x < (doorX - 60) + door.width &&
                         playerRect.x + playerRect.width > doorX - 60 &&
                         playerRect.y < doorY + door.height &&
                         playerRect.y + playerRect.height > doorY) {
 
-                        // Determinar ação com base na porta específica
-                        if (door === LeaveDoor && !LeaveDoor.isOpen) {
+                        if (door === LeaveDoor && !LeaveDoor.isOpen) {//Caso a porta final esta fechada, mostra dialogo
                             showDialog(16);
-                        } else if (door === LeaveDoor && LeaveDoor.isOpen && !didFinalDoorOpen) {
+                        } else if (door === LeaveDoor && LeaveDoor.isOpen && !didFinalDoorOpen) {//caso ela esteje aberta
                             animateDoorOpening(LeaveDoor, LeaveDoorImage, "Double");
                             didFinalDoorOpen = true;
                         }
@@ -319,11 +323,12 @@ function corredor() {
         }
     }
     
+    //Verificar se o jogador passou numa determinada porta, para avançar de nível
     function checkDoorPassage() {
         const adjustedPlayerX = player.x;
         const adjustedPlayerY = player.y - cameraY;
     
-        // Check interaction with return door (CorredorSala1)
+        // Verificar se passou pela porta da Sala1
         const returnDoorAdjustedX = CorredorSala1.x;
         const returnDoorAdjustedY = CorredorSala1.y - 123 - cameraY;
     
@@ -332,7 +337,7 @@ function corredor() {
             adjustedPlayerY < returnDoorAdjustedY + CorredorSala1.height - 90 &&
             adjustedPlayerY + player.height > returnDoorAdjustedY + 50) {
             
-            // Load level 1 when player passes through CorredorSala1 door
+            //Gerar nível 1
             clearGameObjects();
             player.x = Sala1Door1.x + 40;
             player.y = Sala1Door1.y;
@@ -340,7 +345,7 @@ function corredor() {
             return;
         }
     
-        // Check interaction with next door (CorredorSala2)
+        // Verificar se passou pela porta da Sala2
         if (CorredorSala2.isOpen) {
             const nextDoorAdjustedX = CorredorSala2.x;
             const nextDoorAdjustedY = CorredorSala2.y - 123 - cameraY;
@@ -350,7 +355,7 @@ function corredor() {
                 adjustedPlayerY < nextDoorAdjustedY + CorredorSala2.height - 90 &&
                 adjustedPlayerY + player.height > nextDoorAdjustedY + 50) {
     
-                // Load level 2 when player passes through CorredorSala2 door
+                // Gerar nível 2
                 clearGameObjects();
                 player.x = Sala2Door1.x - 80;
                 player.y = Sala2Door1.y + 50;
@@ -359,7 +364,7 @@ function corredor() {
             }
         }
     
-        // Check interaction with next door (CorredorSala3)
+        // Verificar se passou pela porta da Sala3
         const nextDoorAdjustedX = CorredorSala3.x;
         const nextDoorAdjustedY = CorredorSala3.y + 80;
     
@@ -368,7 +373,7 @@ function corredor() {
             adjustedPlayerY < nextDoorAdjustedY + CorredorSala3.height - 120 &&
             adjustedPlayerY + player.height > nextDoorAdjustedY) {
     
-            // Load level 3 when player passes through CorredorSala3 door
+            // Gerar nível 3
             clearGameObjects();
             player.x = Sala3Door1.x + 30;
             player.y = Sala3Door1.y + 20;
@@ -376,7 +381,7 @@ function corredor() {
             return;
         }
     
-        // Check interaction with next door (CorredorSala4)
+        // Verificar se passou pela porta Secreta
         if (CorredorSala4.isOpen) {
             const nextDoorAdjustedX = CorredorSala4.x;
             const nextDoorAdjustedY = CorredorSala4.y + 50;
@@ -386,7 +391,7 @@ function corredor() {
                 adjustedPlayerY < nextDoorAdjustedY + CorredorSala4.height - 90 &&
                 adjustedPlayerY + player.height > nextDoorAdjustedY + 50) {
     
-                // Load level -1 when player passes through CorredorSala4 door (assuming it leads to a previous level)
+                // Gerar nivel sevreto
                 clearGameObjects();
                 player.x = Sala2Door1.x - 30;
                 player.y = Sala2Door1.y;
@@ -394,23 +399,30 @@ function corredor() {
                 return;
             }
         }
-    }    
+    }
+
+    //Funçao que limpa o loop
+    function clearPreviousFrame() {
+        ctx.clearRect(0, 0, gameWidth, gameHeight);
+    }
    
+    //Loop do jogo
     function gameLoop() {
         if (levelLoad != 0) {
-            return; // Se o jogo não estiver em execução, saia do loop
+            return; // Se o jogo não estiver no respetivo nivel, não deixa o loop avançar
         }
         clearPreviousFrame();
     
+        //Verificar se o jogador está a colidir com algo
         if (!isPasswordPanelActive && player && player.dx !== undefined && player.dy !== undefined) {
             let nextX = player.x + player.dx;
             let nextY = player.y + player.dy;
     
-            // Check collisions with obstacles
+            //Verifica a colisão do jogador
             let collidesX = checkCollision(player.dx, 0);
             let collidesY = checkCollision(0, player.dy);
     
-            // Move the player only if there are no collisions
+            //Deixa o jogador se mover caso não houver colisão
             if (!collidesX) {
                 player.x = nextX;
             }
@@ -418,14 +430,15 @@ function corredor() {
                 player.y = nextY;
             }
     
-            // Limit player movement within the game boundaries
+            //Não deixar o jogador ultrapassar o limite do canvas
             player.x = Math.max(0, Math.min(gameWidth - player.width, player.x));
             player.y = Math.max(0, Math.min(gameHeight - player.height, player.y));
         }
     
-        // Update camera position based on player's position
+        //Atualizar a posição da camara conforme a posição do jogador
         cameraY = Math.max(0, Math.min(gameHeight - canvasHeight, player.y - canvasHeight / 2));
 
+        //Desenha o cenário, jogador, objetos e bordas
         drawBackground();
         drawLeaveDoor();
         drawMochila();
@@ -434,14 +447,17 @@ function corredor() {
         drawDoors();
         drawBorders(obstacles, doorCircles, mochila2, cameraY, bordas, doorOpenRadius, [passageRectSala1, passageRectSala2, passageRectSala3, passageRectSala4]);        
         
+        //Verificações para saber se o jogador esta a tentar interagir com algo ou a tentar passar para outro nível
         checkDoorInteraction();
         checkDoorPassage();
 
+        //Função para caso a porta final se abra, remove a borda que a bloqueava e adiciona 2 novas com um espaço para o jogador poder passar pela porta
         if(didFinalDoorOpen == true && !addFinalObjects) {
             addFinalObjects = true;
 
             setTimeout(function() {
-                obstacles.splice(0, 1);
+                obstacles.splice(0, 1); //Remove a barreira que tapava a porta
+                //adiciona as 2 barreiras, mas 2 barreiras dentro da porta para não deixar o jogador escapar dos limites desejados
                 obstacles.push(
                     { x: 0, y: 70 + playerenterposition, width: 210, height: 15, imagePath: undefined, collisionArea: {
                         x: 0,
@@ -468,20 +484,23 @@ function corredor() {
                         height: 45
                     }}
                 );
-            }, 1000); // 500 ms delay
+            }, 1000);
 
         }
         
+        //verificar se o jogador quer coletar a mochila
         if (isKeyPressed('KeyF') && checkMochilaInteraction() && !mochila2.isPickedUp && !stopMovement) {
             mochila2.isPickedUp = true;
             addToInventory({ name: 'Mochila2', imageSrc: '../assets/inventory/Mochila2.png' });
         }
 
+        //Como no final o jogador anda por dentro da porta, ultrapassando as barreiras, esta é a unica situação onde o jogador consegue chegar a esse y, indicando que o jogador passou a porta final e que o jogo vai acabar
         if(player.y <= 15) {
             didWin = true;
             endEscapeRoom();
         }
         
+        //Reiniciar o loop
         requestAnimationFrame(gameLoop);
     }
     

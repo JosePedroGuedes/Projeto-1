@@ -10,6 +10,7 @@
 
 <body>
 
+    <!-- Container onde o jogo é gerado -->
     <div id="gameContainer">
         <canvas id="gameCanvas" width="500" height="500"></canvas>
 
@@ -21,10 +22,12 @@
         </div>
     </div>
 
+    <!-- Caixa de diálogo -->
     <div id="dialogBox" class="dialog-box hidden">
         <p id="dialogText"></p>
     </div>
 
+    <!-- Menu Inicial -->
     <div class="menu-container" id="menuContainer">
         <div class="menu">
             <div class="intro">
@@ -56,6 +59,7 @@
         </div>
     </div>
 
+    <!-- Painel do desafio do código binário -->
     <div id="passwordPanel" class="password-panel hidden">
         <input type="text" id="passwordInput" class="password-input" maxlength="3" pattern="[0-9]*"
             placeholder="Insira o código">
@@ -63,6 +67,7 @@
         <button id="cancelButton" class="cancel-button">Cancelar</button>
     </div>
 
+    <!-- Caixa da pergunta e das respostas do quiz de Matemática (Nivel 3)-->
     <div id="mathQuestions" class="math-questions">
         <div id="math-question" class="question"><br>Aqui aparecerá a pergunta</div>
         <div id="answer-options">
@@ -72,12 +77,14 @@
             <button class="answer-option" id="option4">Opção 4</button>
         </div>
     </div>
-    <div id="mathQuizBox" class="mathQuizBox"></div>
+    <div id="mathQuizBox" class="mathQuizBox"></div> <!-- Quadro da sala de matemática onde também aparecerá a pergunta -->
 
+    <!-- Cointainer do Tempo -->
     <div id="timerContainer">
         <span id="timer">20:00</span>
     </div>
 
+    <!-- Menu de pausa-->
     <div class="pauseMenu-container" id="pauseMenuContainer">
         <div id="pauseMenu" class="pause-menu">
             <h2 class="title">Menu de Pausa</h2>
@@ -87,6 +94,7 @@
         </div>
     </div>
 
+    <!-- Menu de Controlos-->
     <div class="controlsMenu-container" id="controlsMenuContainer">
         <div id="controlsMenu" class="controls-menu">
             <h2 class="subtitle">Controlos</h2>
@@ -106,16 +114,17 @@
         </div>
     </div>
 
+    <!-- Container do Minigame do Puzzle do Nivel 2-->
     <div id="minigamePuzzle">
         <span class="close-btn" onclick="closeGamePuzzle()">X</span>
         <h2>Puzzle da Esmad</h2>
         <div id="board"></div>
         <div id="turns-container">
-            <div id="turns">Tentativas: 0</div>
+            <div id="turns">Movimentos: 0</div>
         </div>
     </div>
        
-
+    <!-- Container do Minigame de adivinhar a palavra do Nivel 2-->
     <div id="guessWordGame">
         <span class="close-btn" onclick="closeGameGuessWord()">X</span>
         <h2>Adivinhe a Palavra</h2>
@@ -128,7 +137,7 @@
         <button class="reset-btn">Tentar novamente</button>
     </div>
 
-
+    <!-- Painel do Admin-->
     <div id="adminPainel">
         <h2>Admin Control</h2>
         <button id="corredorBtn">Corredor</button>
@@ -141,6 +150,7 @@
         <button id="bordasOnOffBtn">Bordas On/Off</button>
     </div>
 
+    <!-- Menu do Final do Jogo-->
     <div class="endGame-container" id="endGameContainer">
         <div class="endGame">
             <div class="intro">
@@ -178,6 +188,7 @@
         </div>
     </div>
 
+    <!-- Menu com a Leaderboard-->
     <div class="leaderboard-container" id="leaderboardContainer">
         <div class="leaderboard">
             <h1 class="title">Leaderboard</h1>
@@ -196,24 +207,24 @@
         </div>
     </div>
 
-    <script src="../js/statsEndGame.js"></script>
-    <script src="../js/timer.js"></script>
-    <script src="../js/loadLevel.js"></script>
-    <script src="../js/gameObjects.js"></script>
-    <script src="../js/objectsCollision.js"></script>
-    <script src="../js/playerMovement.js"></script>
-    <script src="../js/inventory.js"></script>
-    <script src="../js/dialog.js"></script>
-    <script src="../js/pauseMenu.js"></script>
-    <script src="../js/puzzle.js"></script>
-    <script src="../js/guessWord.js"></script>
-    <script src="../js/mathQuiz.js"></script>
-    <script src="../js/corredor.js"></script>
-    <script src="../js/level1.js"></script>
-    <script src="../js/level2.js"></script>
-    <script src="../js/level3.js"></script>
-    <script src="../js/secretRoom.js"></script>
-    <script src="../js/admin.js"></script>
+    <script src="../js/statsEndGame.js"></script> <!-- código responsável por tratar das estatísticas e do menu final -->
+    <script src="../js/timer.js"></script> <!-- código responsável pelo do tempo e do timer -->
+    <script src="../js/loadLevel.js"></script> <!-- código responsável pelo tratamento de níveis e usado para tratar do menu inicial e de defenir certas variáveis globais -->
+    <script src="../js/gameObjects.js"></script> <!-- código responsável por defenir todos os objetos que irão ser usados durante os níveis -->
+    <script src="../js/objectsCollision.js"></script> <!-- código responsável pelo tratamento das colisões entre o jogador e os objetos -->
+    <script src="../js/playerMovement.js"></script> <!-- código responsável pelo tratamento da movimentação e animação do personagem -->
+    <script src="../js/inventory.js"></script> <!-- código responsável pelo tratamento do inventário -->
+    <script src="../js/dialog.js"></script> <!-- código responsável pelo tratamento diálogo -->
+    <script src="../js/pauseMenu.js"></script> <!-- código do menu de pausa -->
+    <script src="../js/puzzle.js"></script> <!-- código do minigame de puzzle pertencente ao Nível 2 -->
+    <script src="../js/guessWord.js"></script> <!-- código do minigame de adivinhar palavras pertencente ao Nível 2 -->
+    <script src="../js/mathQuiz.js"></script> <!-- código do quiz de Matemática pertencente ao Nível 3 -->
+    <script src="../js/corredor.js"></script> <!-- código que gera tudo em relação ao corredor -->
+    <script src="../js/level1.js"></script> <!-- código que gera tudo em relação ao Nivel 1 -->
+    <script src="../js/level2.js"></script> <!-- código que gera tudo em relação ao Nivel 2 -->
+    <script src="../js/level3.js"></script> <!-- código que gera tudo em relação ao Nivel 3 -->
+    <script src="../js/secretRoom.js"></script> <!-- código que gera tudo em relação à sala secreta -->
+    <script src="../js/admin.js"></script> <!-- código que gera tudo em relação ao Admin -->
     
 
 </body>

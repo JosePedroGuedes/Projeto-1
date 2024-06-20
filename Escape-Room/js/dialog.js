@@ -1,8 +1,9 @@
-let dialogMap = {};
-let secretDialog = false;
-hideDialog();
+let dialogMap = {}; //variável que guarda todos os diálgos
+let secretDialog = false; //saber se é o diálogo da sala secreta
+hideDialog(); //verificar se o dialogo não aparece quando a página é aberta
 
 
+//Função responsável por mostrar o dialogo. A Key é o index do dialogo
 function showDialog(key) {
     const dialogBox = document.getElementById('dialogBox');
     const dialogText = document.getElementById('dialogText');
@@ -11,13 +12,15 @@ function showDialog(key) {
         const text = dialogMap[key];
         dialogText.textContent = text;
         dialogBox.classList.remove('hidden');
+        //não deixar o jogador se mexer enquanto o dialogo está ativo
         isStop = true;
         isPaused = true;
         stopMovement = true;
-        clearInterval(timerInterval);
-        timerElement.classList.add("blink");
 
-        // Adicionando eventos de clique e tecla Enter para avançar o diálogo
+        clearInterval(timerInterval); //pausar o tempo enquanto o diálogo está ativo
+        timerElement.classList.add("blink"); //adicionar um piscar ao timer para indicar que está parado
+
+        // Adiciona eventos de clique e tecla Enter para avançar o diálogo
         setTimeout(function() {
             document.addEventListener('click', handleClickToAdvanceDialog);
             document.addEventListener('keydown', handleKeyPressToAdvanceDialog);
@@ -27,43 +30,47 @@ function showDialog(key) {
     }
 }
 
+//Função para esconder o diálogo
 function hideDialog() {
-    
     const dialogBox = document.getElementById('dialogBox');
     dialogBox.classList.add('hidden');
+    //Reverter as variaveis para deixar o jogador andar, o tempo continuar e parar de piscar
     stopMovement = false;
     isStop = false;
     isPaused = false;
     timerElement.classList.remove("blink");
     startTimer();
     
-    // Removendo eventos de clique e tecla Enter ao ocultar o diálogo
+    // Remove eventos de clique e tecla Enter ao ocultar o diálogo
     document.removeEventListener('click', handleClickToAdvanceDialog);
     document.removeEventListener('keydown', handleKeyPressToAdvanceDialog);
 
-    if(secretDialog){
-        animateSecretDoorOpening(CorredorSala4, CorredorSala4Image, "Right", "close");
+    if(secretDialog){ //responsável por sair do nível secreto depois de o dialogo ser fechado
+        animateSecretDoorOpening(CorredorSala4, CorredorSala4Image, "Right", "close"); //animação de porta a fechar
         showDialog(21);
-        addTime(1,30);
+        addTime(1,30); //adicionar tempo extra ao jogador como recompensa
         secretDialog = false;
-        loadLevel(0);
+        loadLevel(0); //levar o jogador para o corredor
         player.x = CorredorSala4.x;
-        player.y = CorredorSala4.y + 30;
+        player.y = CorredorSala4.y + 50;
     }
 }
+
+
+//Eventos de avançar o diálogo
 
 function handleClickToAdvanceDialog(event) {
     if (!dialogBox.contains(event.target)) {
         hideDialog();
     }
 }
-
 function handleKeyPressToAdvanceDialog(event) {
     if (event.key === 'Enter' || event.key === 'f' || event.key === 'F' && isStop && isPaused ) {
-        console.log(1);
         hideDialog();
     }
 }
+
+//Todos os diálogos do jogo e seus respetivos index
 
 dialogMap[1] = "Bem-vindo ao Escape Room do TSIW!! Aqui terá uma oportunidade de descobrir mais sobre este curso de uma forma diferente e desafiadora. Espero que se divirta!!";
 dialogMap[2] = `"O bilhete diz que o código da sala dos professores é ${ticket.binarycode}. O código está em binário, vou ter que o descodificar." (podes clicar no papel novamente para ver o código)`;

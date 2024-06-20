@@ -1,3 +1,4 @@
+// Lista das palavras possíveis e suas dicas
 var wordList = [
     { word: "tipografia", hint: "a arte de dispor o texto" },
     { word: "grelha", hint: "estrutura usada para alinhar elementos" },
@@ -24,126 +25,147 @@ var wordList = [
     { word: "composição", hint: "arranjo de elementos visuais" }
 ];
 
-let usedWords = [];
+let usedWords = []; // Array onde serão guardadas as palavras usadas para evitar repetições
 
+// Buscar os IDs dos elementos do jogo
 const inputs = document.querySelector("#wordInputs"),
       hintTag = document.querySelector(".hint span"),
       guessLeft = document.querySelector(".guessesLeft span"),
       wrongLetter = document.querySelector(".wrongLetters span"),
       rightWords = document.querySelector(".rightWords span"),
       resetBtn = document.querySelector("#guessWordGame .reset-btn"),
-      typingInput = document.querySelector("#letterInput");
+      typingInput = document.querySelector("#letterInput"); 
 
-let wordListIndex, word, maxGuesses, incorrectLetters = [], correctLetters = [], correctWords = 0, gameInitialized = false, gameFinishedGuess = false;
+// Variáveis do jogo
+let wordListIndex, // Índice da palavra atual na lista de palavras
+    word, // Palavra atual a ser adivinhada
+    maxGuesses, // Número máximo de tentativas
+    incorrectLetters = [], // Array para armazenar letras incorretas
+    correctLetters = [], // Array para armazenar letras corretas
+    correctWords = 0, // Contador de palavras corretas
+    gameInitialized = false, // Indica se o jogo foi inicializado
+    gameFinishedGuess = false; // Indica se o jogo foi concluído
 
-function checkGuessFinish(){
+// Função para verificar se o jogo de adivinhar palavras foi concluído
+function checkGuessFinish() {
     return gameFinishedGuess;
 }
 
+// Função para normalizar uma string removendo acentos e transformando em minúsculas
 function normalizeString(str) {
     return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
+// Função para escolher uma palavra aleatória que não tenha sido utilizada
 function randomWord() {
     resetBtn.style.display = "none";
     resetBtn.innerText = "Tentar novamente";
-    resetBtn.removeEventListener("click", closeGameGuessWord);
-    resetBtn.addEventListener("click", restartGame);
+    resetBtn.removeEventListener("click", closeGameGuessWord); // Remove event listener do botão de reset
+    resetBtn.addEventListener("click", restartGame); // Adiciona event listener para reiniciar o jogo
 
-    // Escolher uma palavra aleatória que não tenha sido utilizada
+    // Escolhe uma palavra aleatória que ainda não foi utilizada
     do {
         wordListIndex = Math.floor(Math.random() * wordList.length);
         word = normalizeString(wordList[wordListIndex].word);
-    } while (usedWords.includes(word)); // Repetir até encontrar uma palavra não utilizada
+    } while (usedWords.includes(word)); // Repete até encontrar uma palavra nova
 
-    // Adicionar palavra à lista de utilizadas
-    usedWords.push(word);
+    usedWords.push(word); // Adiciona a palavra utilizada ao array de utilizadas
 
     let ranItem = wordList[wordListIndex];
-    maxGuesses = word.length >= 5 ? 6 : 6;
-    correctLetters = [];
-    incorrectLetters = [];
-    hintTag.innerText = ranItem.hint;
-    guessLeft.innerText = maxGuesses;
-    wrongLetter.innerText = incorrectLetters.join(" ");
-    rightWords.innerText = correctWords + "/3";
+    maxGuesses = word.length >= 5 ? 6 : 6; // Define o número máximo de tentativas baseado no tamanho da palavra
+    correctLetters = []; 
+    incorrectLetters = []; 
+    hintTag.innerText = ranItem.hint; // Define a dica da palavra
+    guessLeft.innerText = maxGuesses; 
+    wrongLetter.innerText = incorrectLetters.join(" "); // Exibe as letras incorretas
+    rightWords.innerText = correctWords + "/3"; // Exibe o número de palavras corretas
 
-    console.log("Palavra a ser adivinhada:", word);
+    if(username == "admin") console.log("Palavra a ser adivinhada:", word);
 
+    // Exibe a palavra como inputs para letras
     let html = "";
     for (let i = 0; i < word.length; i++) {
         html += `<input type="text" id="eachLetter" disabled>`;
     }
     inputs.innerHTML = html;
     typingInput.disabled = false;
-    typingInput.focus();
+    typingInput.focus(); // Coloca o foco no input
 }
 
+// Função para inicializar o jogo de adivinhar palavras
 function initGame(e) {
+    // Verifica se o jogo foi inicializado, se o jogo está visível e se há tentativas restantes
     if (!gameInitialized || document.getElementById("guessWordGame").style.display === "none" || maxGuesses < 1) return;
     let key = normalizeString(e.target.value);
-    key = key.toLowerCase();
-    if (key.match(/^[a-z]+$/) && !incorrectLetters.includes(` ${key}`)) {
-        if (word.includes(key)) {
+    key = key.toLowerCase(); // Transforma em minúsculas
+
+    if (key.match(/^[a-z]+$/) && !incorrectLetters.includes(` ${key}`)) { // Verifica se é uma letra válida e se não foi já usada
+        if (word.includes(key)) { // Se a letra está na palavra
             for (let i = 0; i < word.length; i++) {
                 if (word[i] === key) {
-                    inputs.querySelectorAll("input")[i].value = key;
+                    inputs.querySelectorAll("input")[i].value = key; // Preenche o input correspondente à letra correta
                     if (!correctLetters.includes(key + i)) {
-                        correctLetters.push(key + i);
+                        correctLetters.push(key + i); // Adiciona a letra correta ao array
                     }
                 }
             }
-        } else {
+        } else { // Se a letra não pertence à palavra
             maxGuesses--;
-            incorrectLetters.push(` ${key}`);
+            incorrectLetters.push(` ${key}`); // Adiciona a letra incorreta ao array
         }
-        guessLeft.innerText = maxGuesses;
-        wrongLetter.innerText = incorrectLetters.join(" ");
+        guessLeft.innerText = maxGuesses; // Atualiza o número de tentativas restantes
+        wrongLetter.innerText = incorrectLetters.join(" "); // Exibe as letras incorretas
     }
     typingInput.value = "";
 
+    //Verificar se todas as letras estão no local correto
     let allCorrect = true;
     for (let i = 0; i < word.length; i++) {
         if (!correctLetters.includes(word[i] + i)) {
             allCorrect = false;
-            break;
+            break; //Se alguma não tiver, sai da função
         }
     }
 
-    if (allCorrect) {
+    if (allCorrect) { // Se todas as letras foram corretamente adivinhadas
         correctWords++;
-        rightWords.innerText = correctWords + "/3";
-        if (correctWords === 3) {
-            completeGame();
-        } else {
+        rightWords.innerText = correctWords + "/3"; // Atualiza o contador de palavras corretas
+
+        if (correctWords === 3) { // Se acertou 3 palavras
+            completeGame(); // Completa o jogo
+        } else { // Se ainda não acertou as 3 palavras ainda, volta a gerar mais uma palavra
             correctLetters = [];
             incorrectLetters = [];
             maxGuesses = word.length >= 5 ? 6 : 6;
-            setTimeout(randomWord, 100);
+            setTimeout(randomWord, 100); // Escolhe uma nova palavra após um pequeno intervalo
         }
-    } else if (maxGuesses < 1) {
-        numberFailsWord++;
+    } else if (maxGuesses < 1) { // Se acabaram as tentativas
+        numberFailsWord++; 
+
         guessLeft.innerText = 0;
         resetBtn.style.display = "block";
+        
         correctLetters = [];
         incorrectLetters = [];
         maxGuesses = 0;
         let wordInputs = document.querySelectorAll("#wordInputs input");
-        wordInputs.forEach(input => {
+        wordInputs.forEach(input => {//Mete a palavra a vermelho
             input.style.color = "red";
         });
         
-        for (let i = 0; i < word.length; i++) {
+        for (let i = 0; i < word.length; i++) {//Insere a palavra que era suposto adivinhar
             inputs.querySelectorAll("input")[i].value = word[i];
         }
         typingInput.disabled = true;
     }
 }
 
+//Verificar se a palavra ja foi usada, para não haver repetições
 function isWordUsed(word) {
     return usedWords.includes(word);
 }
 
+//Quando o jogo acaba
 function completeGame() {
     document.querySelector(".guessesLeft").innerHTML = "";
     document.querySelector(".wrongLetters").innerHTML = "";
@@ -157,12 +179,14 @@ function completeGame() {
 }
     
 
+//Função que renicia o jogo quando o jogador perde
 function restartGame() {
     correctWords = 0;
     resetBtn.style.display = "none";
     randomWord();
 }
 
+//Função que abre o jogo
 function openGameGuessWord() {
     addEventListeners();
     stopMovement = true;
@@ -177,6 +201,7 @@ function openGameGuessWord() {
     }, 50);
 }
 
+//Função que fecha o jogo
 function closeGameGuessWord() {
     removeEventListeners()
     stopMovement = false;
@@ -185,6 +210,7 @@ function closeGameGuessWord() {
     if (gameFinishedGuess == true ) minigamesOn++;
 }
 
+//Esconde o jogo caso o menu seje aberto
 function handleEscKey(event) {
     if (event.key === "Escape") {
         removeEventListeners()
@@ -193,6 +219,8 @@ function handleEscKey(event) {
         document.removeEventListener("keydown", handleEscKey);
     }
 }
+
+//Adicionar/remover cliques aos botões
 
 function addEventListeners() {
     resetBtn.addEventListener("click", restartGame);
