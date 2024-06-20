@@ -71,7 +71,7 @@ function handleUserActions(event) {
     const username = row.cells[1].innerText;
 
     
-    if (confirm("Are you sure you want to delete this user?")) {
+    if (confirm("Tem a certeza que deseja remover este utilizador?")) {
       removeUser(username); 
       row.remove(); 
       alert("User removed");

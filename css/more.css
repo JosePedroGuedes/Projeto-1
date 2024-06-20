@@ -205,3 +205,50 @@
     width: 10vw;
     margin-left: 40px;
 }
+
+.image-12 {
+    width: 20vw;
+}
+
+
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+
+    .navbar-toggler {
+        font-size: 1.25rem;
+    }
+
+    .study-plans .title,
+    .study-plans .sub-title,
+    .apresentation .title {
+        font-size: 1.5rem;
+    }
+
+    .study-plans {
+        width: 100% !important;
+    }
+
+    .text {
+        margin: 20px 0;
+        font-size: 0.9rem;
+        margin-right: 20px;
+    }
+    
+
+    .content {
+        flex-direction: column;
+        align-items: center;
+        margin-left: 0;
+        padding-right: 0;
+    }
+
+    .content img {
+        width: 100%;
+    }
+
+    .custom-card {
+        width: 80%;
+    }
+}

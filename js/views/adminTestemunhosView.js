@@ -41,9 +41,7 @@ document.getElementById("create-btn").onclick = function () {
   const imagePreview = document.createElement("img");
   imagePreview.src = oldImage;
   imagePreview.style.maxWidth = "200px";
-  const imageContainer = document.getElementById(
-    "imagePreviewContainerCreateAlumni"
-  );
+  const imageContainer = document.getElementById("imagePreviewContainerCreateAlumni");
   imageContainer.innerHTML = "";
   imageContainer.appendChild(imagePreview);
 
@@ -70,7 +68,7 @@ document.getElementById("create-btn").onclick = function () {
     
     if (newName && newSubtitle && newDescription && newImage) {
       addAlumni(newName, newSubtitle, newDescription, newImage);
-      alert("Alumni Added");
+      alert("Alumni adicionado com sucesso!");
       loadAlumni();
       renderAlumni();
       
@@ -125,7 +123,7 @@ function renderAlumni() {
       tbody.addEventListener("click", handleAlumniActions);
     }
   } else {
-    console.error("Alumni not found in localStorage or alumniTable not found");
+    console.error("Alumni não encontrado no localStorage ou alumniTable não encontrado");
   }
 }
 
@@ -136,10 +134,10 @@ function handleAlumniActions(event) {
   if (event.target.classList.contains("remove")) {
     const name = row.cells[0].innerText;
 
-    if (confirm("Are you sure you want to delete this Alumni?")) {
+    if (confirm("Tem a certeza que deseja remover este alumni?")) {
       removeAlumni(name);
       row.remove();
-      alert("Alumni removed");
+      alert("Alumni removido com sucesso!");
       document.getElementById("editModal").style.display = "none";
     } else {
       document.getElementById("editModal").style.display = "none";

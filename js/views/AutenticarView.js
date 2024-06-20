@@ -1,10 +1,12 @@
 import {init, add, login,} from "../models/UserModels.js";
 
+// Mudar para o formulário de registo
 document.getElementById("switchToRegister").addEventListener("click", function (e) {
     e.preventDefault();
     switchToRegisterForm();
   });
 
+// Mudar para o formulário de login
 document.getElementById("loginForm").addEventListener("submit", function (e) {
   e.preventDefault();
   var email = document.getElementById("loginEmail").value;
@@ -12,11 +14,11 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
   try {
     init();
     if (login(email, password)) {
-      showMessage("Login successful");
+      showMessage("Inicio de sessão bem sucedido!");
       window.location.href = "http://127.0.0.1:5501/index.html";
     }
   } catch (error) {
-    showMessage("Invalid email or password");
+    showMessage("Invalido email ou palavra-passe!");
   }
 });
 
@@ -29,10 +31,10 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
     try {
       init();
       add(username, email, password);
-      showMessage("Registration successful");
+      showMessage("Conta criada com sucesso!");
       switchToLoginForm();
     } catch (error) {
-      showMessage("This account already exists!");
+      showMessage("Esta conta já existe!");
       console.log(error);
     }
   });
@@ -48,13 +50,13 @@ document.getElementById("switchToLoginForm").addEventListener("click", function 
 
 function switchToRegisterForm() {
   document.getElementById("loginForm").style.display = "none";
-  document.getElementById("formTitle").textContent = "Register";
+  document.getElementById("formTitle").textContent = "Criar Conta";
   document.getElementById("registerForm").style.display = "block";
 }
 
 function switchToLoginForm() {
   document.getElementById("loginForm").style.display = "block";
-  document.getElementById("formTitle").textContent = "Login";
+  document.getElementById("formTitle").textContent = "Iniciar Sessão";
   document.getElementById("registerForm").style.display = "none";
 }
 

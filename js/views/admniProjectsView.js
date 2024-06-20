@@ -134,10 +134,10 @@ function handleProjectActions(event) {
   if (event.target.classList.contains("remove")) {
     const name = row.cells[0].innerText;
 
-    if (confirm("Are you sure you want to delete this Project?")) {
+    if (confirm("Tem a certeza que deseja remover este projeto?")) {
       removeProject(name);
       row.remove();
-      alert("Project removed");
+      alert("Projeto removido com sucesso!");
       document.getElementById("projectEdit").style.display = "none";
     }
   } else if (event.target.classList.contains("edit")) {
@@ -155,9 +155,9 @@ function handleProjectActions(event) {
     // Mostrar a imagem selecionada no pop up
     const imagePreview = document.createElement("img");
     imagePreview.src = oldImage;
-    imagePreview.style.maxWidth = "200px"; // Adjust as needed
+    imagePreview.style.maxWidth = "200px"; // Ajustar imagem
     const imageContainer = document.getElementById("imagePreviewContainer");
-    imageContainer.innerHTML = ""; // Clear previous image
+    imageContainer.innerHTML = ""; // Apagar imagem anterior
     imageContainer.appendChild(imagePreview);
 
   
