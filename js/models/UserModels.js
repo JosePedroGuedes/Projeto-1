@@ -14,23 +14,50 @@ export function init() {
 
 // ADICIONAR UTILIZADOR
 export function add(username, email, password, bestTime = "--:--") {
-  if (
-    users.some((user) => user.username === username || user.email === email)
-  ) {
-    throw Error(
-      `User with username "${username}" or email "${email}" already exists!`
-    );
-  } else {
-    const newUser = new User(username, email, password, bestTime);
-    users.push(newUser);
-    localStorage.setItem("users", JSON.stringify(users));
+  try {
+    if (users.some((user) => user.username === username || user.email === email)) {
+      throw new Error(`User with username "${username}" or email "${email}" already exists!`);
+    } else {
+      users.push(new User(username, email, password, bestTime));
+      localStorage.setItem("users", JSON.stringify(users));
+      console.log("User added successfully:", username);
+    }
+  } catch (error) {
+    console.error("Error adding user:", error.message);
+    throw error; 
   }
 }
 
+
+// ATUALIZAR UTILIZADOR
+export function updateUserData(userId, newUsername, newEmail) {
+  const users = JSON.parse(localStorage.getItem("users"));
+
+  //Encontrar o utilizador pelo ID
+  const userToUpdate = users.find(user => user.id === userId);
+
+  if (userToUpdate) {
+
+    userToUpdate.username = newUsername;
+    userToUpdate.email = newEmail;
+
+    localStorage.setItem("users", JSON.stringify(users));
+  } else {
+    console.error(`User with ID ${userId} not found.`);
+  }
+}
+
+
 // REMOVER UTILIZADOR
 export function removeUser(username) {
-  users = users.filter((user) => user.username !== username);
-  localStorage.setItem("users", JSON.stringify(users));
+  try {
+    users = users.filter((user) => user.username !== username);
+    localStorage.setItem("users", JSON.stringify(users));
+    console.log("User removed successfully:", username);
+  } catch (error) {
+    console.error("Error removing user:", error.message);
+    throw error;
+  }
 }
 
 // LOGIN DO UTILIZADOR
@@ -82,6 +109,6 @@ class User {
     this.username = username;
     this.email = email;
     this.password = password;
-    this.bestTime = bestTime; // Atribui o valor de bestTime passado como parâmetro
+    this.bestTime = bestTime; 
   }
 }

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Espaço Alumni - Tecnologias e Sistemas de Informação Web</title>
+    <link rel="icon" type="image/png" href="/img/Logo.png">
 
     <!-- Referência ao Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -22,100 +23,93 @@
         <div class="container">
             <img src="../img/Logo.png" class="logo" alt="logo">
             <a class="navbar-brand" href="http://127.0.0.1:5501/index.html">TSIW</a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
                 aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
+
             <div class="collapse navbar-collapse" id="collapsibleNavId">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <button class="btn btn-outline-success me-2" type="button">Home</button>
+                        <a href="http://127.0.0.1:5501/html/projects.html">
+                            <button class="btn btn-outline-success me-2" type="button">Projetos</button>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a href="http://127.0.0.1:5501/html/more.html">
-                            <button class="btn btn-outline-success me-2" type="button">More Tsiw</button>
+                            <button class="btn btn-outline-success me-2" type="button">Mais Tsiw</button>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="http://127.0.0.1:5501/html/help.html">
-                            <button class="btn btn-outline-success me-2" type="button">Contacts</button>
+                            <button class="btn btn-outline-success me-2" type="button">Contactos</button>
                         </a>
                     </li>
                 </ul>
 
-                <a href="http://127.0.0.1:5501/html/login.html">
+                <a class="link" href="http://127.0.0.1:5501/html/login.html">
                     <button id="login" class="btn btn-outline-success my-2 my-sm-0" type="button">
-                        <i class="bi bi-person-fill"></i> <span class="login-title">Login</span>
+                        <i class="bi bi-person-fill"></i> <span class="login-title"> Login</span>
                     </button>
                 </a>
 
                 <button id="userButton" class="btn btn-outline-success my-2 my-sm-0" type="button">
                     <i class="bi bi-person-fill"></i> <span class="username" id="userName">Nome do Usuário</span>
+
                     <!-- Pop-up Container -->
                     <div id="myPopup" class="popup">
-                        <a href="http://127.0.0.1:5501/html/settings.html" class="popup-item"><i class="bi bi-person-circle"></i> Edit Profile</a>
-                        <a href="http://127.0.0.1:5501/html/help.html" id="logout" class="popup-item"><i class="bi bi-question-circle"></i> Help & Support</a>
+                        <a href="http://127.0.0.1:5501/html/settings.html" class="popup-item"><i
+                                class="bi bi-person-circle"></i> Editar Perfil</a>
+
+                        <a href="http://127.0.0.1:5501/html/adminUsers.html" id="adminSettings" class="popup-item-admin"
+                            display="none"><i class="bi bi-gear"></i> Opções Admin</a>
+
+
+                        <a href="http://127.0.0.1:5501/html/help.html" class="popup-item"><i
+                                class="bi bi-question-circle"></i> Ajuda & Support</a>
+
                         <a href="#" id="logout" class="popup-item"><i class="bi bi-person-fill-dash"></i> Logout</a>
                     </div>
                 </button>
-                
+
             </div>
         </div>
     </nav>
 
+    <!-- Edit Profile Popup -->
+    <div id="editProfilePopup" class="popup-profile">
+        <div class="popup-content">
+            <button class="close-btn" id="closeEditProfilePopup">x</button>
+            <h2>Editar Perfil</h2>
+            <form id="editProfileForm">
+                <div class="form-group">
+                    <label for="editUsername">Nome</label>
+                    <input type="text" id="editUsername" name="username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="editEmail">Email</label>
+                    <input type="email" id="editEmail" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="editPassword">Palavra-passe</label>
+                    <input type="password" id="editPassword" name="password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Main Section -->
     <section class="mt-5 pt-5">
         <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <img class="img-fluid" src="/img/Nuno Sousa.jpeg" alt="Nuno Sousa">
-                </div>
-                <div class="col-md-9 align-title">
-                    <h1 class="title">ESPAÇO ALUMNI | Nuno Sousa</h1>
-                    <h3 class="sub-title">Nuno Sousa, alumnus da Licenciatura em Tecnologias e Sistemas de Informação
-                        para a Web, conta com 8 prémios internacionais.</h3>
-                    <p class="description">
-                        Nuno Sousa é alumnus da Licenciatura em Tecnologias e Sistemas de Informação para a Web.
-                        Atualmente, trabalha como front-end developer para a Carbmee e integra a equipa de Young Juries
-                        do Awwwards.<br><br>
-                        Na perspetiva de Nuno Sousa, o facto de, desde cedo, conciliar a sua vida com uma série de
-                        atividades —praticou natação federada e basketball e, ainda, frequentou o conservatório de
-                        música — ajudou-o na gestão da sua vida adulta, enquanto profissional. "Penso que terá sido isso
-                        que me permitiu/obrigou a gerir o meu tempo e incutiu um ritmo de trabalho. Já enquanto
-                        estudante da ESMAD, para além do desporto, comecei a dar explicações online de programação, a
-                        estruturar o meu portfólio e a desenvolver projetos pessoais".<br><br>
-                        Entre a conclusão da Licenciatura em Tecnologias e Sistemas de Informação para a Web, na Escola
-                        Superior de Media Artes e Design e o ingresso no Mestrado de Tecnologias e Comunicação Web, na
-                        Universidade de Aveiro, Nuno desenvolveu o seu próprio website, através do qual ganhou um total
-                        de 8 prémios internacionais, dos quais 6 foram atribuídos por duas das organizações mais
-                        conceituadas do mundo: o Awwwards e o CSS Design Awards. Para Nuno Sousa, a conquista destes
-                        prémios e a realização de projetos como freelancer para empresas de todas as partes do mundo —
-                        das quais salienta o Governo Britânico — fez com que recebesse várias ofertas de emprego
-                        (full-time, part-time e freelancer), essencialmente por parte de empresas estrangeiras. Nesta
-                        sequência e, apesar do foco ser a conclusão do mestrado, aceitou o desafio lançado pela empresa
-                        alemã Carbmee, onde começou a trabalhar em regime part-time, como front-end developer, e
-                        integrou a equipa de Young Juries do Awwwards.<br><br>
-                        Nuno salienta: "não posso deixar de referir que até ingressar na ESMAD não sabia nada de
-                        programação, nem de design. Pelo que, não retirando mérito ao meu esforço, tenho que referir que
-                        o excelente acompanhamento dos professores e a sua experiência, tanto ao nível do ensino, como
-                        ao nível profissional, foi sem dúvida o impulsionador disto tudo. Não poderia estar mais grato a
-                        todos os professores, colegas e à ESMAD".
-                    </p>
-                </div>
+            <div class="row" id="alumni-info">
+                <!--Load da Local Storage Alumni-->
             </div>
             <div class="other-alumni mt-5">
-                <h2 class="others-alumni text-center">Outros Alumni</h2>
-                <div class="d-flex justify-content-between">
-                    <div class="card-alumni">
-                        <img class="card-img img-fluid" src="/img/Ines Reis.jpeg" alt="Ines Reis">
-                    </div>
-                    <div class="card-alumni">
-                        <img class="card-img img-fluid" src="/img/Nuno Costa.jpeg" alt="Nuno Costa">
-                    </div>
-                    <div class="card-alumni">
-                        <img class="card-img img-fluid" src="/img/Nuno Sousa.jpeg" alt="Nuno Sousa">
-                    </div>
-                    <div class="card-alumni">
-                        <img class="card-img img-fluid" src="/img/Diogo Fernandes.jpeg" alt="Diogo Fernandes">
-                    </div>
+                <h2 class="others-alumni">Outros Alumni</h2>
+                <div class="d-flex justify-content-between" id="alumni-card">
+                    <!--Load da Local Storage Alumnis-->
                 </div>
             </div>
         </div>
@@ -134,18 +128,18 @@
                         E DESIGN</p>
                 </div>
                 <div class="col-md-4">
-                    <h5>Pages</h5>
+                    <h5>Páginas</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">More</a></li>
-                        <li><a href="#">Contacts</a></li>
+                        <li><a href="http://127.0.0.1:5501/index.html">Página Inicial</a></li>
+                        <li><a href="http://127.0.0.1:5501/html/more.html">Mais Tsiw</a></li>
+                        <li><a href="http://127.0.0.1:5501/html/help.html">Contactos</a></li>
                         <li><a href="#">Escape Room</a></li>
                         <li><a href="#">Alumni</a></li>
-                        <li><a href="#">Projects/Events</a></li>
+                        <li><a href="http://127.0.0.1:5501/html/projects.html">Projetos/Eventos</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <h5>Contact Us</h5>
+                    <h5>Contactos</h5>
                     <p>Escola Superior de Media Artes e <br> Design</p>
                     <p>Rua D. Sancho I, n.º 981
                         4480-876 Vila do Conde Portugal</p>
@@ -164,6 +158,7 @@
             </div>
         </div>
     </footer>
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

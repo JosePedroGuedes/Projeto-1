@@ -3,7 +3,7 @@ let alumnis = [];
 // GUARDAR ALUMNI NA LOCAL STORAGE
 export function loadAlumni() {
   if (localStorage.alumnis) {
-    const tempAlumni = JSON.parse(localStorage.alumnis);
+    const tempAlumni = JSON.parse(localStorage.getItem("alumnis"));
     for (let alumni of tempAlumni) {
       alumnis.push(new Alumni(alumni.name, alumni.subtitle, alumni.description, alumni.image));
     }
@@ -14,14 +14,9 @@ export function loadAlumni() {
 
 //ADICIONAR ALUMNI
 export function addAlumni(name, subtitle, description, image) {
-  if (alumnis.some((alumni) => alumni.name === name)) {
-    throw Error(`Alumni with this "${name}" already exist!`);
-  } else {
-    alumnis.push(new Alumni(name, subtitle, description, image)); 
-    localStorage.setItem("alumnis", JSON.stringify(alumnis));
-  }
-
-  console.log(alumnis);
+  let alumni = JSON.parse(localStorage.getItem("alumnis")) || [];
+  alumni.push({ name, subtitle, description, image });
+  localStorage.setItem("alumnis", JSON.stringify(alumni));
 }
 
 //EDITAR ALUMNI
@@ -52,9 +47,16 @@ export function editAlumni(oldName, newName, newSubtitle, newDescription, newIma
 
 //ELEMINAR ALUMNI
 export function removeAlumni(name) {
-  alumnis = alumnis.filter((alumni) => alumni.name !== name); 
-  localStorage.setItem("alumnis", JSON.stringify(alumnis));
+  const alumni = JSON.parse(localStorage.getItem("alumnis")) || [];
+  const updatedAlumni = alumni.filter(alumnis => alumnis.name !== name);
+  if (alumni.length === updatedAlumni.length) {
+    console.error("Alumni not found:", name);
+  } else {
+    console.log("Alumni removed:", name);
+  }
+  localStorage.setItem("alumnis", JSON.stringify(updatedAlumni));
 }
+
 
 class Alumni {
   name = "";
