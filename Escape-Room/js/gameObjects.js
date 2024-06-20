@@ -48,8 +48,6 @@ const ticket = {
     isPickedUp: false,
 };
 
-console.log(ticket);
-
 const Mochila1Image = new Image();
 Mochila1Image.src = '../assets/collectibles/Mochila1.png';
 

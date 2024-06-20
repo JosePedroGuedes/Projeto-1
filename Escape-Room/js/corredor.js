@@ -250,18 +250,20 @@ function corredor() {
         }
     }
 
-    const passageRectSala1 = { x: CorredorSala1.x - 200, y: CorredorSala1.y - 15, width: 70, height: 70 };
-    const passageRectSala2 = { x: CorredorSala2.x, y: CorredorSala2.y + 58, width: 15, height: 35 };
-    const passageRectSala3 = { x: CorredorSala3.x - 200, y: CorredorSala3.y + 15, width: 70, height: 70 };
+    const passageRectSala1 = { x: CorredorSala1.x + 20, y: CorredorSala1.y + 65, width: 15, height: 35 };
+    const passageRectSala2 = { x: CorredorSala2.x, y: CorredorSala2.y + 65, width: 15, height: 35 };
+    const passageRectSala3 = { x: CorredorSala3.x - 10, y: CorredorSala3.y + 58, width: 15, height: 35 };
     const passageRectSala4 = { x: CorredorSala4.x, y: CorredorSala4.y + 58, width: 15, height: 35 };
 
+    if(CorredorSala3.isOpen == true) passageRectSala3.x = 470;
+        
     const doorOpenRadius = 55; // Raio do círculo azul
 
     const doorCircles = [
         { door: CorredorSala2, x: CorredorSala2.x + CorredorSala2.width / 2, y: CorredorSala2.y + CorredorSala2.height / 2 },
         { door: CorredorSala3, x: CorredorSala3.x + CorredorSala3.width / 2, y: CorredorSala3.y + CorredorSala3.height / 2 },
         { door: CorredorSala4, x: CorredorSala4.x + CorredorSala4.width / 2, y: CorredorSala4.y + CorredorSala4.height / 2 },
-        { door: LeaveDoor, x: LeaveDoor.x + LeaveDoor.width / 2, y: LeaveDoor.y + LeaveDoor.height / 2 - 20 }
+        { door: LeaveDoor, x: LeaveDoor.x + LeaveDoor.width / 2, y: LeaveDoor.y + LeaveDoor.height / 2 - 30 }
     ];
 
     // Função para verificar a interação com as portas
@@ -280,60 +282,120 @@ function corredor() {
             const doorY = doorCircle.y - cameraY;
     
             if (isKeyPressed('KeyF') && !stopMovement) {
+                if(door != LeaveDoor) {
                 // Verificar se o jogador está próximo o suficiente da porta
-                if (playerRect.x < doorX + door.width &&
-                    playerRect.x + playerRect.width > doorX &&
-                    playerRect.y < doorY + door.height &&
-                    playerRect.y + playerRect.height > doorY) {
-                    
-                    // Determinar ação com base na porta específica
-                    if (door === CorredorSala4 && !CorredorSala4.isOpen) {
-                        showDialog(18);
-                    } else if (door === CorredorSala3 && !CorredorSala3.isOpen) {
-                        showDialog(16);
-                    } else if (door === CorredorSala2 && !CorredorSala2.isOpen) {
-                        showPasswordPanel();
-                    } else if (door === LeaveDoor && !LeaveDoor.isOpen) {
-                        showDialog(16);
-                    } else if (door === LeaveDoor && LeaveDoor.isOpen && !didFinalDoorOpen) {
-                        animateDoorOpening(LeaveDoor, LeaveDoorImage, "Double");
-                        didFinalDoorOpen = true;
+                    if (playerRect.x < doorX + door.width &&
+                        playerRect.x + playerRect.width > doorX &&
+                        playerRect.y < doorY + door.height &&
+                        playerRect.y + playerRect.height > doorY) {
+                        
+                        // Determinar ação com base na porta específica
+                        if (door === CorredorSala4 && !CorredorSala4.isOpen) {
+                            showDialog(18);
+                        } else if (door === CorredorSala3 && !CorredorSala3.isOpen) {
+                            showDialog(16);
+                        } else if (door === CorredorSala2 && !CorredorSala2.isOpen) {
+                            showPasswordPanel();
+                        }
                     }
+                } else {
+                    if (playerRect.x < (doorX - 60) + door.width &&
+                        playerRect.x + playerRect.width > doorX - 60 &&
+                        playerRect.y < doorY + door.height &&
+                        playerRect.y + playerRect.height > doorY) {
+
+                        // Determinar ação com base na porta específica
+                        if (door === LeaveDoor && !LeaveDoor.isOpen) {
+                            showDialog(16);
+                        } else if (door === LeaveDoor && LeaveDoor.isOpen && !didFinalDoorOpen) {
+                            animateDoorOpening(LeaveDoor, LeaveDoorImage, "Double");
+                            didFinalDoorOpen = true;
+                        }
+                    }
+
                 }
+            
             }
         }
     }
-
+    
     function checkDoorPassage() {
-        const playerCenterX = player.x + player.width / 2;
-        const playerCenterY = player.y + player.height / 2 - cameraY + 124; // Ajuste com a altura da câmera + 124
+        const adjustedPlayerX = player.x;
+        const adjustedPlayerY = player.y - cameraY;
     
-        const corridors = [
-            { rect: passageRectSala1, door: CorredorSala1, level: 1 },
-            { rect: passageRectSala2, door: CorredorSala2, level: 2 },
-            { rect: passageRectSala3, door: CorredorSala3, level: 3 },
-            { rect: passageRectSala4, door: CorredorSala4, level: -1 }
-        ];
+        // Check interaction with return door (CorredorSala1)
+        const returnDoorAdjustedX = CorredorSala1.x;
+        const returnDoorAdjustedY = CorredorSala1.y - 123 - cameraY;
     
-        corridors.forEach(({ rect, door, level }) => {
-            if (!stopMovement && door.isOpen) { // Verifica se a porta está aberta
-                // Verifica a colisão do jogador com o retângulo de passagem
-                if (
-                    playerCenterX > rect.x &&
-                    playerCenterX < rect.x + rect.width &&
-                    playerCenterY > rect.y - cameraY &&
-                    playerCenterY < rect.y - cameraY + rect.height
-                ) {
-                    clearGameObjects();
-                    player.x = door.x;
-                    player.y = door.y - cameraY;
-                    loadLevel(level);
-                    return; // Retorna para evitar verificação desnecessária
-                }
+        if (adjustedPlayerX < returnDoorAdjustedX + CorredorSala1.width + 40 &&
+            adjustedPlayerX + player.width > returnDoorAdjustedX + 40 &&
+            adjustedPlayerY < returnDoorAdjustedY + CorredorSala1.height - 90 &&
+            adjustedPlayerY + player.height > returnDoorAdjustedY + 50) {
+            
+            // Load level 1 when player passes through CorredorSala1 door
+            clearGameObjects();
+            player.x = Sala1Door1.x + 40;
+            player.y = Sala1Door1.y;
+            loadLevel(1);
+            return;
+        }
+    
+        // Check interaction with next door (CorredorSala2)
+        if (CorredorSala2.isOpen) {
+            const nextDoorAdjustedX = CorredorSala2.x;
+            const nextDoorAdjustedY = CorredorSala2.y - 123 - cameraY;
+    
+            if (adjustedPlayerX < nextDoorAdjustedX + CorredorSala2.width - 40 &&
+                adjustedPlayerX + player.width > nextDoorAdjustedX - 40 &&
+                adjustedPlayerY < nextDoorAdjustedY + CorredorSala2.height - 90 &&
+                adjustedPlayerY + player.height > nextDoorAdjustedY + 50) {
+    
+                // Load level 2 when player passes through CorredorSala2 door
+                clearGameObjects();
+                player.x = Sala2Door1.x - 80;
+                player.y = Sala2Door1.y + 50;
+                loadLevel(2);
+                return;
             }
-        });
-    }    
+        }
     
+        // Check interaction with next door (CorredorSala3)
+        const nextDoorAdjustedX = CorredorSala3.x;
+        const nextDoorAdjustedY = CorredorSala3.y + 80;
+    
+        if (adjustedPlayerX < nextDoorAdjustedX + CorredorSala3.width + 40 &&
+            adjustedPlayerX + player.width > nextDoorAdjustedX + 40 &&
+            adjustedPlayerY < nextDoorAdjustedY + CorredorSala3.height - 120 &&
+            adjustedPlayerY + player.height > nextDoorAdjustedY) {
+    
+            // Load level 3 when player passes through CorredorSala3 door
+            clearGameObjects();
+            player.x = Sala3Door1.x + 30;
+            player.y = Sala3Door1.y + 20;
+            loadLevel(3);
+            return;
+        }
+    
+        // Check interaction with next door (CorredorSala4)
+        if (CorredorSala4.isOpen) {
+            const nextDoorAdjustedX = CorredorSala4.x;
+            const nextDoorAdjustedY = CorredorSala4.y + 50;
+    
+            if (adjustedPlayerX < nextDoorAdjustedX + CorredorSala4.width - 40 &&
+                adjustedPlayerX + player.width > nextDoorAdjustedX - 40 &&
+                adjustedPlayerY < nextDoorAdjustedY + CorredorSala4.height - 90 &&
+                adjustedPlayerY + player.height > nextDoorAdjustedY + 50) {
+    
+                // Load level -1 when player passes through CorredorSala4 door (assuming it leads to a previous level)
+                clearGameObjects();
+                player.x = Sala2Door1.x - 30;
+                player.y = Sala2Door1.y;
+                loadLevel(-1);
+                return;
+            }
+        }
+    }    
+   
     function gameLoop() {
         if (levelLoad != 0) {
             return; // Se o jogo não estiver em execução, saia do loop

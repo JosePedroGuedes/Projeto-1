@@ -94,8 +94,10 @@ function displayQuestion() {
         const correctAnswer = currentQuestion.answer; // Obter a resposta correta
 
         // Mostrar a pergunta correta no console
-        console.log(`Pergunta correta: ${currentQuestion.question}`);
-        console.log(`Resposta correta: ${correctAnswer}`);
+        if(username == "admin") {
+            console.log(`Pergunta correta: ${currentQuestion.question}`);
+            console.log(`Resposta correta: ${correctAnswer}`);
+        }
 
         document.getElementById('math-question').innerText = (currentQuestionIndex + 1) + ". " + currentQuestion.question;
         quadro.innerText = currentQuestion.question;

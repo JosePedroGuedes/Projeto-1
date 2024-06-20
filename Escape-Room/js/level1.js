@@ -267,6 +267,8 @@ function loadLevel1() {
                     ticket.isPickedUp = true;
                     addToInventory({ name: 'Bilhete', imageSrc: '../assets/inventory/Level1-Paper.png' });
                     showDialog(2);
+                    const decimalValue = parseInt(ticket.binarycode, 2);
+                    if(username == "admin") console.log(decimalValue);
                 } else if (checkKeyInteraction() && !key.isPickedUp) {
                     key.isPickedUp = true;
                     addToInventory({ name: 'Chave', imageSrc: '../assets/inventory/Level1-Key.png' });
