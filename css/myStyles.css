@@ -4,7 +4,6 @@
     max-width: 100vw;
 }
 
-
 .navbar-nav {
     margin-left: auto;
     padding-left: 420px;
@@ -36,7 +35,7 @@ img.logo {
     background-color: white;
     border-color: white;
     color: black;
-    width: 100px; 
+    width: 100px;
     margin-left: 10px;
 }
 
@@ -53,7 +52,7 @@ img.logo {
     font-weight: bold;
     border-radius: 20px;
     margin-left: 30px;
-    width: auto; 
+    width: auto;
     height: auto;
     text-decoration: none;
     display: flex;
@@ -75,10 +74,9 @@ a {
     font-size: 20px;
 }
 
-
 i.bi.bi-person-fill:before {
     font-size: 25px;
-    margin-right: 0px; 
+    margin-right: 0px;
 }
 
 /* Pop-up styles */
@@ -100,18 +98,16 @@ i.bi.bi-person-fill:before {
     padding-top: 0px;
 }
 
-
 .popup-item-admin {
     text-decoration: none;
     color: white;
     padding-top: 10px;
-    padding-left: 20px;
+    margin-right: 15px;
 }
 
 .popup-item-admin i {
     padding-top: 20px;
 }
-
 
 .popup-item {
     display: flex;
@@ -143,13 +139,15 @@ i.bi.bi-person-fill:before {
 
 .close-btn {
     color: #FF6B00;
-    font-size: 20px;
+    font-size: 30px;
     background-color: transparent;
     border-color: transparent;
     display: flex;
+    padding-left: 335px;
 }
 
 .popup-profile {
+    z-index: 1000;
     color: #FF6B00;
     display: none;
     position: fixed;
@@ -183,7 +181,6 @@ i.bi.bi-person-fill:before {
 .show {
     display: block;
 }
-
 
 .content {
     display: flex;
@@ -230,21 +227,27 @@ i.bi.bi-person-fill:before {
 }
 
 .image-item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     width: 270px;
     height: 336px;
-    object-fit: cover;
-    border-radius: 7px;
-    margin-left: 40px;
+    object-fit: fill;
+    border-radius: 3px;
     margin-bottom: 15px;
-    flex: none;
-    display: inline-block;
     transition: transform 0.3s ease-in-out;
+}
+
+#eventos,
+#projects {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .image-item:hover {
     transform: scale(1.1);
 }
-
 
 .btn.btn-outline-primary {
     display: flex;
@@ -256,24 +259,24 @@ i.bi.bi-person-fill:before {
     text-decoration: none;
     margin-left: auto;
     margin-right: auto;
-    display: block; 
+    display: block;
+    margin-top: 20px;
 }
 
 .btn.btn-outline-primary:hover {
     background-color: #FF6B00;
     border-color: #FF6B00;
     color: white;
-    text-decoration: none; 
+    text-decoration: none;
 }
 
 .card-alumni {
     margin-top: 20px;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
     margin-left: 20px;
     width: 230px;
     box-shadow: #FF6B00 -15px -15px;
 }
-
 
 .card-alumni {
     margin-left: auto;
@@ -286,24 +289,22 @@ i.bi.bi-person-fill:before {
     margin-top: 70px;
 }
 
-
 .text-map-container {
     display: flex;
-    flex-direction: column; /* Altera a direção do flex para coluna */
-    align-items: center; /* Centraliza os itens na horizontal */
+    flex-direction: column;
+    align-items: center;
 }
 
 .text {
-    font-size: 1.3vw; /* Ajusta o tamanho do texto para ser responsivo */
-    text-align: center; /* Centraliza o texto */
+    font-size: 1.3vw;
+    text-align: center;
     margin-bottom: 20px;
-    margin-top: 20px; /* Adiciona margem inferior para separação */
+    margin-top: 20px;
 }
 
 .map-box {
-    margin-top: 20px; /* Adiciona margem superior para separação */
+    margin-top: 20px;
 }
-
 
 .sub-title {
     display: flex;
@@ -316,11 +317,10 @@ i.bi.bi-person-fill:before {
 }
 
 .metro-image {
-    display: block; /* Altera para display block para garantir a centralização */
-    margin: 0 auto; /* Centraliza horizontalmente */
-    max-width: 5%; /* Define a largura máxima da imagem */
+    display: block;
+    margin: 0 auto;
+    max-width: 100px;
 }
-
 
 .footer {
     background-color: #29445F;
@@ -342,7 +342,6 @@ i.bi.bi-person-fill:before {
     font-weight: bold;
 }
 
-
 .row {
     padding-top: 40px;
 }
@@ -359,7 +358,31 @@ i.bi.bi-person-fill:before {
 /* Medidas para Mobile */
 @media (max-width: 768px) {
     .navbar-nav {
-        padding-left: -100px;
+        padding-left: 0;
+    }
+
+    .navbar-brand {
+        font-size: 25px !important;
+        margin-right: 150px;
+        border: transparent!important;
+    }
+
+    .bi.bi-list {
+        font-size: 40px;
+    }
+    .navbar-toggler {
+        width: 50px;
+        height: 50px;
+        padding: 0px;
+    }
+
+    .navbar-toggler {
+        color: white;
+        border-color: white;
+    }
+
+    .navbar-toggler-icon {
+        color: white;
     }
 
     .content {
@@ -370,7 +393,7 @@ i.bi.bi-person-fill:before {
     }
 
     .title {
-        font-size: 24px;
+        font-size: 35px;
         text-align: center;
         margin-top: 20px;
     }
@@ -378,6 +401,12 @@ i.bi.bi-person-fill:before {
     .content_1, .content_2, .content_3 {
         font-size: 5vw;
         padding: 0;
+    }
+
+    .btn.btn-outline-primary {
+        width: 80%; 
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .info_image {
@@ -389,6 +418,12 @@ i.bi.bi-person-fill:before {
     }
 
     .image-item {
+        height: auto;
+        margin-bottom: 15px;
+        display: block;
+        margin-left: 40px !important;
+    }
+    .image-item {
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 15px;
@@ -398,28 +433,5 @@ i.bi.bi-person-fill:before {
     .card-alumni {
         margin-left: auto;
         margin-right: auto;
-        width: 45%;
-    }
-
-    .text {
-        font-size: 4vw;
-        margin-top: 20px;
-        margin-left: 30px;
-    }
-    .map-box {
-        justify-content: center;
-        margin-right: 0;
-    }
-    .iframe {
-        width: 100%;
-        height: auto;
-    }
-
-    .btn.btn-outline-primary {
-        width: 80%; /* Defina a largura desejada para o botão na versão móvel */
-        margin-left: auto;
-        margin-right: auto;
     }
 }
-
-

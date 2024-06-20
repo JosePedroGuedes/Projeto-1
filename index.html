@@ -6,11 +6,14 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TSIW - Tecnologias e Sistemas de Informação para Web</title>
+    <link rel="icon" type="image/png" href="/img/Logo.png">
 
     <!-- Referência ao Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 
     <!-- Referência ao CSS personalizado -->
     <link rel="stylesheet" href="./css/myStyles.css">
@@ -19,7 +22,6 @@
 </head>
 
 <body>
-
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
@@ -27,21 +29,23 @@
             <a class="navbar-brand" href="http://127.0.0.1:5501/index.html">TSIW</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
-                aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
+                aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"><i class="bi bi-list"></i></button>
                 
             <div class="collapse navbar-collapse" id="collapsibleNavId">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <button class="btn btn-outline-success me-2" type="button">Home</button>
+                        <a href="http://127.0.0.1:5501/html/projects.html">
+                        <button class="btn btn-outline-success me-2" type="button">Projetos</button>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a href="http://127.0.0.1:5501/html/more.html">
-                            <button class="btn btn-outline-success me-2" type="button">More Tsiw</button>
+                            <button class="btn btn-outline-success me-2" type="button">Mais Tsiw</button>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="http://127.0.0.1:5501/html/help.html">
-                            <button class="btn btn-outline-success me-2" type="button">Contacts</button>
+                            <button class="btn btn-outline-success me-2" type="button">Contactos</button>
                         </a>
                     </li>
                 </ul>
@@ -58,13 +62,13 @@
                     <!-- Pop-up Container -->
                     <div id="myPopup" class="popup">
                         <a href="http://127.0.0.1:5501/html/settings.html" class="popup-item"><i
-                                class="bi bi-person-circle"></i> Edit Profile</a>
+                                class="bi bi-person-circle"></i> Editar Perfil</a>
                         
-                        <a href="http://127.0.0.1:5501/html/admin.html#" id="adminSettings" class="popup-item-admin" display="none"><i class="bi bi-gear"></i> Admin Settings</a>
+                        <a href="http://127.0.0.1:5501/html/adminUsers.html" id="adminSettings" class="popup-item-admin" display="none"><i class="bi bi-gear"></i> Opções Admin</a>
 
 
                         <a href="http://127.0.0.1:5501/html/help.html" class="popup-item"><i
-                                class="bi bi-question-circle"></i> Help & Support</a>
+                                class="bi bi-question-circle"></i> Ajuda & Support</a>
                             
                         <a href="#" id="logout" class="popup-item"><i class="bi bi-person-fill-dash"></i> Logout</a>
                     </div>
@@ -77,11 +81,11 @@
     <!-- Edit Profile Popup -->
     <div id="editProfilePopup" class="popup-profile">
         <div class="popup-content">
-            <button class="close-btn" id="closeEditProfilePopup">x</button>
-            <h2>Edit Profile</h2>
+            <button class="close-btn" id="closeEditProfilePopup">&times;</button>
+            <h2>Editar Perfil</h2>
             <form id="editProfileForm">
                 <div class="form-group">
-                    <label for="editUsername">Username</label>
+                    <label for="editUsername">Nome</label>
                     <input type="text" id="editUsername" name="username" class="form-control" required>
                 </div>
                 <div class="form-group">
@@ -89,11 +93,11 @@
                     <input type="email" id="editEmail" name="email" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="editPassword">Password</label>
+                    <label for="editPassword">Palavra-passe</label>
                     <input type="password" id="editPassword" name="password" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success">Save Changes</button>
+                    <button type="submit" class="btn btn-success">Salvar Alterações</button>
                 </div>
             </form>
         </div>
@@ -105,7 +109,7 @@
         <div class="main-page-title">
             <h1 class="content_1">Queres ser Web Developer ?</h1>
             <p class="content_2">Apresento-te TSIW</p>
-            <p class="content_3">O site que te dá a conhecer o<br> caminho para o futuro... <br>Vem descobrir um curso á
+            <p class="content_3">O site que te dá a conhecer o<br> caminho para o futuro... <br>Vem descobrir um curso à
                 tua medida.</p>
         </div>
         <img src="./img/Publicity.jpg" alt="web" class="info_image">
@@ -115,52 +119,26 @@
     <div class="events">
         <p class="title">Eventos</p>
 
-
         <div class="container">
-            <div class="image-list">
-                <div>
-                    <a href="https://www.esmad.ipp.pt/noticias/plug-in-6"><img src="./img/7PluginEdition.jpg"
-                            alt="img-1" class="image-item"></a>
-                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/gamify.jpg" alt="img-2"
-                            class="image-item"></a>
-                    <a href="https://www.esmad.ipp.pt/noticias/a-inteligencia-artificial-na-educacao"><img
-                            src="./img/inteligenciaArtificial.jpg" alt="img-3" class="image-item"></a>
-                    <a href="https://www.esmad.ipp.pt/noticias/tsiw-endpoints-1"><img src="./img/EndPoints.jpg"
-                            alt="img-4" class="image-item"></a>
-                </div>
-                <!--<div>
-                    <a href="https://www.esmad.ipp.pt/noticias/tsiw-endpoints-1"><img src="./img/Savethedate.jpg"
-                            alt="img-5" class="image-item"></a>
-                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/7PluginEdition.jpg" alt="img-6"
-                            class="image-item"></a>
-                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/TsiwPoint.jpg" alt="img-7"
-                            class="image-item"></a>
-                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/Projetos.jpg" alt="img-8"
-                            class="image-item"></a>
-                </div>-->
+            <div class="image-list" id="eventos">
+                <!-- Eventos estarão colocados aqui -->
             </div>
         </div>
 
         <p class="title">Projetos</p>
 
         <div class="container">
-            <div class="image-list">
-                <div>
-                    <a href="https://www.esmad.ipp.pt/noticias/tsiw-endpoints-1"><img src="./img/Savethedate.jpg"
-                            alt="img-5" class="image-item"></a>
-                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/7PluginEdition.jpg" alt="img-6"
-                            class="image-item"></a>
-                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/TsiwPoint.jpg" alt="img-7"
-                            class="image-item"></a>
-                    <a href="https://www.esmad.ipp.pt/noticias/gamifyit"><img src="./img/Projetos.jpg" alt="img-8"
-                            class="image-item"></a>
-                </div>
+            <div class="image-list" id="projects">
+                <!-- Projetos estarão colocados aqui -->
             </div>
-            <a href="http://127.0.0.1:5501/html/projects.html"><button type="button" class="btn btn-outline-primary">Ver Mais</button></a>
+            <a href="http://127.0.0.1:5501/html/projects.html">
+                <button type="button" class="btn btn-outline-primary">Ver Mais</button>
+            </a>
         </div>
 
     </div>
 
+    
 
     <!--Alumni-->
     <div class="container">
@@ -215,18 +193,18 @@
                         E DESIGN</p>
                 </div>
                 <div class="col-md-4">
-                    <h5>Pages</h5>
+                    <h5>Páginas</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">More</a></li>
-                        <li><a href="#">Contacts</a></li>
+                        <li><a href="http://127.0.0.1:5501/index.html">Página Inicial</a></li>
+                        <li><a href="http://127.0.0.1:5501/html/more.html">Mais Tsiw</a></li>
+                        <li><a href="http://127.0.0.1:5501/html/help.html">Contactos</a></li>
                         <li><a href="#">Escape Room</a></li>
                         <li><a href="#">Alumni</a></li>
-                        <li><a href="#">Projects/Events</a></li>
+                        <li><a href="http://127.0.0.1:5501/html/projects.html">Projetos/Eventos</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <h5>Contact Us</h5>
+                    <h5>Contactos</h5>
                     <p>Escola Superior de Media Artes e <br> Design</p>
                     <p>Rua D. Sancho I, n.º 981
                         4480-876 Vila do Conde Portugal</p>

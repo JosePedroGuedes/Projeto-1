@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Users</title>
+
+    <!-- Referência ao Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.7.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block sidebar">
+                <div class="sidebar-sticky">
+                    <h2 class="sidebar-heading">Admin</h2>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a id="users" class="nav-link" href="#">Utilizadores</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="eventos" class="nav-link" href="adminEventos.html">Eventos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="projects" class="nav-link" href="adminProjetos.html">Projetos</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a id="escape-room" class="nav-link" href="#">Escape room</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="alumni" class="nav-link" href="adminTestemunhos.html">Testemunhos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="http://127.0.0.1:5501/index.html">Sair</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2"></h1>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="userTable" class="table table-striped table-sm" style="display: none;">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+
+
+
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- Your custom JavaScript -->
+    <script type="module" src="/js/views/adminUserView.js"></script>
+</body>
+</html>
