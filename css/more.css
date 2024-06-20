@@ -226,16 +226,26 @@
         font-size: 1.5rem;
     }
 
+    .study-plans {
+        width: 100% !important;
+    }
+
     .text {
         margin: 20px 0;
         font-size: 0.9rem;
+        margin-right: 20px;
     }
+    
 
     .content {
         flex-direction: column;
         align-items: center;
         margin-left: 0;
         padding-right: 0;
+    }
+
+    .content img {
+        width: 100%;
     }
 
     .custom-card {
