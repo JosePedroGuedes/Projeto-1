@@ -4,7 +4,7 @@ playerImage.src = '../assets/characters/walkCicle.png';
 const currentWidth = window.innerWidth; // Largura atual da tela
 let playerSpeed;
 
-if (currentWidth < 850) {
+if (currentWidth < 1300) {
   playerSpeed = 2;
 } else {
   playerSpeed = 1.3; // Velocidade fixa para telas maiores ou iguais a 850px

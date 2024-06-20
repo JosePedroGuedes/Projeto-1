@@ -17,19 +17,6 @@ function loadLevel3() {
         ctx.drawImage(Sala3Door1Image, Sala3Door1.x, Sala3Door1.y, Sala3Door1.width, Sala3Door1.height);
     }
 
-    let doorOpenRadius = 50;
-
-    function checkDoorPassage() {
-        let playerCenterX = player.x + player.width / 2;
-        let playerCenterY = player.y + player.height / 2 - 40;
-        let doorCenterX = (Sala3Door1.x + Sala3Door1.width / 2) - 45;
-        let doorCenterY = Sala3Door1.y + Sala3Door1.height / 2;
-
-        let distance = Math.sqrt(Math.pow(playerCenterX - doorCenterX, 2) + Math.pow(playerCenterY - doorCenterY, 2));
-
-        return distance < doorOpenRadius && Sala3Door1.isOpen;
-    }
-
     const interactionArea = {
         x: 155,
         y: 60,
@@ -45,16 +32,6 @@ function loadLevel3() {
             playerCenterX < interactionArea.x + interactionArea.width &&
             playerCenterY > interactionArea.y &&
             playerCenterY < interactionArea.height + interactionArea.y;
-    }
-
-    function drawInteractionArea() {
-        if(bordas){  
-            ctx.save();
-            ctx.strokeStyle = 'green';
-            ctx.lineWidth = 2;
-            ctx.strokeRect(interactionArea.x, interactionArea.y, interactionArea.width, interactionArea.height);
-            ctx.restore();
-        }
     }
 
     function drawMochila() {
@@ -109,13 +86,6 @@ function loadLevel3() {
                 ctx.drawImage(obstacle.image, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
             }
             // Draw collision areas for debugging
-            if (bordas) {
-                ctx.save();
-                ctx.strokeStyle = 'red';
-                ctx.lineWidth = 2;
-                ctx.strokeRect(obstacle.collisionArea.x, obstacle.collisionArea.y, obstacle.collisionArea.width, obstacle.collisionArea.height);
-                ctx.restore();
-            }
         }
     }
 
@@ -139,7 +109,60 @@ function loadLevel3() {
     //Lixo
     addObstacle(15, 90, 22, 10);
 
+    function drawBorders() {
+        if (bordas) {
+            ctx.save();
+            ctx.strokeStyle = 'red';
+            ctx.lineWidth = 2;
+            for (let obstacle of obstacles) {
+                if (obstacle.collisionArea) {
+                    ctx.strokeRect(obstacle.collisionArea.x, obstacle.collisionArea.y, obstacle.collisionArea.width, obstacle.collisionArea.height);
+                }
+            }
+            ctx.strokeStyle = 'yellow';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(passageRect.x, passageRect.y, passageRect.width, passageRect.height);
+    
+            ctx.strokeStyle = 'blue';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(interactionArea.x, interactionArea.y, interactionArea.width, interactionArea.height);
+    
+            // Desenhar círculos para a chave, bilhete e mochila
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 2;
+    
+            if (!mochila4.isPickedUp) {
+                ctx.beginPath();
+                ctx.arc(mochila4.x + mochila4.width / 2, mochila4.y + mochila4.height / 2, mochilaRadius, 0, 2 * Math.PI);
+                ctx.stroke();
+            }
+    
+            ctx.restore();
+        }
+    }    
 
+    const passageRect = {
+        x: Sala3Door1.x, // Coordenada x do retângulo de passagem
+        y: Sala3Door1.y + 50, // Coordenada y do retângulo de passagem
+        width: 15, // Largura do retângulo de passagem
+        height: 35, // Altura do retângulo de passagem
+    };
+
+    function checkPassageRectDoorCollision() {
+        let playerCenterX = player.x + player.width / 2;
+        let playerCenterY = player.y + player.height / 2;
+        let passageRectCenterX = passageRect.x + passageRect.width / 2;
+        let passageRectCenterY = passageRect.y + passageRect.height / 2;
+    
+        let distanceX = Math.abs(playerCenterX - passageRectCenterX);
+        let distanceY = Math.abs(playerCenterY - passageRectCenterY);
+    
+        // Definindo um threshold menor para a largura e altura
+        let thresholdX = (player.width / 2) + (passageRect.width / 2) - 20;
+        let thresholdY = (player.height / 2) + (passageRect.height / 2) - 20;
+    
+        return distanceX < thresholdX && distanceY < thresholdY;
+    }
 
     function gameLoop() {
         if (levelLoad != 3) {
@@ -178,7 +201,7 @@ function loadLevel3() {
             }
         }
 
-        if (checkDoorPassage() && levelLoad == 3) {
+        if (checkPassageRectDoorCollision() && levelLoad == 3) {
             clearGameObjects();
             player.x = CorredorSala3.x - 50;
             player.y = CorredorSala3.y;
@@ -190,7 +213,7 @@ function loadLevel3() {
         drawPlayer();
         drawObstacles();
         drawDoor();
-        drawInteractionArea(); // Desenha a área de interação
+        drawBorders(); // Desenha a área de interação
 
         requestAnimationFrame(gameLoop);
     }

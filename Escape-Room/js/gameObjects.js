@@ -33,8 +33,8 @@ let key = {
 };
 
 // Gera automaticamente o ticket com código aleatório
-const randomNumberTicket = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000; // Número aleatório entre 1000 e 9999
-const binaryCode = randomNumberTicket.toString(2).padStart(4, '0'); // Transforma em binário e adiciona zeros à esquerda para garantir 4 dígitos
+const randomNumberTicket = Math.floor(Math.random() * (999 - 100 + 1)) + 100; // Número aleatório entre 100 e 999
+const binaryCode = randomNumberTicket.toString(2).padStart(7, '0'); // Transforma em binário e adiciona zeros à esquerda para garantir 7 dígitos
 
 const ticketImage = new Image();
 ticketImage.src = '../assets/collectibles/bilhete.png';
@@ -47,8 +47,6 @@ const ticket = {
     binarycode: binaryCode,
     isPickedUp: false,
 };
-
-console.log(ticket);
 
 const Mochila1Image = new Image();
 Mochila1Image.src = '../assets/collectibles/Mochila1.png';
@@ -104,6 +102,7 @@ const Sala1Door1 = { // porta do nível 1
     width: null, // Inicialmente null
     height: null, // Inicialmente null
     isOpen: false,
+    isDoor: true
 };
 
 const Sala2Door1Image = new Image();
@@ -115,6 +114,7 @@ const Sala2Door1 = { // porta do nível 1
     width: null, // Inicialmente null
     height: null, // Inicialmente null
     isOpen: true,
+    isDoor: true
 };
 
 const Sala3Door1Image = new Image();
@@ -126,6 +126,7 @@ const Sala3Door1 = { // porta do nível 1
     width: null, // Inicialmente null
     height: null, // Inicialmente null
     isOpen: true,
+    isDoor: true
 };
 
 const CorredorSala1Image = new Image();
@@ -137,6 +138,7 @@ const CorredorSala1 = { // porta do nível 2
     width: null, // Inicialmente null
     height: null,
     isOpen: true,
+    isDoor: true
 };
 
 const CorredorSala2Image = new Image();
@@ -148,6 +150,7 @@ const CorredorSala2 = { // porta do nível 1
     width: null, // Inicialmente null
     height: null, // Inicialmente null
     isOpen: false,
+    isDoor: true,
     code: parseInt(ticket.binarycode, 2) // código decimal do código binário no ticket
 };
 
@@ -160,6 +163,7 @@ const CorredorSala3 = {
     width: null, // Inicialmente null
     height: null,
     isOpen: false,
+    isDoor: true
 };
 
 const CorredorSala4Image = new Image();
@@ -171,6 +175,7 @@ const CorredorSala4 = {
     width: null, // Inicialmente null
     height: null,
     isOpen: false,
+    isDoor: true
 };
 
 const LeaveDoorImage = new Image();
@@ -182,6 +187,7 @@ const LeaveDoor = {
     width: null, // Inicialmente null
     height: null,
     isOpen: false,
+    isDoor: true
 };
 
 function adjustDoorSize(door, doorImage) {
