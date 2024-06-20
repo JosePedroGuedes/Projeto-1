@@ -24,7 +24,7 @@ export function add(username, email, password, bestTime = "--:--") {
     }
   } catch (error) {
     console.error("Error adding user:", error.message);
-    throw error; // Rethrow the error to handle it in UI or caller
+    throw error; 
   }
 }
 
@@ -56,7 +56,7 @@ export function removeUser(username) {
     console.log("User removed successfully:", username);
   } catch (error) {
     console.error("Error removing user:", error.message);
-    throw error; // Rethrow the error to handle it in UI or caller
+    throw error;
   }
 }
 
@@ -109,6 +109,6 @@ class User {
     this.username = username;
     this.email = email;
     this.password = password;
-    this.bestTime = bestTime; // Atribui o valor de bestTime passado como parâmetro
+    this.bestTime = bestTime; 
   }
 }
