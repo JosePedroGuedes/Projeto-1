@@ -13,18 +13,24 @@
     height: auto;
 }
 
+.container-projects {
+    gap: 60px;
+}
 
 .card-img-top {
     height: 300px; 
     width: 100%; 
     object-fit: contain; 
+    margin-top: 20px;
 }
 
 .card {
+    border-color: #29445F;
+    border-width: 2px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-bottom: 20px; /* Para adicionar espaçamento entre os cards */
+    margin-bottom: 20px;
 }
 
 .card-body {

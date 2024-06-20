@@ -242,7 +242,8 @@ i.bi.bi-person-fill:before {
 #projects {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center; 
 }
 
 .image-item:hover {
