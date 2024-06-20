@@ -14,7 +14,7 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
   try {
     init();
     if (login(email, password)) {
-      showMessage("Login successful");
+      showMessage("Inicio de sessão bem sucedido!");
       window.location.href = "http://127.0.0.1:5501/index.html";
     }
   } catch (error) {
