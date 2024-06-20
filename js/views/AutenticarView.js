@@ -48,13 +48,13 @@ document.getElementById("switchToLoginForm").addEventListener("click", function 
 
 function switchToRegisterForm() {
   document.getElementById("loginForm").style.display = "none";
-  document.getElementById("formTitle").textContent = "Register";
+  document.getElementById("formTitle").textContent = "Criar Conta";
   document.getElementById("registerForm").style.display = "block";
 }
 
 function switchToLoginForm() {
   document.getElementById("loginForm").style.display = "block";
-  document.getElementById("formTitle").textContent = "Login";
+  document.getElementById("formTitle").textContent = "Iniciar Sessão";
   document.getElementById("registerForm").style.display = "none";
 }
 
