@@ -5,9 +5,15 @@ var currTile;
 var otherTile;
 
 var turns = 0;
-var imgOrder = ["4", "2", "8", "5", "1", "6", "7", "9", "3"];
-
+var imgOrder;
 var gameStarted = false, gameFinishedPuzzle = false;
+let minigamesOn = 0;
+
+const predefinedOrders = [
+    ["4", "1", "3", "7", "2", "6", "9", "5", "8"],
+    ["4", "3", "6", "7", "8", "5", "1", "2", "9"],
+    ["8", "7", "2", "4", "1", "3", "5", "6", "9"] 
+];
 
 function checkPuzzleFinish() {
     return gameFinishedPuzzle;
@@ -25,7 +31,7 @@ function initializeGame() {
     document.getElementById("board").innerHTML = "";
 
     if (!gameStarted) {
-        imgOrder = shuffleArray(imgOrder);
+        imgOrder = predefinedOrders[Math.floor(Math.random() * predefinedOrders.length)];
         gameStarted = true;
     }
 
@@ -53,7 +59,6 @@ function initializeGame() {
 }
 
 function openGamePuzzle() {
-
     if (!gameStarted) {
         initializeGame();
         gameStarted = true;
@@ -63,14 +68,13 @@ function openGamePuzzle() {
 
     document.getElementById("minigamePuzzle").style.display = "block";
     stopMovement = true;
-
 }
 
 function closeGamePuzzle(movement) {
     document.getElementById("minigamePuzzle").style.display = "none";
     stopMovement = movement;
     removeEventListeners();
-
+    if (gameFinishedPuzzle) minigamesOn++;
 }
 
 function removeEventListeners() {
@@ -104,7 +108,7 @@ function dragEnter(e) {
     e.preventDefault();
 }
 
-function dragLeave() { }
+function dragLeave() {}
 
 function dragDrop() {
     otherTile = this;
@@ -175,7 +179,8 @@ function checkCompletion() {
     }
 
     gameFinishedPuzzle = true;
-    document.getElementById("turns").innerText = `Parabéns! Fizeste o puzzle em ${turns} tentativas!`;
+    document.getElementById("turns").innerHTML = `Parabéns!!  Fizeste o puzzle<br> em ${turns} tentativas!`;
+    numberTriesPuzzle = turns;
 }
 
 document.addEventListener("DOMContentLoaded", () => {

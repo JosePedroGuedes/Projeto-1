@@ -1,4 +1,12 @@
+let dialogoInicialSala2 = false;
+let dialogoGamePuzzle = false;
+let dialogoGameWord = false;
+
 function loadLevel2() {
+    if(!dialogoInicialSala2){
+        showDialog(23);
+        dialogoInicialSala2 = true;
+    }
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
@@ -14,12 +22,34 @@ function loadLevel2() {
     function checkDoorPassage() {
         let playerCenterX = player.x + player.width / 2;
         let playerCenterY = player.y + player.height / 2 + 30;
-        let doorCenterX = (Sala2Door1.x + Sala2Door1.width / 2);
-        let doorCenterY = Sala2Door1.y + Sala2Door1.height / 2 + 10;
+        let doorCenterX = (Sala2Door1.x + Sala2Door1.width / 2) + 28;
+        let doorCenterY = Sala2Door1.y + Sala2Door1.height / 2 + 45;
 
         let distance = Math.sqrt(Math.pow(playerCenterX - doorCenterX, 2) + Math.pow(playerCenterY - doorCenterY, 2));
 
         return distance < doorOpenRadius && Sala2Door1.isOpen;
+    }
+
+    function drawMochila() {
+        if (!mochila3.isPickedUp) {
+            ctx.drawImage(Mochila3Image, mochila3.x, mochila3.y, mochila3.width, mochila3.height);
+        }
+    }
+
+    let mochilaRadius = 55;
+
+    function checkMochilaInteraction() {
+        if (!mochila3.isPickedUp) {
+            let playerCenterX = player.x + player.width / 2;
+            let playerCenterY = player.y + player.height / 2;
+            let mochilaCenterX = mochila3.x + mochila3.width / 2;
+            let mochilaCenterY = mochila3.y + mochila3.height / 2;
+
+            let distance = Math.sqrt(Math.pow(playerCenterX - mochilaCenterX, 2) + Math.pow(playerCenterY - mochilaCenterY, 2));
+
+            return distance < mochilaRadius;
+        }
+        return false;
     }
 
     function addObstacle(x, y, width, height, imagePath, collisionArea) {
@@ -61,17 +91,17 @@ function loadLevel2() {
     addObstacle(485, 70, 15, 500);
 
     // Mesa Professor
-    addObstacle(205, 165, 94, 46, '../assets/objects/Sala2-MesaProfessor.png', { x: 205, y: 190, width: 94, height: 20 });
+    addObstacle(205, 165, 94, 35, '../assets/objects/Sala2-MesaProfessor.png', { x: 205, y: 190, width: 94, height: 12 });
 
     // Mesa com Pc
-    addObstacle(39, 262, 118, 38, '../assets/objects/Sala2-MesaPc.png', { x: 42, y: 285, width: 113, height: 20 });
-    addObstacle(345, 262, 118, 38, '../assets/objects/Sala2-MesaPc.png', { x: 346, y: 285, width: 113, height: 20 });
+    addObstacle(39, 262, 118, 28, '../assets/objects/Sala2-MesaPc.png', { x: 42, y: 285, width: 113, height: 8 });
+    addObstacle(345, 262, 118, 28, '../assets/objects/Sala2-MesaPc.png', { x: 346, y: 285, width: 113, height: 8 });
 
     // Mesas
-    addObstacle(192, 270, 118, 35, '../assets/objects/Sala2-Mesa.png', { x: 195, y: 285, width: 112, height: 20 });
-    addObstacle(38, 372, 118, 35, '../assets/objects/Sala2-Mesa.png', { x: 42, y: 385, width: 112, height: 20 });
-    addObstacle(191, 372, 118, 35, '../assets/objects/Sala2-Mesa.png', { x: 195, y: 385, width: 112, height: 20 });
-    addObstacle(346, 372, 118, 35, '../assets/objects/Sala2-Mesa.png', { x: 348, y: 385, width: 112, height: 20 });
+    addObstacle(192, 270, 118, 19, '../assets/objects/Sala2-Mesa.png', { x: 195, y: 285, width: 112, height: 8 });
+    addObstacle(38, 372, 118, 19, '../assets/objects/Sala2-Mesa.png', { x: 42, y: 385, width: 112, height: 8 });
+    addObstacle(191, 372, 118, 19, '../assets/objects/Sala2-Mesa.png', { x: 195, y: 385, width: 112, height: 8 });
+    addObstacle(346, 372, 118, 19, '../assets/objects/Sala2-Mesa.png', { x: 348, y: 385, width: 112, height: 8 });
 
     // Adding interactive squares
     let pcRadius = [
@@ -80,7 +110,6 @@ function loadLevel2() {
     ];
 
     let interactionRadius = 80;
-    let activeMinigame = null;
 
     function drawPcRadius() {
         if (bordas) {
@@ -117,20 +146,33 @@ function loadLevel2() {
 
     // Listener de eventos fora do loop de jogo
     document.addEventListener("keydown", function (event) {
-        if (event.code === 'KeyF' && checkSquareInteraction() && !stopMovement) {
+        if (event.code === 'KeyF' && checkSquareInteraction() && !stopMovement && levelLoad == 2) {
             // Aqui você pode verificar qual quadrado está sendo interagido
             let minigame = checkSquareInteraction();
+
+            if(minigame == 1 && !dialogoGamePuzzle) {
+                showDialog(26);
+                dialogoGamePuzzle = true;
+                return;
+            }
+
+            else if(minigame == 2 && !dialogoGameWord) {
+                showDialog(27);
+                dialogoGameWord = true;
+                return;
+            }
 
             // Verifica se ambos os minigames estão concluídos
             let isPuzzleComplete = pcRadius.find(square => square.minigame === 1 && !square.finish) === undefined;
             let isGuessWordComplete = pcRadius.find(square => square.minigame === 2 && !square.finish) === undefined;
 
             // Verifica e atualiza o estado dos minigames
-            if (!isPuzzleComplete) {
+            if (!isPuzzleComplete || !isGuessWordComplete) {
                 if (checkPuzzleFinish()) {
                     let puzzleSquare = pcRadius.find(square => square.minigame === 1);
                     puzzleSquare.finish = true;
                     isPuzzleComplete = true; // Atualiza o estado localmente
+                    
                 }
 
                 if (!isGuessWordComplete) {
@@ -162,7 +204,9 @@ function loadLevel2() {
                     showDialog(11);
                 }
             }
-        }
+        } 
+        
+        
     });
 
     // Game loop
@@ -170,6 +214,20 @@ function loadLevel2() {
         if (levelLoad != 2) {
             return; // Se o jogo não estiver em execução, saia do loop
         }
+
+        if (isKeyPressed('KeyF') && checkMochilaInteraction() && !mochila3.isPickedUp) {
+            mochila3.isPickedUp = true;
+            addToInventory({ name: 'Mochila3', imageSrc: '../assets/inventory/Mochila3.png' });
+        }
+
+        if(minigamesOn == 2) {
+           showDialog(12);
+           if(timeLevel2 == "--:--") timeLevel2 = timerElement.innerText;
+           CorredorSala3.isOpen = true;
+           CorredorSala3Image.src = '../assets/objects/LeftDoorStage3.png';
+           CorredorSala3.x = 456.3;
+           minigamesOn = 3;
+        } 
 
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
@@ -201,6 +259,7 @@ function loadLevel2() {
             return;
         }
 
+        drawMochila();
         drawPlayer();
         drawObstacles();
         drawDoor();

@@ -17,6 +17,7 @@ const canvasHeight2 = 700;
 function clearGameObjects() {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     obstacles = [];
+    document.getElementById("mathQuizBox").style.display = "none";
 }
 
 // Define as variáveis do jogo
@@ -48,6 +49,50 @@ const ticket = {
 };
 
 console.log(ticket);
+
+const Mochila1Image = new Image();
+Mochila1Image.src = '../assets/collectibles/Mochila1.png';
+
+let mochila1 = {
+    x: 438,
+    y: 265,
+    width: 24,
+    height: 30,
+    isPickedUp: false
+};
+
+const Mochila2Image = new Image();
+Mochila2Image.src = '../assets/collectibles/Mochila2.png';
+
+let mochila2 = {
+    x: 365,
+    y: 115,
+    width: 24,
+    height: 30,
+    isPickedUp: false
+};
+
+const Mochila3Image = new Image();
+Mochila3Image.src = '../assets/collectibles/Mochila3.png';
+
+let mochila3 = {
+    x: 180,
+    y: 95,
+    width: 24,
+    height: 30,
+    isPickedUp: false
+};
+
+const Mochila4Image = new Image();
+Mochila4Image.src = '../assets/collectibles/Mochila4.png';
+
+let mochila4 = {
+    x: 290,
+    y: 350,
+    width: 24,
+    height: 30,
+    isPickedUp: false
+};
 
 // Define as variáveis da porta
 const Sala1Door1Image = new Image();

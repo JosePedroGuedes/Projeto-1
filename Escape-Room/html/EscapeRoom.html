@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <div id="dialogBox" class="dialog-box">
+    <div id="dialogBox" class="dialog-box hidden">
         <p id="dialogText"></p>
     </div>
 
@@ -48,7 +48,11 @@
                 <li><img src="../assets/menu/teclas/f.png" alt="F"> : Botão de interação/Ações</li>
                 <li><img src="../assets/menu/teclas/Esc.png" alt="Esc"> : Aceder Menu</li>
             </ul>
-            <button class="start-button" id="startGameBtn">Começar Jogo</button>
+            <div class="buttons-container">
+                <button class="start-button" id="startGameBtn">Começar Jogo</button>
+                <button class="leaderBoard-button" id="leaderBoardBtn">Leaderboard</button>
+                <button class="exit-button" id="exitGameBtn">Sair</button>
+            </div>
         </div>
     </div>
 
@@ -60,7 +64,7 @@
     </div>
 
     <div id="mathQuestions" class="math-questions">
-        <div id="math-question" class="question">Aqui aparecerá a pergunta</div>
+        <div id="math-question" class="question"><br>Aqui aparecerá a pergunta</div>
         <div id="answer-options">
             <button class="answer-option" id="option1">Opção 1</button>
             <button class="answer-option" id="option2">Opção 2</button>
@@ -68,24 +72,49 @@
             <button class="answer-option" id="option4">Opção 4</button>
         </div>
     </div>
+    <div id="mathQuizBox" class="mathQuizBox"></div>
 
     <div id="timerContainer">
         <span id="timer">20:00</span>
     </div>
 
-    <div id="pauseMenu" class="pause-menu">
-        <button id="closeButton" class="close-button">X</button>
-        <button id="continueButton">Continuar</button>
-        <button id="controlsButton">Controles</button>
-        <button id="exitButton">Sair</button>
+    <div class="pauseMenu-container" id="pauseMenuContainer">
+        <div id="pauseMenu" class="pause-menu">
+            <h2 class="title">Menu de Pausa</h2>
+            <button id="continueButton">Continuar</button>
+            <button id="controlsButton">Controlos</button>
+            <button id="exitButton">Sair</button>
+        </div>
+    </div>
+
+    <div class="controlsMenu-container" id="controlsMenuContainer">
+        <div id="controlsMenu" class="controls-menu">
+            <h2 class="subtitle">Controlos</h2>
+            <ul class="controls-list">
+                <li><img src="../assets/menu/teclas/w.png" alt="W"> , <img src="../assets/menu/teclas/SetaCima.png"
+                        alt="Seta para cima"> : Mover para cima</li>
+                <li><img src="../assets/menu/teclas/a.png" alt="A"> , <img src="../assets/menu/teclas/SetaEsquerda.png"
+                        alt="Seta para a esquerda"> : Mover para a esquerda</li>
+                <li><img src="../assets/menu/teclas/s.png" alt="S"> , <img src="../assets/menu/teclas/SetaBaixo.png"
+                        alt="Seta para baixo"> : Mover para baixo</li>
+                <li><img src="../assets/menu/teclas/d.png" alt="D"> , <img src="../assets/menu/teclas/SetaDireita.png"
+                        alt="Seta para a direita"> : Mover para a direita</li>
+                <li><img src="../assets/menu/teclas/f.png" alt="F"> : Botão de interação/Ações</li>
+                <li><img src="../assets/menu/teclas/Esc.png" alt="Esc"> : Aceder Menu</li>
+            </ul>
+            <button class="goBack-button" id="goBackBtn">Voltar</button>
+        </div>
     </div>
 
     <div id="minigamePuzzle">
         <span class="close-btn" onclick="closeGamePuzzle()">X</span>
         <h2>Puzzle da Esmad</h2>
         <div id="board"></div>
-        <div id="turns">Tentativas: 0</div>
+        <div id="turns-container">
+            <div id="turns">Tentativas: 0</div>
+        </div>
     </div>
+       
 
     <div id="guessWordGame">
         <span class="close-btn" onclick="closeGameGuessWord()">X</span>
@@ -115,41 +144,59 @@
     <div class="endGame-container" id="endGameContainer">
         <div class="endGame">
             <div class="intro">
-                <h1 class="firsttitle">Muitos Parabéns!! Chegaste ao fim do jogo!</h1>
-                <p class="introduction">Obrigado por jogar o nosso Escape Room, <span id="spanUsername"></span>! Espero que se tenha divirtido!</p>
+                <h1 class="firsttitleEndGame" id="titleEndGame">Titulo</h1>
+                <p class="introduction">Obrigado por jogar o nosso Escape Room, <span id="spanUsernameEnd"></span>! Espero que se tenha divirtido!</p>
             </div>
             <h2 class="subtitle">Estatísticas do Jogo</h2>
             <div class="stats-container">
                 <div class="stats-column">
                     <h3>Tempos</h3>
                     <ul>
-                        <li>Completou o nível 1 às <span>--:--</span></li>
-                        <li>Completou o nível 2 às <span>--:--</span></li>
-                        <li>Completou o nível 3 às <span>--:--</span></li>
-                        <li>Completou o Escape Room às <span>--:--</span></li>
-                        <li>Recorde Tempo Pessoal: <span>--:--</span></li>
+                        <li>Completou o nível 1 às <span id="timeLevel1">--:--</span></li>
+                        <li>Completou o nível 2 às <span id="timeLevel2">--:--</span></li>
+                        <li>Completou o nível 3 às <span id="timeLevel3">--:--</span></li>
+                        <li>Completou o Escape Room às <span id="timeEscapeRoom">--:--</span></li>
+                        <li>Recorde Tempo Pessoal: <span id="personalBestTime">--:--</span></li>
                     </ul>
                 </div>
                 <div class="stats-column">
                     <h3>Outros</h3>
                     <ul>
-                        <li>Nº de vezes que falhou o código binário: <span>0</span></li>
-                        <li>Nº de tentativas no Puzzle: <span>0</span></li>
-                        <li>Nº de palavras erradas no jogo das Palavras: <span>0</span></li>
-                        <li>Nº de perguntas erradas no quiz da Matemática: <span>0</span></li>
-                        <li>Nº de vezes erradas no desafio Final: <span>0</span></li>
-                        <li>Conseguiu aceder á sala secreta: <span>Nao</span></li>
+                        <li>Nº de vezes que falhou o código binário: <span id="numberFailsCode">0</span></li>
+                        <li>Nº de tentativas no Puzzle: <span id="numberTriesPuzzle">0</span></li>
+                        <li>Nº de palavras erradas no jogo das Palavras: <span id="numberFailsWord">0</span></li>
+                        <li>Nº de perguntas erradas no quiz da Matemática: <span id="numberFailsMath">0</span></li>
+                        <li>Conseguiu aceder á sala secreta: <span id="accessSecretRoom">Nao</span></li>
                     </ul>
                 </div>
             </div>
-            <div class="start-button-container">
-                <button class="start-button" id="exitGameBtn">Sair</button>
-                <button class="start-button" id="replayGameBtn">Jogar Novamente</button>
+            <div class="buttons-container">              
+                <button class="replay-button" id="replayGameBtn">Jogar Novamente</button>
+                <button class="leaderBoard-button" id="leaderBoardEndBtn">Leaderboard</button>
+                <button class="exit-button" id="exitEndGameBtn">Sair</button>
             </div>
         </div>
     </div>
-    
 
+    <div class="leaderboard-container" id="leaderboardContainer">
+        <div class="leaderboard">
+            <h1 class="title">Leaderboard</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Posição</th>
+                        <th>Nome</th>
+                        <th>Tempo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <button class="leaderGoBack-button" id="LeaderGoBackeBtn">Voltar</button>
+        </div>
+    </div>
+
+    <script src="../js/statsEndGame.js"></script>
     <script src="../js/timer.js"></script>
     <script src="../js/loadLevel.js"></script>
     <script src="../js/gameObjects.js"></script>
@@ -160,13 +207,14 @@
     <script src="../js/pauseMenu.js"></script>
     <script src="../js/puzzle.js"></script>
     <script src="../js/guessWord.js"></script>
+    <script src="../js/mathQuiz.js"></script>
     <script src="../js/corredor.js"></script>
-    <script src="../js/levels.js"></script>
     <script src="../js/level1.js"></script>
     <script src="../js/level2.js"></script>
     <script src="../js/level3.js"></script>
+    <script src="../js/secretRoom.js"></script>
     <script src="../js/admin.js"></script>
-    <script type="module" src="../js/endGame.js"></script>
+    
 
 </body>
 

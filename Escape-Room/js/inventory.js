@@ -2,6 +2,21 @@ let inventory = [];
 // Função para adicionar um item ao inventário
 function addToInventory(item) {
     inventory.push(item);
+    if(item.name == "Mochila1" || item.name == "Mochila2" || item.name == "Mochila3" || item.name == "Mochila4") {
+        numberBackpacks++;
+    }
+
+    if(numberBackpacks == 1 && item.name!= "Bilhete" && item.name!= "Chave") showDialog(22);
+    if(numberBackpacks == 4 && item.name!= "Bilhete" && item.name!= "Chave"){
+        if(levelLoad == 0) animateSecretDoorOpening(CorredorSala4, CorredorSala4Image, "Right", "open");
+        else CorredorSala4Image.src = '../assets/objects/RightDoorStage3.png';
+        CorredorSala4.isOpen = true;
+        CorredorSala4.x = 13;
+
+        isStop = true;
+        isPaused = true;
+        showDialog(20);
+    }
     updateInventoryUI();
 }
 
@@ -17,35 +32,58 @@ function updateInventoryUI() {
         itemElement.appendChild(itemImage);
         inventoryList.appendChild(itemElement);
 
+        
+
         // Adiciona um ouvinte de evento de clique ao itemElement
         itemElement.addEventListener('click', function() {
             // Verifica qual item foi clicado usando switch
-            switch(item.name){
-                case "Bilhete":
-                    console.log('O elemento Bilhete foi clicado!');
-                    showDialog(2);
-                    break;
-                case "Chave":
-                    console.log('O elemento Chave foi clicado!');
-                    break;
-                // Adicione outros casos conforme necessário
-                default:
-                    console.log('Item não reconhecido.');
+            if(item.name == "Bilhete"){
+                showDialog(2);
             }
         });
     });
 }
 
-function clickInventory(){
-    var elemenoBilhete= document.querySelectorAll('[alt="Bilhete"]');
-
-    // Itera sobre os elementos encontrados
-    elemenoBilhete.forEach(function(elemento) {
-        // Adiciona um ouvinte de evento de clique a cada elemento
-        elemento.addEventListener('click', function() {
-            // Insira aqui o código que você quer executar quando o elemento com o atributo alt específico for clicado
-            console.log('O elemento com alt específico foi clicado!');
+function animateSecretDoorOpening(door, doorimage, side, direction) {
+    let frame;
+    let startFrame;
+    let endFrame;
     
-        });
-    });
+    if (direction === 'open') {
+        frame = 1;
+        startFrame = 1;
+        endFrame = 3;
+    } else if (direction === 'close') {
+        frame = 3;
+        startFrame = 3;
+        endFrame = 1;
+    } else {
+        console.error('Invalid direction parameter. Use "open" or "close".');
+        return;
+    }
+
+    const doorOpeningInterval = setInterval(() => {
+        if ((direction === 'open' && frame <= endFrame) || (direction === 'close' && frame >= endFrame)) {
+            const doorImagePath = `../assets/objects/${side}DoorStage${frame}.png`;
+            doorimage.src = doorImagePath;
+            ctx.clearRect(door.x, door.y, door.width, door.height);
+            ctx.drawImage(doorimage, door.x, door.y, door.width, door.height);
+            
+            if (frame === endFrame) {
+                if (direction === 'open') {
+                    drawPlayer();
+                } else if (direction === 'close') {
+                    // Optionally do something when door closes completely
+                }
+            }
+            
+            if (direction === 'open') {
+                frame++;
+            } else if (direction === 'close') {
+                frame--;
+            }
+        } else {
+            clearInterval(doorOpeningInterval);
+        }
+    }, 200);
 }

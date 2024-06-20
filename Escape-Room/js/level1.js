@@ -1,4 +1,10 @@
+let dialogoInicialSala1 = false;
+
 function loadLevel1() {
+    if(!dialogoInicialSala1){
+        showDialog(25);
+        dialogoInicialSala1 = true;
+    }
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
@@ -17,11 +23,20 @@ function loadLevel1() {
         }
     }
 
+    function drawMochila() {
+        if (!mochila1.isPickedUp) {
+            ctx.drawImage(Mochila1Image, mochila1.x, mochila1.y, mochila1.width, mochila1.height);
+        }
+    }
+
     function drawDoor() {
         ctx.drawImage(Sala1Door1Image, Sala1Door1.x, Sala1Door1.y, Sala1Door1.width, Sala1Door1.height);
     }
 
+    let didOpen = false;
+
     function animateDoorOpening() {
+        didOpen = true;
         let frame = 1;
         const totalFrames = 3;
 
@@ -39,7 +54,7 @@ function loadLevel1() {
             }
         }, 200);
 
-        timeFirstLeve1 = timerElement.innerText;
+        timeLevel1 = timerElement.innerText;
     }
 
     let keyRadius = 55;
@@ -68,6 +83,11 @@ function loadLevel1() {
 
         let distance = Math.sqrt(Math.pow(playerCenterX - doorCenterX, 2) + Math.pow(playerCenterY - doorCenterY, 2));
 
+        if(distance < doorOpenRadius && !key.isPickedUp && !Sala1Door1.isOpen && isKeyPressed('KeyF')) {
+            isStop = true;
+            isPaused = true;
+            showDialog(15); 
+        } 
         return distance < doorOpenRadius && key.isPickedUp && !Sala1Door1.isOpen && isKeyPressed('KeyF');
     }
 
@@ -110,6 +130,22 @@ function loadLevel1() {
         return false;
     }
 
+    let mochilaRadius = 55;
+
+    function checkMochilaInteraction() {
+        if (!mochila1.isPickedUp) {
+            let playerCenterX = player.x + player.width / 2;
+            let playerCenterY = player.y + player.height / 2;
+            let mochilaCenterX = mochila1.x + mochila1.width / 2;
+            let mochilaCenterY = mochila1.y + mochila1.height / 2;
+
+            let distance = Math.sqrt(Math.pow(playerCenterX - mochilaCenterX, 2) + Math.pow(playerCenterY - mochilaCenterY, 2));
+
+            return distance < mochilaRadius;
+        }
+        return false;
+    }
+
     function addObstacle(x, y, width, height, imagePath, collisionArea) {
         const obstacle = { x, y, width, height, imagePath };
         if (collisionArea) {
@@ -146,12 +182,12 @@ function loadLevel1() {
     }
     
     // Mesas
-    addObstacle(74, 218, 398, 27, '../assets/objects/Sala1-MesaGrande.png', { x: 74, y: 228, width: 398, height: 18 });
-    addObstacle(74, 305, 398, 27, '../assets/objects/Sala1-MesaGrande.png', { x: 74, y: 315, width: 398, height: 18 });
-    addObstacle(74, 392, 398, 27, '../assets/objects/Sala1-MesaGrande.png', { x: 74, y: 402, width: 398, height: 18 });
+    addObstacle(74, 218, 398, 27, '../assets/objects/Sala1-MesaGrande.png', { x: 74, y: 228, width: 398, height: 20 });
+    addObstacle(74, 305, 398, 27, '../assets/objects/Sala1-MesaGrande.png', { x: 74, y: 315, width: 398, height: 20 });
+    addObstacle(74, 392, 398, 27, '../assets/objects/Sala1-MesaGrande.png', { x: 74, y: 402, width: 398, height: 20 });
     
     // Mesa Professor
-    addObstacle(377, 137, 95, 65, '../assets/objects/Sala1-MesaProfessor.png', { x: 377, y: 147, width: 95, height: 30 });
+    addObstacle(378, 137, 94, 24, '../assets/objects/Sala1-MesaProfessor.png', { x: 377, y: 147, width: 95, height: 17 });
     
     // Bordas
     addObstacle(0, 75, 500, 10);
@@ -188,16 +224,19 @@ function loadLevel1() {
             }
 
             if (isKeyPressed('KeyF') && !stopMovement) {
-                if (checkDoorInteraction()) {
+                if (checkDoorInteraction() && !didOpen) {
                     animateDoorOpening();
-                } else if (checkTicketInteraction() && !ticket.isPickedUp) {
+                } 
+                 else if (checkTicketInteraction() && !ticket.isPickedUp) {
                     ticket.isPickedUp = true;
                     addToInventory({ name: 'Bilhete', imageSrc: '../assets/inventory/Level1-Paper.png' });
                     showDialog(2);
                 } else if (checkKeyInteraction() && !key.isPickedUp) {
                     key.isPickedUp = true;
                     addToInventory({ name: 'Chave', imageSrc: '../assets/inventory/Level1-Key.png' });
-                    localStorage.setItem('inventory', JSON.stringify(inventory));
+                }else if (checkMochilaInteraction() && !mochila1.isPickedUp) {
+                    mochila1.isPickedUp = true;
+                    addToInventory({ name: 'Mochila1', imageSrc: '../assets/inventory/Mochila1.png' });
                 }
             }
         }
@@ -210,10 +249,11 @@ function loadLevel1() {
             return;
         }
 
+        drawMochila();
         drawPlayer();
         drawObstacles();
-        drawKey();
         drawTicket();
+        drawKey();
         drawDoor();
         drawDoorOpenArea();
 

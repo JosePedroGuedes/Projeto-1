@@ -5,7 +5,7 @@ export function init() {
   if (localStorage.users) {
     const tempUsers = JSON.parse(localStorage.users);
     for (let user of tempUsers) {
-      users.push(new User(user.username, user.email, user.password));
+      users.push(new User(user.username, user.email, user.password, user.bestTime));
     }
   } else {
     users = [];
@@ -13,12 +13,12 @@ export function init() {
 }
 
 // ADICIONAR UTILIZADOR
-export function add(username, email, password) {
+export function add(username, email, password, bestTime = "--:--") {
   try {
     if (users.some((user) => user.username === username || user.email === email)) {
       throw new Error(`User with username "${username}" or email "${email}" already exists!`);
     } else {
-      users.push(new User(username, email, password));
+      users.push(new User(username, email, password, bestTime));
       localStorage.setItem("users", JSON.stringify(users));
       console.log("User added successfully:", username);
     }
@@ -27,6 +27,7 @@ export function add(username, email, password) {
     throw error; // Rethrow the error to handle it in UI or caller
   }
 }
+
 
 // ATUALIZAR UTILIZADOR
 export function updateUserData(userId, newUsername, newEmail) {
@@ -58,6 +59,7 @@ export function removeUser(username) {
     throw error; // Rethrow the error to handle it in UI or caller
   }
 }
+
 // LOGIN DO UTILIZADOR
 export function login(email, password) {
   const user = users.find(
@@ -95,7 +97,6 @@ function getNextId() {
   return users.length > 0 ? users.length + 1 : 1;
 }
 
-
 class User {
   id = null;
   username = "";
@@ -108,7 +109,6 @@ class User {
     this.username = username;
     this.email = email;
     this.password = password;
-    this.bestTime = bestTime;
+    this.bestTime = bestTime; // Atribui o valor de bestTime passado como parâmetro
   }
 }
-

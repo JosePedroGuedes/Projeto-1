@@ -20,6 +20,7 @@ body {
 
 #gameContainer {
     position: relative;
+    display: none;
 }
 
 canvas {
@@ -28,6 +29,7 @@ canvas {
 
 
 #inventoryContainer {
+    display: none;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -144,6 +146,7 @@ canvas {
 }
 
 #timerContainer {
+    display: none;
     position: absolute;
     top: 10px;
     left: 10px;
@@ -156,8 +159,6 @@ canvas {
     font-size: 30px;
     font-family: Retro;
 }
-
-
 
 .math-questions {
     display: none;
@@ -180,81 +181,227 @@ canvas {
     font-size: medium;
 }
 
-.question {
-    margin: 0;
-    /* Remove todas as margens */
+.math-questions .question {
+    font-size: 0.9rem;
 }
 
-.answer-option {
+.math-questions .answer-option {
     width: 100%;
     background: none;
     border: none;
     cursor: url('../assets/dialog/Mouse.png'), auto;
-    font-size: 14px;
+    font-size: 0.9rem;
     font-family: Retro;
     text-align: left;
     color: rgba(0, 0, 0, 0.7);
 }
 
-.answer-option:hover {
-    background-color: rgba(0, 0, 0, 0.134);
+.math-questions .answer-option {
+    background-color: rgba(135, 87, 16, 0.051);
     color: rgba(0, 0, 0, 0.963);
+    text-align: left;
 }
 
-.pause-menu {
+.math-questions .answer-option:hover {
+    background-color: rgba(255, 252, 247, 0.099);
+}
+
+.mathQuizBox {
     display: none;
+    font-family: Retro;
+    font-size: 0.8rem;
     position: fixed;
+    top: calc(50% - 200px);
+    left: calc(50% + 5px);
+    transform: translateX(-50%);
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    z-index: 1000;
+    width: 115px;
+    height: 45px;
+}
+
+.pauseMenu-container {
+    display: none;
+    /* Inicialmente oculto */
+    position: fixed;
+    /* Posição fixa para manter o menu no lugar */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    border-radius: 10px;
+    width: 20rem;
+    /* 400px convertido para rem */
+    height: 20rem;
+    /* Ajuste a altura conforme necessário */
     text-align: center;
-    z-index: 1001;
-    font-family: Retro;
-    width: 300px;
-    box-sizing: border-box;
-    /* Certificar que padding não afeta o tamanho */
+    z-index: 1002;
+    /* Coloca o menu de pausa acima da sobreposição */
 }
 
-.pause-menu button:not(.close-button) {
-    display: block;
+.pauseMenu-container .pause-menu {
+    position: relative;
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    font-size: 18px;
+    height: 100%;
+    background-image: url("../assets/menu/menuPause.png");
     cursor: url('../assets/dialog/Mouse.png'), auto;
-    background-color: #444;
-    color: white;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    /* Adicionando a imagem de fundo fixa */
+    padding: 2.2rem;
+    /* Ajuste o padding conforme necessário */
+    box-sizing: border-box;
+    font-family: 'Retro', sans-serif;
+}
+
+.pause-menu .title {
+    color: #333;
+    /* Cor do título */
+    font-size: 1.6rem;
+    /* Tamanho do título */
+    margin: 0.2rem 0 0.5rem 0;
+    /* Margem inferior */
+}
+
+.pause-menu button {
+    display: inline-block;
+    /* Alterado para inline-block para centralizar corretamente */
+    width: 80%;
+    /* Ajuste a largura conforme necessário */
+    margin: 1.2rem auto;
+    /* Centraliza verticalmente e horizontalmente */
+    padding: 0.1rem 0;
+    font-size: 1.4rem;
+    font-family: 'Retro', sans-serif;
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    background-color: transparent;
+    color: #000000e6;
+    /* Cor do texto */
     border: none;
-    border-radius: 5px;
+    border-radius: 0.5rem;
 }
 
-.pause-menu button:hover:not(.close-button) {
-    background-color: #555;
+.pause-menu button:hover {
+    color: #393939;
+    /* Cor do texto ao passar o mouse */
 }
 
-.close-button {
-    position: absolute;
+/* Efeito de desfoque e opacidade reduzida no fundo da página */
+body.menu-blur {
+    overflow: hidden;
+    /* Impede a rolagem do corpo quando o menu está aberto */
+}
+
+body.menu-blur::before {
+    content: '';
+    /* Pseudo-elemento sem conteúdo */
+    position: fixed;
+    /* Pseudo-elemento fixo para cobrir toda a tela */
     top: 0;
-    right: 0;
-    color: white;
-    background: none;
-    border: none;
-    width: 30px;
-    height: 30px;
-    font-size: 18px;
-    cursor: url('../assets/dialog/Mouse.png'), auto;
-    line-height: 30px;
-    text-align: center;
-    padding: 0;
-    /* Remover padding padrão */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(1.5px);
+    /* Efeito de desfoque */
+    z-index: 1002;
+    /* Coloca o fundo semi-transparente abaixo do menu */
 }
 
-.close-button:hover {
-    color: rgb(166, 166, 166);
+
+.controlsMenu-container {
+    display: none;
+    /* Inicialmente oculto */
+    position: fixed;
+    /* Posição fixa para manter o menu no lugar */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25rem;
+    /* 400px convertido para rem */
+    height: 25rem;
+    /* Ajuste a altura conforme necessário */
+    text-align: center;
+    z-index: 1002;
+    /* Coloca o menu de pausa acima da sobreposição */
 }
+
+.controlsMenu-container .controls-menu {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url("../assets/menu/menuPause.png");
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    /* Adicionando a imagem de fundo fixa */
+    padding: 2.2rem;
+    /* Ajuste o padding conforme necessário */
+    box-sizing: border-box;
+    font-family: 'Retro', sans-serif;
+}
+
+.controls-menu .subtitle {
+    color: #333;
+    /* Cor do título */
+    font-size: 1.8rem;
+    /* Tamanho do título */
+    margin: 0.5rem 0 1.2rem 0;
+    /* Margem inferior */
+}
+
+.controls-menu .controls-list {
+    list-style: none;
+    /* Remove os marcadores da lista */
+    padding: 0;
+    margin: 0;
+}
+
+.controls-menu .controls-list li {
+    font-size: 0.95rem;
+    /* Tamanho do texto */
+    color: #202020;
+    /* Cor do texto */
+    margin-bottom: 1rem;
+    /* Espaçamento inferior entre os itens */
+    text-align: center;
+    /* Alinhamento do texto à esquerda */
+}
+
+.controls-menu .controls-list li img {
+    vertical-align: middle;
+    /* Alinha verticalmente as imagens com o texto */
+    margin-right: 0.5rem;
+    /* Margem à direita das imagens */
+    width: 1.2rem;
+}
+
+.goBack-button {
+    display: block;
+    /* Botão em bloco */
+    width: 100%;
+    /* Largura total */
+    padding: 0.5rem 1.5rem;
+    /* Preenchimento interno */
+    font-size: 1.2rem;
+    /* Tamanho da fonte */
+    font-family: 'Retro', sans-serif;
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    background-color: transparent;
+    color: rgb(0, 0, 0);
+    /* Cor do texto */
+    border: none;
+}
+
+.goBack-button:hover {
+    color: #555;
+    /* Cor de fundo ao passar o mouse */
+}
+
+
 
 #minigamePuzzle {
     display: none;
@@ -264,44 +411,34 @@ canvas {
     transform: translate(-50%, -50%);
     z-index: 1000;
     background-color: #f8f9fa;
-    /* Cor de fundo clara */
     padding: 20px;
     border-radius: 10px;
-    /* Cantos arredondados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Sombra suave */
     text-align: center;
-    /* Centralizar texto */
     width: max-content;
     max-width: 100%;
-    /* Para garantir que o conteúdo não transborde */
+    min-width: 320px;
+    /* Define uma largura mínima */
+    overflow-wrap: break-word;
+    /* Adiciona quebra de palavra para o container */
 }
 
 #minigamePuzzle h2 {
     margin: 10px 0 20px 0;
-    /* Margem em cima e embaixo */
     font-size: 25px;
     color: #343a40;
-    /* Cor do texto */
     font-family: 'Retro', sans-serif;
 }
 
 #board {
     display: grid;
     grid-template-columns: repeat(3, 100px);
-    /* Corrigido para 3 colunas */
     grid-template-rows: repeat(3, 100px);
-    /* 3 linhas */
     border: 2px solid #6c757d;
-    /* Cor da borda */
     gap: 5px;
-    /* Espaçamento entre as imagens */
     background-color: #dee2e6;
-    /* Cor de fundo do tabuleiro */
     padding: 10px;
-    /* Espaçamento interno */
     border-radius: 5px;
-    /* Cantos arredondados no tabuleiro */
 }
 
 #board img {
@@ -309,9 +446,7 @@ canvas {
     height: 100%;
     object-fit: cover;
     border-radius: 3px;
-    /* Cantos ligeiramente arredondados nas imagens */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    /* Sombra leve nas imagens */
 }
 
 .close-btn {
@@ -320,41 +455,43 @@ canvas {
     right: 10px;
     cursor: pointer;
     font-size: 14px;
-    /* Diminuir tamanho da fonte */
     font-weight: bold;
     color: #fff;
-    /* Cor do texto */
     background-color: #dc3545;
-    /* Cor de fundo do botão */
     border: none;
     border-radius: 50%;
-    /* Botão redondo */
     width: 20px;
-    /* Diminuir tamanho do botão */
     height: 20px;
-    /* Diminuir tamanho do botão */
     line-height: 20px;
-    /* Centralizar texto verticalmente */
     text-align: center;
     transition: background-color 0.3s;
 }
 
 .close-btn:hover {
     background-color: #c82333;
-    /* Cor de fundo ao passar o mouse */
+}
+
+#turns-container {
+    width: 100%;
+    text-align: center;
+    overflow-wrap: break-word;
 }
 
 #turns {
     margin-top: 10px;
     font-size: 18px;
     color: #495057;
-    /* Cor do texto */
     font-family: 'Retro', sans-serif;
+    display: inline-block;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 }
 
 
 
 #adminPainel {
+    display: none;
     position: absolute;
     top: 50%;
     left: 10px;
@@ -522,7 +659,7 @@ canvas {
     left: 50%;
     transform: translate(-50%, -50%);
     overflow-y: auto;
-    display: block; /* Alterando de "none" para "block" para tornar o menu visível */
+    display: block;
     width: 50rem;
 }
 
@@ -532,8 +669,9 @@ canvas {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-attachment: fixed; /* Adicionando a imagem de fundo fixa */
-    padding: 2rem 9.5rem 2rem 9.5rem;
+    background-attachment: fixed;
+    /* Adicionando a imagem de fundo fixa */
+    padding: 1rem 9.5rem 1.5rem 9.5rem;
     text-align: center;
     font-family: 'Retro', sans-serif;
 }
@@ -541,16 +679,16 @@ canvas {
 .menu .firsttitle {
     color: #333;
     font-size: 2rem;
-    margin: 0 0 15px 0;
 }
 
-.menu .introduction, .instructions {
+.menu .introduction, .menu .instructions {
     font-size: 1rem;
     color: #000000;
-    margin: 0 0 10px 0; /* Adicionando margem inferior */
+    margin: 0 0 10px 0;
+    /* Adicionando margem inferior */
 }
 
-.menu .title, .subtitle {
+.menu .title, .menu .subtitle {
     font-size: 1.5rem;
     color: #333;
     margin: 0 0 5px 0;
@@ -567,24 +705,41 @@ canvas {
 }
 
 .menu .controls-list li img {
-    width: 1.2rem; /* Aumentando o tamanho das imagens das teclas */
-    height: 1.2rem; /* Aumentando o tamanho das imagens das teclas */
-}    
-.menu .start-button {
+    width: 1.2rem;
+    /* Aumentando o tamanho das imagens das teclas */
+    height: 1.2rem;
+    /* Aumentando o tamanho das imagens das teclas */
+}
+
+.menu .buttons-container {
+    display: flex;
+    flex-direction: column;
+    /* Altera para disposição em coluna */
+    align-items: center;
+    /* Centraliza os botões na coluna */
+    gap: 0.3rem;
+    /* Espaço entre os botões */
+    margin-top: 0.5rem;
+}
+
+.menu .buttons-container button {
     background: none;
     cursor: url('../assets/dialog/Mouse.png'), auto;
     background-size: contain;
     font-family: 'Retro', sans-serif;
-    font-size: 2rem;
-    color: #000000;
+    font-size: 1.6rem;
+    /* Reduzido o tamanho do texto */
+    color: #000;
     border: none;
-    cursor: pointer;
-    margin-left: auto; /* Alinhando à esquerda */
-    margin-right: auto; /* Alinhando à direita */
-    display: block; /* Garantindo que o botão fique em uma linha separada */
+    padding: 0.4rem 0.2rem;
+    transition: color 0.3s ease;
+    width: 100%;
+    /* Define a largura total do botão */
+    text-align: center;
+    /* Centraliza o texto dentro do botão */
 }
 
-.menu .start-button:hover {
+.menu .buttons-container button:hover {
     cursor: url('../assets/dialog/Mouse.png'), auto;
     color: #3b3b3b;
 }
@@ -595,7 +750,7 @@ canvas {
     left: 50%;
     transform: translate(-50%, -50%);
     overflow-y: auto;
-    display: block;
+    display: none;
     width: 50rem;
 }
 
@@ -605,28 +760,29 @@ canvas {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-attachment: fixed; /* Adicionando a imagem de fundo fixa */
+    background-attachment: fixed;
+    /* Adicionando a imagem de fundo fixa */
     padding: 2rem 7.5rem 2rem 7.5rem;
     text-align: center;
     font-family: 'Retro', sans-serif;
 }
 
-.endGame .firsttitle {
+.endGame .firsttitleEndGame {
     color: #333;
-    font-size: 2rem;
-    margin: 0 0 15px 0;
+    font-size: 1.6rem;
+    margin: 0 0 1rem 0;
 }
 
 .endGame .introduction, .instructions {
     font-size: 1rem;
     color: #000000;
-    margin: 0 0 10px 0; /* Adicionando margem inferior */
+    margin: 0 0 1rem 0;
+    /* Adicionando margem inferior */
 }
 
 .endGame .title, .subtitle {
     font-size: 1.5rem;
     color: #333;
-    margin: 0 0 5px 0;
 }
 
 .endGame .stats-container {
@@ -662,28 +818,137 @@ canvas {
     font-weight: bold;
 }
 
-.endGame .start-button-container {
+.endGame .buttons-container {
     display: flex;
-    justify-content: center;
-    gap: 1rem; /* Espaço entre os botões */
-    margin-top: 1.5rem;
+    flex-direction: column;
+    /* Altera para disposição em coluna */
+    align-items: center;
+    /* Centraliza os botões na coluna */
+    gap: 0.3rem;
+    /* Espaço entre os botões */
+    margin-top: 0.5rem;
 }
 
-.endGame .start-button {
+.endGame .buttons-container button {
     background: none;
     cursor: url('../assets/dialog/Mouse.png'), auto;
     background-size: contain;
     font-family: 'Retro', sans-serif;
-    font-size: 1.5rem; /* Reduzido o tamanho do texto */
+    font-size: 1.4rem;
+    /* Reduzido o tamanho do texto */
     color: #000;
     border: none;
-    cursor: pointer;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
+    padding: 0.4rem 0.2rem;
     transition: color 0.3s ease;
+    width: 100%;
+    /* Define a largura total do botão */
+    text-align: center;
+    /* Centraliza o texto dentro do botão */
 }
 
-.endGame .start-button:hover {
+.endGame .buttons-container button:hover {
     cursor: url('../assets/dialog/Mouse.png'), auto;
     color: #3b3b3b;
+}
+
+.leaderboard-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    width: 100%;
+    max-width: 43rem;
+    height: 100%;
+    max-height: 43rem;
+}
+
+.leaderboard-container .leaderboard {
+    background-image: url("../assets/menu/menuImage.png");
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 1rem 5rem;
+    text-align: center;
+    font-family: 'Retro', sans-serif;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.leaderboard h1 {
+    color: #272727;
+    font-size: 2rem;
+    margin: 2.5rem 0 1.8rem 0;
+}
+
+.leaderboard .table-container {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: auto;
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+.leaderboard table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    overflow-y: auto;
+}
+
+.leaderboard th, .leaderboard td {
+    font-size: 1.1rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.556);
+    padding: 0.5rem;
+}
+
+.leaderboard tbody tr {
+    background-color: rgba(0, 0, 0, 0.042);
+}
+
+.leaderboard button {
+    margin-bottom: 2.5rem;
+    background: none;
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    background-size: contain;
+    font-family: 'Retro', sans-serif;
+    font-size: 1.6rem;
+    color: #000;
+    border: none;
+    padding: 0.4rem 0.2rem;
+    transition: color 0.3s ease;
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
+}
+
+.leaderboard button:hover {
+    cursor: url('../assets/dialog/Mouse.png'), auto;
+    color: #3b3b3b;
+}
+
+@media (min-width: 150px) and (max-width: 1400px) {
+    #gameContainer{
+        zoom :0.8;
+    }
+    .menu-container, .leaderboard-container, .endGame-container {
+        zoom: 0.7;
+    }
+    .dialog-box {
+        zoom: 0.75;
+    }
+    .math-questions, .mathQuizBox{
+        zoom: 0.8;
+    }
+    #adminPainel {
+        zoom: 0.85;
+    }
+    
 }

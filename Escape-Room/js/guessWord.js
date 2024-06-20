@@ -24,6 +24,8 @@ var wordList = [
     { word: "composição", hint: "arranjo de elementos visuais" }
 ];
 
+let usedWords = [];
+
 const inputs = document.querySelector("#wordInputs"),
       hintTag = document.querySelector(".hint span"),
       guessLeft = document.querySelector(".guessesLeft span"),
@@ -47,11 +49,20 @@ function randomWord() {
     resetBtn.innerText = "Tentar novamente";
     resetBtn.removeEventListener("click", closeGameGuessWord);
     resetBtn.addEventListener("click", restartGame);
-    wordListIndex = Math.floor(Math.random() * wordList.length);
+
+    // Escolher uma palavra aleatória que não tenha sido utilizada
+    do {
+        wordListIndex = Math.floor(Math.random() * wordList.length);
+        word = normalizeString(wordList[wordListIndex].word);
+    } while (usedWords.includes(word)); // Repetir até encontrar uma palavra não utilizada
+
+    // Adicionar palavra à lista de utilizadas
+    usedWords.push(word);
+
     let ranItem = wordList[wordListIndex];
-    word = normalizeString(ranItem.word);
     maxGuesses = word.length >= 5 ? 6 : 6;
-    correctLetters = []; incorrectLetters = [];
+    correctLetters = [];
+    incorrectLetters = [];
     hintTag.innerText = ranItem.hint;
     guessLeft.innerText = maxGuesses;
     wrongLetter.innerText = incorrectLetters.join(" ");
@@ -111,6 +122,7 @@ function initGame(e) {
             setTimeout(randomWord, 100);
         }
     } else if (maxGuesses < 1) {
+        numberFailsWord++;
         guessLeft.innerText = 0;
         resetBtn.style.display = "block";
         correctLetters = [];
@@ -126,6 +138,10 @@ function initGame(e) {
         }
         typingInput.disabled = true;
     }
+}
+
+function isWordUsed(word) {
+    return usedWords.includes(word);
 }
 
 function completeGame() {
@@ -166,6 +182,7 @@ function closeGameGuessWord() {
     stopMovement = false;
     document.getElementById("guessWordGame").style.display = "none";
     document.removeEventListener("keydown", handleEscKey);
+    if (gameFinishedGuess == true ) minigamesOn++;
 }
 
 function handleEscKey(event) {
