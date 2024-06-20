@@ -41,9 +41,7 @@ document.getElementById("create-btn").onclick = function () {
   const imagePreview = document.createElement("img");
   imagePreview.src = oldImage;
   imagePreview.style.maxWidth = "200px";
-  const imageContainer = document.getElementById(
-    "imagePreviewContainerCreateAlumni"
-  );
+  const imageContainer = document.getElementById("imagePreviewContainerCreateAlumni");
   imageContainer.innerHTML = "";
   imageContainer.appendChild(imagePreview);
 
