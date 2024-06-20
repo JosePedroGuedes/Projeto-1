@@ -101,7 +101,7 @@ function showLeaderBoard() {
     // Limpando o conteúdo existente da tabela
     leaderboardTable.innerHTML = "";
 
-    // Preenchendo a tabela com os 10 melhores usuários ordenados
+    // Adicionando os 10 melhores usuários ordenados
     users.slice(0, 10).forEach((user, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
@@ -111,7 +111,18 @@ function showLeaderBoard() {
         `;
         leaderboardTable.appendChild(row);
     });
+
+    // Adicionando a linha para o recorde do usuário logado
+    const userRecordRow = document.createElement("tr");
+    userRecordRow.classList.add("user-record");
+    userRecordRow.innerHTML = `
+        <td>Teu recorde</td>
+        <td>${userInfo.username}</td>
+        <td>${userInfo.bestTime}</td>
+    `;
+    leaderboardTable.appendChild(userRecordRow);
 }
+
 
 // Função auxiliar para converter tempo em formato MM:SS para segundos inteiros
 function timeToSeconds(timeString) {

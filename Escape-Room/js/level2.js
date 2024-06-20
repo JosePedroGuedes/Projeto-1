@@ -17,19 +17,6 @@ function loadLevel2() {
         ctx.drawImage(Sala2Door1Image, Sala2Door1.x, Sala2Door1.y, Sala2Door1.width, Sala2Door1.height);
     }
 
-    let doorOpenRadius = 40;
-
-    function checkDoorPassage() {
-        let playerCenterX = player.x + player.width / 2;
-        let playerCenterY = player.y + player.height / 2 + 30;
-        let doorCenterX = (Sala2Door1.x + Sala2Door1.width / 2) + 28;
-        let doorCenterY = Sala2Door1.y + Sala2Door1.height / 2 + 45;
-
-        let distance = Math.sqrt(Math.pow(playerCenterX - doorCenterX, 2) + Math.pow(playerCenterY - doorCenterY, 2));
-
-        return distance < doorOpenRadius && Sala2Door1.isOpen;
-    }
-
     function drawMochila() {
         if (!mochila3.isPickedUp) {
             ctx.drawImage(Mochila3Image, mochila3.x, mochila3.y, mochila3.width, mochila3.height);
@@ -74,13 +61,6 @@ function loadLevel2() {
             if (obstacle.image) {
                 ctx.drawImage(obstacle.image, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
             }
-            if (bordas) {
-                ctx.save();
-                ctx.strokeStyle = 'red';
-                ctx.lineWidth = 2;
-                ctx.strokeRect(obstacle.collisionArea.x, obstacle.collisionArea.y, obstacle.collisionArea.width, obstacle.collisionArea.height);
-                ctx.restore();
-            }
         }
     }
 
@@ -111,22 +91,6 @@ function loadLevel2() {
 
     let interactionRadius = 80;
 
-    function drawPcRadius() {
-        if (bordas) {
-            ctx.save();
-            ctx.fillStyle = 'blue';
-            ctx.strokeStyle = 'blue';
-            ctx.lineWidth = 2;
-            for (let square of pcRadius) {
-                ctx.fillRect(square.x, square.y, 0, 0);
-                ctx.beginPath();
-                ctx.arc(square.x, square.y, interactionRadius, 0, 2 * Math.PI);
-                ctx.stroke();
-            }
-            ctx.restore();
-        }
-    }
-
     function checkSquareInteraction() {
         for (let square of pcRadius) {
             let playerCenterX = player.x + player.width / 2;
@@ -144,23 +108,68 @@ function loadLevel2() {
         return null;
     }
 
+    function drawBorders() {
+        if (bordas) {
+            ctx.save();
+            ctx.strokeStyle = 'red';
+            ctx.lineWidth = 2;
+            for (let obstacle of obstacles) {
+                if (obstacle.collisionArea) {
+                    ctx.strokeRect(obstacle.collisionArea.x, obstacle.collisionArea.y, obstacle.collisionArea.width, obstacle.collisionArea.height);
+                }
+            }
+
+            ctx.strokeStyle = 'yellow';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(passageRect.x, passageRect.y, passageRect.width, passageRect.height);
+
+            ctx.strokeStyle = 'blue';
+            ctx.lineWidth = 2;
+            for (let square of pcRadius) {
+                ctx.beginPath();
+                ctx.arc(square.x, square.y, interactionRadius, 0, 2 * Math.PI);
+                ctx.stroke();
+            }
+
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 2;
+            if (!mochila3.isPickedUp) {
+                ctx.beginPath();
+                ctx.arc(mochila3.x + mochila3.width / 2, mochila3.y + mochila3.height / 2, mochilaRadius, 0, 2 * Math.PI);
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+    }
+
+    const passageRect = {
+        x: Sala2Door1.x + 20, // Coordenada x do retângulo de passagem
+        y: Sala2Door1.y + 50, // Coordenada y do retângulo de passagem
+        width: 15, // Largura do retângulo de passagem
+        height: 35, // Altura do retângulo de passagem
+    };
+
+    function checkPassageRectDoorCollision() {
+        let playerCenterX = player.x + player.width / 2;
+        let playerCenterY = player.y + player.height / 2;
+        let passageRectCenterX = passageRect.x + passageRect.width / 2;
+        let passageRectCenterY = passageRect.y + passageRect.height / 2;
+    
+        let distanceX = Math.abs(playerCenterX - passageRectCenterX);
+        let distanceY = Math.abs(playerCenterY - passageRectCenterY);
+    
+        // Definindo um threshold menor para a largura e altura
+        let thresholdX = (player.width / 2) + (passageRect.width / 2) - 20;
+        let thresholdY = (player.height / 2) + (passageRect.height / 2) - 20;
+    
+        return distanceX < thresholdX && distanceY < thresholdY;
+    }
+
     // Listener de eventos fora do loop de jogo
     document.addEventListener("keydown", function (event) {
         if (event.code === 'KeyF' && checkSquareInteraction() && !stopMovement && levelLoad == 2) {
             // Aqui você pode verificar qual quadrado está sendo interagido
             let minigame = checkSquareInteraction();
-
-            if(minigame == 1 && !dialogoGamePuzzle) {
-                showDialog(26);
-                dialogoGamePuzzle = true;
-                return;
-            }
-
-            else if(minigame == 2 && !dialogoGameWord) {
-                showDialog(27);
-                dialogoGameWord = true;
-                return;
-            }
 
             // Verifica se ambos os minigames estão concluídos
             let isPuzzleComplete = pcRadius.find(square => square.minigame === 1 && !square.finish) === undefined;
@@ -194,12 +203,21 @@ function loadLevel2() {
             if (minigame === 1) {
                 if (!isPuzzleComplete) {
                     openGamePuzzle();
+                    if(!dialogoGamePuzzle) {
+                        console.log(12);
+                        showDialog(26);
+                        dialogoGamePuzzle = true;
+                    }
                 } else {
                     showDialog(10);
                 }
             } else if (minigame === 2) {
                 if (!isGuessWordComplete) {
                     openGameGuessWord();
+                    if(!dialogoGameWord) {
+                        showDialog(27);
+                        dialogoGameWord = true;
+                    }
                 } else {
                     showDialog(11);
                 }
@@ -251,7 +269,7 @@ function loadLevel2() {
             }
         }
 
-        if (checkDoorPassage() && levelLoad == 2) {
+        if (checkPassageRectDoorCollision() && levelLoad == 2) {
             clearGameObjects();
             player.x = CorredorSala2.x + 50;
             player.y = CorredorSala2.y - 123;
@@ -263,7 +281,7 @@ function loadLevel2() {
         drawPlayer();
         drawObstacles();
         drawDoor();
-        drawPcRadius();
+        drawBorders();
 
         requestAnimationFrame(gameLoop);
     }

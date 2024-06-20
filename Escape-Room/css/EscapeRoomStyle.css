@@ -934,6 +934,12 @@ body.menu-blur::before {
     color: #3b3b3b;
 }
 
+.leaderboard .user-record {
+    background-color: rgb(229 229 229 / 20%); /* Cor de fundo ligeiramente diferente */
+    font-weight: bold;
+}
+
+
 @media (min-width: 150px) and (max-width: 1400px) {
     #gameContainer{
         zoom :0.8;

@@ -71,7 +71,7 @@ function updateBestTime(currentTime) {
         const currentBestTotalSeconds = parseTime(userLogged.bestTime);
         const currentTotalSeconds = parseTime(currentTime);
 
-        if (currentTotalSeconds > currentBestTotalSeconds ) {
+        if (currentTotalSeconds < currentBestTotalSeconds ) {
             userLogged.bestTime = currentTime;
             sessionStorage.setItem("loggedUser", JSON.stringify(userLogged));
 
