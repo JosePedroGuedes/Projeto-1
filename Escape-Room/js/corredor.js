@@ -203,23 +203,6 @@ function corredor() {
         ctx.drawImage(LeaveDoorImage, LeaveDoor.x, LeaveDoor.y - cameraY, LeaveDoor.width, LeaveDoor.height);
     }
 
-    const passageRectSala1 = { x: CorredorSala1.x + 20, y: CorredorSala1.y + 58, width: CorredorSala1.width, height: CorredorSala1.height };
-    const passageRectSala2 = { x: CorredorSala2.x, y: CorredorSala2.y + 58, width: CorredorSala2.width, height: CorredorSala2.height };
-    const passageRectSala3 = { x: CorredorSala3.x, y: CorredorSala3.y + 58, width: CorredorSala3.width, height: CorredorSala3.height };
-    const passageRectSala4 = { x: CorredorSala4.x, y: CorredorSala4.y + 58, width: CorredorSala4.width, height: CorredorSala4.height };
-
-    const passageRects = [passageRectSala1, passageRectSala2,passageRectSala3, passageRectSala4];
-
-    const doorOpenRadius = 55; // Raio do círculo azul
-
-    const doorCircles = [
-        { door: CorredorSala2, x: CorredorSala2.x + CorredorSala2.width / 2, y: CorredorSala2.y + CorredorSala2.height / 2 },
-        { door: CorredorSala3, x: CorredorSala3.x + CorredorSala3.width / 2, y: CorredorSala3.y + CorredorSala3.height / 2 },
-        { door: CorredorSala4, x: CorredorSala4.x + CorredorSala4.width / 2, y: CorredorSala4.y + CorredorSala4.height / 2 },
-        { door: LeaveDoor, x: LeaveDoor.x + LeaveDoor.width / 2, y: LeaveDoor.y + LeaveDoor.height / 2 - 20 }
-    ];
-
-
     function drawBorders(obstacles, doorCircles, mochila2, cameraY, bordas, doorOpenRadius, passageRects) {
         if (bordas) {
             ctx.save();
@@ -236,10 +219,10 @@ function corredor() {
             // Desenhar passageRect para cada porta
             ctx.strokeStyle = 'yellow';
             ctx.lineWidth = 2;
-            ctx.strokeRect(passageRects[0].x, passageRects[0].y - cameraY, 15, 35);
-            ctx.strokeRect(passageRects[1].x, passageRects[1].y - cameraY, 15, 35);
-            ctx.strokeRect(passageRects[2].x, passageRects[2].y - cameraY, 15, 35);
-            ctx.strokeRect(passageRects[3].x, passageRects[3].y - cameraY, 15, 35);
+            ctx.strokeRect(passageRects[0].x, passageRects[0].y - cameraY, passageRects[0].width, passageRects[0].height);
+            ctx.strokeRect(passageRects[1].x, passageRects[1].y - cameraY, passageRects[1].width, passageRects[1].height);
+            ctx.strokeRect(passageRects[2].x, passageRects[2].y - cameraY, passageRects[2].width, passageRects[2].height);
+            ctx.strokeRect(passageRects[3].x, passageRects[3].y - cameraY, passageRects[3].width, passageRects[3].height);
     
             // Desenhar círculo azul para LeaveDoor
             for (let circle of doorCircles) {
@@ -266,6 +249,20 @@ function corredor() {
             ctx.restore();
         }
     }
+
+    const passageRectSala1 = { x: CorredorSala1.x - 200, y: CorredorSala1.y - 15, width: 70, height: 70 };
+    const passageRectSala2 = { x: CorredorSala2.x, y: CorredorSala2.y + 58, width: 15, height: 35 };
+    const passageRectSala3 = { x: CorredorSala3.x - 200, y: CorredorSala3.y + 15, width: 70, height: 70 };
+    const passageRectSala4 = { x: CorredorSala4.x, y: CorredorSala4.y + 58, width: 15, height: 35 };
+
+    const doorOpenRadius = 55; // Raio do círculo azul
+
+    const doorCircles = [
+        { door: CorredorSala2, x: CorredorSala2.x + CorredorSala2.width / 2, y: CorredorSala2.y + CorredorSala2.height / 2 },
+        { door: CorredorSala3, x: CorredorSala3.x + CorredorSala3.width / 2, y: CorredorSala3.y + CorredorSala3.height / 2 },
+        { door: CorredorSala4, x: CorredorSala4.x + CorredorSala4.width / 2, y: CorredorSala4.y + CorredorSala4.height / 2 },
+        { door: LeaveDoor, x: LeaveDoor.x + LeaveDoor.width / 2, y: LeaveDoor.y + LeaveDoor.height / 2 - 20 }
+    ];
 
     // Função para verificar a interação com as portas
     function checkDoorInteraction() {
@@ -308,58 +305,35 @@ function corredor() {
     }
 
     function checkDoorPassage() {
-        const playerRect = {
-            x: player.x,
-            y: player.y,
-            width: player.width,
-            height: player.height
-        };
+        const playerCenterX = player.x + player.width / 2;
+        const playerCenterY = player.y + player.height / 2 - cameraY + 124; // Ajuste com a altura da câmera + 124
     
-        // Verificar interação com os retângulos amarelos (passageRects)
-        for (let i = 0; i < passageRects.length; i++) {
-            const passageRect = passageRects[i];
+        const corridors = [
+            { rect: passageRectSala1, door: CorredorSala1, level: 1 },
+            { rect: passageRectSala2, door: CorredorSala2, level: 2 },
+            { rect: passageRectSala3, door: CorredorSala3, level: 3 },
+            { rect: passageRectSala4, door: CorredorSala4, level: -1 }
+        ];
     
-            if (isKeyPressed('KeyF') && !stopMovement) {
-                // Verificar se o jogador está próximo o suficiente do retângulo
-                if (playerRect.x < passageRect.x + passageRect.width &&
-                    playerRect.x + playerRect.width > passageRect.x &&
-                    playerRect.y < passageRect.y + passageRect.height &&
-                    playerRect.y + playerRect.height > passageRect.y) {
-                    
-                    // Mover o jogador para a sala correspondente
-                    switch (i) {
-                        case 0: // CorredorSala1
-                            clearGameObjects();
-                            player.x = Sala1Door1.x + 40;
-                            player.y = Sala1Door1.y;
-                            loadLevel(1);
-                            break;
-                        case 1: // CorredorSala2
-                            clearGameObjects();
-                            player.x = Sala2Door1.x - 80;
-                            player.y = Sala2Door1.y + 50;
-                            loadLevel(2);
-                            break;
-                        case 2: // CorredorSala3
-                            clearGameObjects();
-                            player.x = Sala3Door1.x + 30;
-                            player.y = Sala3Door1.y + 20;
-                            loadLevel(3);
-                            break;
-                        case 3: // CorredorSala4
-                            clearGameObjects();
-                            player.x = Sala2Door1.x - 30;
-                            player.y = Sala2Door1.y;
-                            loadLevel(-1);
-                            break;
-                        default:
-                            break;
-                    }
+        corridors.forEach(({ rect, door, level }) => {
+            if (!stopMovement && door.isOpen) { // Verifica se a porta está aberta
+                // Verifica a colisão do jogador com o retângulo de passagem
+                if (
+                    playerCenterX > rect.x &&
+                    playerCenterX < rect.x + rect.width &&
+                    playerCenterY > rect.y - cameraY &&
+                    playerCenterY < rect.y - cameraY + rect.height
+                ) {
+                    clearGameObjects();
+                    player.x = door.x;
+                    player.y = door.y - cameraY;
+                    loadLevel(level);
+                    return; // Retorna para evitar verificação desnecessária
                 }
             }
-        }
-    }
-
+        });
+    }    
+    
     function gameLoop() {
         if (levelLoad != 0) {
             return; // Se o jogo não estiver em execução, saia do loop
